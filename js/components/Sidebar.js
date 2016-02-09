@@ -2,6 +2,7 @@ import React from 'react';
 import LocationStore from '../stores/LocationStore';
 import LocationService from '../LocationService';
 import LocationList from './LocationList';
+import CityStore from '../stores/CityStore';
 
 export default class Sidebar extends React.Component {
     constructor(props) {
@@ -21,8 +22,9 @@ export default class Sidebar extends React.Component {
     }
 
     componentWillMount() {
-        LocationService.getLocations(this.props.city);
+        LocationService.getLocations(CityStore.getCurrentCity());
         LocationStore.addListener("change", this._onChange);
+        CityStore.addListener("change", this._onChange);
     }
 
     render() {

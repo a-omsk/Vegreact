@@ -10,7 +10,7 @@ export default class Main extends React.Component {
     render () {
         return (
             <div>
-                <Sidebar city={"omsk"}></Sidebar>
+                <Sidebar></Sidebar>
                 <Map></Map>
             </div>
         )

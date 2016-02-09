@@ -12,19 +12,11 @@ export default class MarkerList extends React.Component {
         this.markers = this.props.markers;
     }
 
-    componentDidMount() {
-        if(MapStore.get().addTo) {
-            let Map = MapStore.get();
-
-            this.marker.addTo(Map);
-        }
-    }
-
     render() {
         return (
             <div>{this.props.list.map((marker) => {
                 let [lat, lng] = marker.coordinates.split(', ');
-                
+
                 return (
                     <Marker key={marker.id} lat={lat} lng={lng}></Marker>
                 );
