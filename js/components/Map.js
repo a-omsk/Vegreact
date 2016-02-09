@@ -1,9 +1,9 @@
 import React from 'react';
+import MarkerList from './MarkerList';
 import MapStore from '../stores/MapStores';
 import MarkerStore from '../stores/MarkerStore';
 import MapService from '../MapService';
 import MarkerService from '../MarkerService';
-import MarkerList from './MarkerList';
 
 export default class Map extends React.Component {
     constructor(props) {
@@ -23,8 +23,13 @@ export default class Map extends React.Component {
     }
 
     componentWillMount() {
+        if(DG.ready) {
+            // Do nothing
+        } else {
+            MapService.initMap();
+        }
+
         MarkerService.getMarkers('omsk');
-        MapService.initMap();
     }
 
     componentDidMount() {
