@@ -2,16 +2,16 @@ import AppDispatcher from '../AppDispatcher';
 import ActionTypes from '../Constants';
 import {EventEmitter} from 'events';
 
-let _map = {};
+let _markers = [];
 
-class MapStore extends EventEmitter {
+class MarkerStore extends EventEmitter {
     constructor(props) {
         super(props);
 
         AppDispatcher.register(action => {
             const actionList = {
-                [ActionTypes.SAVE_MAP]() {
-                    _map = action.map;
+                [ActionTypes.SAVE_MARKERS]() {
+                    _markers = action.markers;
                 }
             };
 
@@ -22,9 +22,9 @@ class MapStore extends EventEmitter {
         });
     }
 
-    get() {
-        return _map;
+    getAllMarkers() {
+        return _markers;
     }
 }
 
-export default new MapStore;
+export default new MarkerStore;
