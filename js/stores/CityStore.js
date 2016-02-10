@@ -8,19 +8,25 @@ class CityStore extends EventEmitter {
     constructor(props) {
         super(props);
 
-        const self = this;
+        const setCity = (action) => () => {
+            if (action.city && action.city !== _currentCity) {
+                _currentCity = action.city;
+
+                localStorage.setItem("city", _currentCity);
+                this.emit("change");
+            }
+        }
+
+        const resetCity = () => {
+            _currentCity = '';
+            this.emit("change");
+        }
 
         AppDispatcher.register(action => {
             const actionList = {
-                [ActionTypes.SET_CITY]() {
-                    if (action.city && action.city !== _currentCity) {
-                        _currentCity = action.city;
-
-                        localStorage.setItem("city", _currentCity);
-                        self.emit("change");
-                    }
-                }
-            };
+                [ActionTypes.SET_CITY]: setCity(action),
+                [ActionTypes.RESET_CITY]: resetCity
+            }
 
             if (actionList[action.actionType]) {
                 actionList[action.actionType]();

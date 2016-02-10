@@ -7,6 +7,12 @@ const LocationActions = {
             actionType: ActionTypes.SAVE_LOCATIONS,
             locations: locations
         });
+    },
+
+    resetLocations() {
+        AppDispatcher.dispatch({
+            actionType: ActionTypes.RESET_LOCATIONS
+        });
     }
 };
 

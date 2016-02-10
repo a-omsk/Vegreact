@@ -12,6 +12,10 @@ export default class Sidebar extends React.Component {
             locations: LocationStore.getLocations()
         };
 
+        this._onCityChange = () => {
+            LocationService.getLocations(CityStore.getCurrentCity());
+        }
+
         this._onChange = () => {
             this.setState({locations: LocationStore.getLocations()});
         };
@@ -24,7 +28,8 @@ export default class Sidebar extends React.Component {
     componentWillMount() {
         LocationService.getLocations(CityStore.getCurrentCity());
         LocationStore.addListener("change", this._onChange);
-        CityStore.addListener("change", this._onChange);
+        CityStore.addListener("change", this._onCityChange);
+
     }
 
     render() {

@@ -7,6 +7,12 @@ const CityActions = {
             actionType: ActionTypes.SET_CITY,
             city: code
         });
+    },
+
+    resetCity() {
+        AppDispatcher.dispatch({
+            actionType: ActionTypes.RESET_CITY
+        });
     }
 };
 

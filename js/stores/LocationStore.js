@@ -16,6 +16,10 @@ class LocationStore extends EventEmitter {
 
                 [ActionTypes.PUSH_LOCATIONS]() {
                     _locations = _locations.concat(action.locations);
+                },
+
+                [ActionTypes.RESET_LOCATIONS]() {
+                    _locations = [];
                 }
             };
 
