@@ -1,7 +1,9 @@
 import React from 'react';
 import LocationStore from '../stores/LocationStore';
 import LocationService from '../LocationService';
+import MarkerService from '../MarkerService';
 import LocationList from './LocationList';
+import WarningMessage from './WarningMessage';
 import CityStore from '../stores/CityStore';
 
 export default class Sidebar extends React.Component {
@@ -13,7 +15,13 @@ export default class Sidebar extends React.Component {
         };
 
         this._onCityChange = () => {
-            LocationService.getLocations(CityStore.getCurrentCity());
+            let city = CityStore.getCurrentCity();
+
+            if (city) {
+                LocationService.getLocations(CityStore.getCurrentCity());
+            } else {
+                MarkerService.removeMarkers();
+            }
         }
 
         this._onChange = () => {
@@ -29,7 +37,6 @@ export default class Sidebar extends React.Component {
         LocationService.getLocations(CityStore.getCurrentCity());
         LocationStore.addListener("change", this._onChange);
         CityStore.addListener("change", this._onCityChange);
-
     }
 
     render() {
@@ -42,9 +49,17 @@ export default class Sidebar extends React.Component {
             zIndex: 10
         };
 
+        let content;
+
+        if (CityStore.getCurrentCity()) {
+            content = <LocationList list={this.state.locations}></LocationList>
+        } else {
+            content = <WarningMessage message="Вы находитесь за пределами города" />
+        }
+
         return (
             <div style={sidebarStyle} className="sidebar" >
-                <LocationList list={this.state.locations}></LocationList>
+                {content}
             </div>)
     }
 };

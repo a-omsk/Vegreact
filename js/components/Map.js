@@ -2,6 +2,7 @@ import React from 'react';
 import MarkerList from './MarkerList';
 import MapStore from '../stores/MapStores';
 import MarkerStore from '../stores/MarkerStore';
+import CityStore from '../stores/CityStore';
 import MapService from '../MapService';
 import MarkerService from '../MarkerService';
 
@@ -13,13 +14,21 @@ export default class Map extends React.Component {
             markers: MarkerStore.getAllMarkers()
         };
 
-        this._onChange = () => {
+        this.onCityChange = ()  => {
+            let city = CityStore.getCurrentCity();
+
+            if (city) {
+                MarkerService.getMarkers(city);
+            }
+        }
+
+        this.onChange = () => {
             this.setState({markers: MarkerStore.getAllMarkers()});
         };
     }
 
     componentWillUnmount() {
-        MarkerStore.removeListener("change", this._onChange);
+        MarkerStore.removeListener("change", this.onChange);
     }
 
     componentWillMount() {
@@ -28,13 +37,12 @@ export default class Map extends React.Component {
         } else {
             MapService.initMap();
         }
-
-        MarkerService.getMarkers('omsk');
     }
 
     componentDidMount() {
-        MarkerStore.addListener("change", this._onChange);
-        MapStore.addListener("change", this._onChange);
+        MarkerStore.addListener("change", this.onChange);
+        MapStore.addListener("change", this.onChange);
+        CityStore.addListener("change", this.onCityChange);
     }
 
     render() {

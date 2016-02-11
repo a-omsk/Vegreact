@@ -5,7 +5,8 @@ const ActionTypes = {
         PUSH_LOCATIONS: "PUSH_LOCATIONS",
         SET_CITY: "SET_CITY",
         RESET_CITY: "RESET_CITY",
-        RESET_LOCATIONS: "RESET_LOCATIONS"
+        RESET_LOCATIONS: "RESET_LOCATIONS",
+        REMOVE_MARKERS: "REMOVE_MARKERS"
 };
 
 export default ActionTypes;

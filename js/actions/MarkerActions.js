@@ -7,6 +7,12 @@ const MarkerActions = {
             actionType: ActionTypes.SAVE_MARKERS,
             markers: markers
         });
+    },
+
+    removeMarkers() {
+        AppDispatcher.dispatch({
+            actionType: ActionTypes.REMOVE_MARKERS
+        });
     }
 };
 

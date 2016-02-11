@@ -2,7 +2,7 @@ import MarkerActions from './actions/MarkerActions';
 import {get} from 'jquery';
 import {isArray} from 'lodash';
 
-const MapService = {
+const MarkerService = {
     getMarkers(city) {
         get(`http://laravel-joehill.rhcloud.com/api/map/${city}/markers`).done((result) => {
             if (isArray(result) && result.length) {
@@ -22,7 +22,13 @@ const MapService = {
                 icon: veganIcon
             });
         }
+    },
+
+    removeMarkers() {
+        if (DG.ready) {
+            setTimeout(() => MarkerActions.removeMarkers());
+        }
     }
 };
 
-export default MapService;
+export default MarkerService;

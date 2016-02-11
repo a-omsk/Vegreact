@@ -1,6 +1,8 @@
 import AppDispatcher from '../AppDispatcher';
 import ActionTypes from '../Constants';
 import {EventEmitter} from 'events';
+import MapStore from './MapStores';
+import {each, has} from 'lodash';
 
 let _markers = [];
 
@@ -8,16 +10,30 @@ class MarkerStore extends EventEmitter {
     constructor(props) {
         super(props);
 
-        AppDispatcher.register(action => {
-            const actionList = {
-                [ActionTypes.SAVE_MARKERS]() {
-                    _markers = action.markers;
+        const saveMarkers = (action) => () => {
+            _markers = action.markers;
+            this.emit("change");
+        }
+
+        const removeMarkers = () => {
+            const Map = MapStore.get();
+
+            each(Map._layers, (marker) => {
+                if (has(marker, '_icon')) {
+                    marker.remove();
                 }
+            });
+        }
+
+        AppDispatcher.register(action => {
+
+            const actionList = {
+                [ActionTypes.SAVE_MARKERS]: saveMarkers(action),
+                [ActionTypes.REMOVE_MARKERS]: removeMarkers
             };
 
             if (actionList[action.actionType]) {
                 actionList[action.actionType]();
-                this.emit("change");
             }
         });
     }

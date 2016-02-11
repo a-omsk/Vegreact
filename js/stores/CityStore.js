@@ -9,7 +9,7 @@ class CityStore extends EventEmitter {
         super(props);
 
         const setCity = (action) => () => {
-            if (action.city && action.city !== _currentCity) {
+            if (action.city) {
                 _currentCity = action.city;
 
                 localStorage.setItem("city", _currentCity);
