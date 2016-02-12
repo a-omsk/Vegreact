@@ -3,10 +3,20 @@ import ActionTypes from '../Constants';
 import {EventEmitter} from 'events';
 
 let _currentCity = localStorage.getItem('city') || 'omsk';
+let _citiesList = JSON.parse(localStorage.getItem('cities_list')) || [];
 
 class CityStore extends EventEmitter {
     constructor(props) {
         super(props);
+
+        const setCitiesList = (action) => {
+            if (action.cities) {
+                _citiesList = action.cities;
+
+                localStorage.setItem("cities_list", JSON.stringify(_citiesList));
+                this.emit("change");
+            }
+        }
 
         const setCity = (action) => () => {
             if (action.city) {
@@ -25,6 +35,7 @@ class CityStore extends EventEmitter {
         AppDispatcher.register(action => {
             const actionList = {
                 [ActionTypes.SET_CITY]: setCity(action),
+                [ActionTypes.SET_CITIES_LIST]: setCitiesList(action),
                 [ActionTypes.RESET_CITY]: resetCity
             }
 
@@ -32,6 +43,10 @@ class CityStore extends EventEmitter {
                 actionList[action.actionType]();
             }
         });
+    }
+
+    getCitiesList() {
+        return _citiesList;
     }
 
     getCurrentCity() {

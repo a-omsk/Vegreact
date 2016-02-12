@@ -5,6 +5,7 @@ import MarkerService from '../MarkerService';
 import LocationList from './LocationList';
 import WarningMessage from './WarningMessage';
 import CityStore from '../stores/CityStore';
+import CityService from '../CityService';
 
 export default class Sidebar extends React.Component {
     constructor(props) {
@@ -35,6 +36,8 @@ export default class Sidebar extends React.Component {
 
     componentWillMount() {
         LocationService.getLocations(CityStore.getCurrentCity());
+        CityService.fetchCitiesList();
+
         LocationStore.addListener("change", this._onChange);
         CityStore.addListener("change", this._onCityChange);
     }
@@ -54,7 +57,7 @@ export default class Sidebar extends React.Component {
         if (CityStore.getCurrentCity()) {
             content = <LocationList list={this.state.locations}></LocationList>
         } else {
-            content = <WarningMessage message="Вы находитесь за пределами города" />
+            content = <WarningMessage message="Вы находитесь за пределами ближайшего города" />
         }
 
         return (

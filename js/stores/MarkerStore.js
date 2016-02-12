@@ -26,7 +26,6 @@ class MarkerStore extends EventEmitter {
         }
 
         AppDispatcher.register(action => {
-
             const actionList = {
                 [ActionTypes.SAVE_MARKERS]: saveMarkers(action),
                 [ActionTypes.REMOVE_MARKERS]: removeMarkers
