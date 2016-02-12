@@ -3,8 +3,10 @@ import LocationStore from '../stores/LocationStore';
 import LocationService from '../LocationService';
 import MarkerService from '../MarkerService';
 import LocationList from './LocationList';
+import CitiesList from './CitiesList';
 import WarningMessage from './WarningMessage';
 import CityStore from '../stores/CityStore';
+import SidebarStore from '../stores/SidebarStore';
 import CityService from '../CityService';
 
 export default class Sidebar extends React.Component {
@@ -12,10 +14,12 @@ export default class Sidebar extends React.Component {
         super(props);
 
         this.state = {
-            locations: LocationStore.getLocations()
+            locations: LocationStore.getLocations(),
+            cities: CityStore.getCitiesList(),
+            cityView: SidebarStore.getViewState()
         };
 
-        this._onCityChange = () => {
+        this.onCityChange = () => {
             let city = CityStore.getCurrentCity();
 
             if (city) {
@@ -25,21 +29,26 @@ export default class Sidebar extends React.Component {
             }
         }
 
-        this._onChange = () => {
+        this.onChange = () => {
             this.setState({locations: LocationStore.getLocations()});
         };
+
+        this.onViewChange = () => {
+            this.setState({cityView: SidebarStore.getViewState()});
+        }
     }
 
     componentWillUnmount() {
-        LocationStore.removeListener("change", this._onChange);
+        LocationStore.removeListener("change", this.onChange);
     }
 
     componentWillMount() {
         LocationService.getLocations(CityStore.getCurrentCity());
         CityService.fetchCitiesList();
 
-        LocationStore.addListener("change", this._onChange);
-        CityStore.addListener("change", this._onCityChange);
+        LocationStore.addListener("change", this.onChange);
+        CityStore.addListener("change", this.onCityChange);
+        SidebarStore.addListener("change", this.onViewChange);
     }
 
     render() {
@@ -54,10 +63,14 @@ export default class Sidebar extends React.Component {
 
         let content;
 
-        if (CityStore.getCurrentCity()) {
-            content = <LocationList list={this.state.locations}></LocationList>
+        if (this.state.cityView) {
+            content  = <CitiesList list={this.state.cities} />
         } else {
-            content = <WarningMessage message="Вы находитесь за пределами ближайшего города" />
+            if (CityStore.getCurrentCity()) {
+                content = <LocationList list={this.state.locations} />
+            } else {
+                content = <WarningMessage message="Вы находитесь за пределами ближайшего города" />
+            }
         }
 
         return (
