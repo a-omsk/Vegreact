@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 
 class LocationDetails extends React.Component {
     render () {
-        <div>Xdd</div>
+        return (<div>Hello</div>);
     }
 }
 
