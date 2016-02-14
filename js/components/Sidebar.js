@@ -8,6 +8,7 @@ import WarningMessage from './WarningMessage';
 import CityStore from '../stores/CityStore';
 import SidebarStore from '../stores/SidebarStore';
 import CityService from '../CityService';
+import {isEmpty} from 'lodash'
 
 export default class Sidebar extends React.Component {
     constructor(props) {
@@ -26,6 +27,10 @@ export default class Sidebar extends React.Component {
                 LocationService.getLocations(CityStore.getCurrentCity());
             } else {
                 MarkerService.removeMarkers();
+            }
+
+            if (isEmpty(this.state.cities) && CityStore.getCitiesList().length) {
+                this.setState({cities: CityStore.getCitiesList()});
             }
         }
 

@@ -4,7 +4,6 @@ import CityButton from './CityButton'
 import CityStore from '../stores/CityStore';
 
 class Toolbar extends React.Component {
-
     constructor(props) {
         super(props)
 
@@ -19,6 +18,8 @@ class Toolbar extends React.Component {
             if (cityCode) {
                 let city = find(citiesList, (city) => city.code === cityCode);
                 if (city) { this.setState({city: city}); }
+            } else {
+                this.setState({city: ''});
             }
         }
     }

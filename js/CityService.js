@@ -14,7 +14,7 @@ const prepareCity = (project) => {
         lng: parseInt(lng, 10),
         code: project.code,
         name: project.name,
-        zoon: parseInt(project.zoomlevel, 10),
+        zoom: parseInt(project.zoomlevel, 10),
         minZoom: parseInt(project.min_zoomlevel, 10)
     }
 }
