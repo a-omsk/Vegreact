@@ -80,7 +80,8 @@ export default class Sidebar extends React.Component {
 
         return (
             <div style={sidebarStyle} className="sidebar" >
-                {content}
+                {this.props.children || content}
+
             </div>)
     }
 };
