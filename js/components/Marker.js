@@ -2,24 +2,19 @@ import React, {PropTypes} from 'react';
 import MapStore from '../stores/MapStores';
 import MapService from '../MarkerService';
 
-export default class Marker extends React.Component {
-    constructor(props) {
-        super(props);
-        this.marker = {};
+const Marker = (props) => {
+    const marker = MapService.createMarker(props.lat, props.lng);
+
+    if (DG.ready) {
+        let Map = MapStore.get();
+        marker.addTo(Map);
     }
 
-    render() {
-        this.marker = MapService.createMarker(this.props.lat, this.props.lng);
-
-        if (DG.ready) {
-            let Map = MapStore.get();
-            this.marker.addTo(Map);
-        }
-
-        return (
-            <div></div>
-        )
-    }
+    return (
+        <div id={props.id}></div>
+    )
 }
+
+
 
 export default Marker

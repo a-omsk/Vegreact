@@ -1,6 +1,6 @@
 import React from 'react';
 import LocationStore from '../stores/LocationStore';
-import LocationService from '../LocationService';
+import LocationService from '../services/LocationService';
 import MarkerService from '../MarkerService';
 import LocationList from './LocationList';
 import CitiesList from './CitiesList';

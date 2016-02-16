@@ -1,11 +1,13 @@
-import LocationActions from './actions/LocationActions';
+import LocationActions from '../actions/LocationActions';
 import {get} from 'jquery';
 import {isArray} from 'lodash';
+
+const host = "http://laravel-joehill.rhcloud.com/api";
 
 const LocationService = {
     getLocations(city) {
         if(city) {
-            get(`http://laravel-joehill.rhcloud.com/api/map/${city}?page=1`).done((result) => {
+            get(`${host}/map/${city}?page=1`).done((result) => {
                 if (isArray(result.data) && result.data.length) {
                     LocationActions.saveLocations(result.data);
                 }
@@ -13,6 +15,14 @@ const LocationService = {
         } else {
             setTimeout(() => LocationActions.resetLocations());
         }
+    },
+
+    getLocation(city, id) {
+        get(`${host}/map/${city}/${id}`).done((result) => {
+            if (result.length) {
+                LocationActions.setCurrentLocation(result[0]);
+            }
+        });
     }
 };
 

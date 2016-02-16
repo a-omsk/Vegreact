@@ -18,7 +18,8 @@ module.exports = {
             loader: "style-loader!css-loader"}]
     },
     devServer: {
-        contentBase: 'public'
+        contentBase: 'public',
+        historyApiFallback: true
     },
 
     watch: true

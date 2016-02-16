@@ -8,8 +8,10 @@ const LocationList = (props) => {
     };
 
     return <ul style={listStyle} className="locations-list list-group">{props.list.map(location => {
+
         return  <LocationOverview key={location.id}
                                   id={location.id}
+                                  markerId={location.marker_id}
                                   name={location.name}
                                   rating={location.rating}
                                   type={location.type}

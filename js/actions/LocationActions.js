@@ -13,6 +13,13 @@ const LocationActions = {
         AppDispatcher.dispatch({
             actionType: ActionTypes.RESET_LOCATIONS
         });
+    },
+
+    setCurrentLocation(location) {
+        AppDispatcher.dispatch({
+            actionType: ActionTypes.SET_CURRENT_LOCATION,
+            location: location
+        });
     }
 };
 
