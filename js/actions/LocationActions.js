@@ -15,10 +15,10 @@ const LocationActions = {
         });
     },
 
-    setCurrentLocation(location) {
+    setCurrentGroup(group) {
         AppDispatcher.dispatch({
             actionType: ActionTypes.SET_CURRENT_LOCATION,
-            location: location
+            group: group
         });
     }
 };

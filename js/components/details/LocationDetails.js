@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
-import { isNumber } from 'lodash';
+import { findIndex, isNumber } from 'lodash';
 import LocationStore from '../../stores/LocationStore';
 import LocationService from '../../services/LocationService';
+import DetailsContent from './DetailsContent';
+import DetailsComments from './DetailsComments';
 
 class LocationDetails extends React.Component {
 
@@ -9,21 +11,31 @@ class LocationDetails extends React.Component {
         super(props);
 
         this.state = {
-            location: LocationStore.getCurrentLocation() || {}
-        }
+            group: LocationStore.getCurrentGroup(),
+            selectedLocation: {},
+            selectedComments: []
+        };
 
         this.onLocationChange = () => {
+            const group = LocationStore.getCurrentGroup();
+            const selectedId = parseInt(this.props.location.query.id);
+            const selectedIndex = findIndex(group.locations, loc => selectedId ? selectedId === loc.id : true);
+            const selectedLocation = group.locations[selectedIndex];
+            const selectedComments = selectedLocation.comments;
+
             this.setState({
-                location: LocationStore.getCurrentLocation()
+                group: group,
+                selectedLocation: selectedLocation,
+                selectedComments: selectedComments
             });
-        }
+        };
     }
 
     componentWillMount() {
         const id = parseInt(this.props.params.id, 10);
 
         if (id && isNumber(id)) {
-            LocationService.getLocation(this.props.params.city, id);
+            LocationService.getGroup(this.props.params.city, id);
         }
     }
 
@@ -36,7 +48,10 @@ class LocationDetails extends React.Component {
     }
 
     render () {
-        return (<div>Hello</div>);
+        return (<div>
+                   <DetailsContent location={this.state.selectedLocation} />
+                   <DetailsComments comments={this.state.selectedComments}/>
+               </div>)
     }
 }
 

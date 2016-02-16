@@ -4,7 +4,7 @@ import {EventEmitter} from 'events';
 import {cloneDeep} from 'lodash';
 
 let _locations = [];
-let _currentLocation = null;
+let _currentGroup = null;
 
 class LocationStore extends EventEmitter {
     constructor(props) {
@@ -26,7 +26,7 @@ class LocationStore extends EventEmitter {
         }
 
         const setCurrentLocation = (action) => () => {
-            _currentLocation = action.location;
+            _currentGroup = action.group;
             this.emit("locationSets")
         }
 
@@ -48,8 +48,8 @@ class LocationStore extends EventEmitter {
         return _locations;
     }
 
-    getCurrentLocation() {
-        return cloneDeep(_currentLocation);
+    getCurrentGroup() {
+        return cloneDeep(_currentGroup);
     }
 }
 

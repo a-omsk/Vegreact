@@ -17,10 +17,10 @@ const LocationService = {
         }
     },
 
-    getLocation(city, id) {
+    getGroup(city, id) {
         get(`${host}/map/${city}/${id}`).done((result) => {
             if (result.length) {
-                LocationActions.setCurrentLocation(result[0]);
+                LocationActions.setCurrentGroup(result[0]);
             }
         });
     }
