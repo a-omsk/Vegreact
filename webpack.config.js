@@ -2,8 +2,8 @@ module.exports = {
     devtool: 'source-map',
     entry: './js/app.js',
     output: {
-        path: __dirname + "/public",
-        filename: "bundle.js"
+        path: __dirname + '/public',
+        filename: 'bundle.js'
     },
     module: {
         loaders: [{
@@ -13,9 +13,15 @@ module.exports = {
             query: {
                 presets: ['react', 'es2015']
             }
-        }, {test: /\.css$/,
+        }, {
+            test: /\.css$/,
             exclude: '/node_modules/',
-            loader: "style-loader!css-loader"}]
+            loader: 'style-loader!css-loader!postcss-loader'
+        }, {
+            test: /\.scss$/,
+            exclude: '/node_modules/',
+            loader: 'style-loader!css-loader!sass-loader!postcss-loader'
+        }]
     },
     devServer: {
         contentBase: 'public',

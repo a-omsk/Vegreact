@@ -4,7 +4,7 @@ import {EventEmitter} from 'events';
 import {cloneDeep} from 'lodash';
 
 let _locations = [];
-let _currentGroup = null;
+let _currentGroup = {};
 
 class LocationStore extends EventEmitter {
     constructor(props) {

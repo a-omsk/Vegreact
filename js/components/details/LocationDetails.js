@@ -16,7 +16,7 @@ class LocationDetails extends React.Component {
             selectedComments: []
         };
 
-        this.onLocationChange = () => {
+        this.setLocation = () => {
             const group = LocationStore.getCurrentGroup();
             const selectedId = parseInt(this.props.location.query.id);
             const selectedIndex = findIndex(group.locations, loc => selectedId ? selectedId === loc.id : true);
@@ -32,19 +32,24 @@ class LocationDetails extends React.Component {
     }
 
     componentWillMount() {
-        const id = parseInt(this.props.params.id, 10);
+        const currentId = parseInt(this.props.params.id, 10);
+        const {id} = LocationStore.getCurrentGroup();
 
-        if (id && isNumber(id)) {
-            LocationService.getGroup(this.props.params.city, id);
+        if(currentId === id) {
+            this.setLocation();
+        } else {
+            if (currentId && isNumber(currentId)) {
+                LocationService.getGroup(this.props.params.city, currentId);
+            }
         }
     }
 
     componentWillUnmount() {
-        LocationStore.removeListener("locationSets", this.onLocationChange);
+        LocationStore.removeListener("locationSets", this.setLocation);
     }
 
     componentDidMount() {
-        LocationStore.addListener("locationSets", this.onLocationChange);
+        LocationStore.addListener("locationSets", this.setLocation);
     }
 
     render () {

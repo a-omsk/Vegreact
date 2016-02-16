@@ -71,16 +71,20 @@ export default class Sidebar extends React.Component {
         if (this.state.cityView) {
             content  = <CitiesList list={this.state.cities} />
         } else {
-            if (CityStore.getCurrentCity()) {
-                content = <LocationList list={this.state.locations} />
+            if (this.props.children) {
+                content = this.props.children;
             } else {
-                content = <WarningMessage message="Вы находитесь за пределами ближайшего города" />
+                if (CityStore.getCurrentCity()) {
+                    content = <LocationList list={this.state.locations} />
+                } else {
+                    content = <WarningMessage message="Вы находитесь за пределами ближайшего города" />
+                }
             }
         }
 
         return (
             <div style={sidebarStyle} className="sidebar" >
-                {this.props.children || content}
+                {content}
 
             </div>)
     }

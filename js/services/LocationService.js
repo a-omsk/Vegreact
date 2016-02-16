@@ -17,8 +17,8 @@ const LocationService = {
         }
     },
 
-    getGroup(city, id) {
-        get(`${host}/map/${city}/${id}`).done((result) => {
+    getGroup(city, groupId) {
+        get(`${host}/map/${city}/${groupId}`).done((result) => {
             if (result.length) {
                 LocationActions.setCurrentGroup(result[0]);
             }

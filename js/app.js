@@ -1,7 +1,8 @@
 import React from  'react';
 import {render} from 'react-dom';
 import {Redirect, Router, Route, Link, browserHistory } from 'react-router';
-import Normalize from '../css/normalize.css';
+import Normalize from '../styles/normalize.css';
+import GlobalStyles from '../styles/global.scss';
 import CityStore from './stores/CityStore';
 import Main from './components/Main';
 import Sidebar from './components/Sidebar';
