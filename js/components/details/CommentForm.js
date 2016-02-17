@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
+import Rater from 'react-rater';
+import Input from '../common/Input';
 
 class CommentForm extends React.Component {
 
@@ -6,11 +8,29 @@ class CommentForm extends React.Component {
         super(props)
 
         this.state = {
-            visible: false
+            feedback: {
+                author: 'Гость',
+                body: '',
+                rating: 0
+            },
+            visible: false,
+            errors : {}
         }
 
         this.toggleVisibility = () => {
             this.setState({visible: !this.state.visible});
+        }
+
+        this.onChange = (event) => {
+            const field = event.target.name;
+            const value = event.target.value;
+
+            this.state.feedback[field] = value;
+            this.setState({feedback: this.state.feedback});
+        }
+
+        this.handleRate = (value, selected) => {
+            console.log(`handled ${selected}`);
         }
     }
 
@@ -20,15 +40,25 @@ class CommentForm extends React.Component {
         if (this.state.visible) {
             content = (
                 <form>
-                    <div className="form-group">
-                        <input className='comment-author' type="text" />
-                    </div>
-                    <div className="form-group">
-                        <div className='comment-rating'></div>
-                    </div>
-                    <div className="form-group">
-                        <textarea className='comment-body-area' />
-                    </div>
+                    <Input
+                        type="input"
+                        name="author"
+                        placeholder="Ваше имя"
+                        onChange={this.onChange}
+                        value={this.state.feedback.author}
+                        error={this.state.errors.author}
+                    />
+
+                    <Input
+                        type="textarea"
+                        name="body"
+                        placeholder="Напишите Ваш отзыв…"
+                        onChange={this.onChange}
+                        value={this.state.feedback.body}
+                        error={this.state.errors.body}
+                    />
+
+                    <Rater onRate={this.handleRate.bind(this)} />
                     <button className='btn-default btn'>Отправить</button>
                 </form>)
         } else {
