@@ -9,6 +9,13 @@ const LocationActions = {
         });
     },
 
+    pushLocation(locations) {
+        AppDispatcher.dispatch({
+            actionType: ActionTypes.PUSH_LOCATIONS,
+            locations: locations
+        });
+    },
+
     resetLocations() {
         AppDispatcher.dispatch({
             actionType: ActionTypes.RESET_LOCATIONS
@@ -19,6 +26,12 @@ const LocationActions = {
         AppDispatcher.dispatch({
             actionType: ActionTypes.SET_CURRENT_LOCATION,
             group: group
+        });
+    },
+
+    blockLoading() {
+        AppDispatcher.dispatch({
+            actionType: ActionTypes.BLOCK_LOADING
         });
     }
 };

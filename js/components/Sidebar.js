@@ -41,6 +41,20 @@ export default class Sidebar extends React.Component {
         this.onViewChange = () => {
             this.setState({cityView: SidebarStore.getViewState()});
         }
+
+        this.handleScrolling = (e) => {
+            if (LocationStore.canLoadMore()) {
+                const initialHeight = e.nativeEvent.srcElement.firstChild.scrollHeight - window.innerHeight;
+                const currentScrollHeight = e.nativeEvent.srcElement.scrollTop;
+
+                if (currentScrollHeight >= initialHeight && !LocationStore.isBlocked()) {
+                    const city = CityStore.getCurrentCity();
+                    const targetPage = LocationStore.getCurrentPage() + 1;
+
+                    LocationService.getLocations(city, targetPage);
+                }
+            }
+        }
     }
 
     componentWillUnmount() {
@@ -68,6 +82,7 @@ export default class Sidebar extends React.Component {
         };
 
         let content;
+        let isLocationList;
 
         if (this.state.cityView) {
             content  = <CitiesList list={this.state.cities} />
@@ -77,6 +92,7 @@ export default class Sidebar extends React.Component {
             } else {
                 if (CityStore.getCurrentCity()) {
                     content = <LocationList list={this.state.locations} />
+                    isLocationList = true;
                 } else {
                     content = <WarningMessage message="Вы находитесь за пределами ближайшего города" />
                 }
@@ -84,9 +100,8 @@ export default class Sidebar extends React.Component {
         }
 
         return (
-            <div style={sidebarStyle} className="sidebar" >
+            <div onScroll={isLocationList ? this.handleScrolling.bind(this) : ''}  style={sidebarStyle} className="sidebar" >
                 {content}
-
             </div>)
     }
 };

@@ -4,7 +4,7 @@ import {isArray} from 'lodash';
 
 const MarkerService = {
     getMarkers(city) {
-        get(`http://laravel-joehill.rhcloud.com/api/map/${city}/markers`).done((result) => {
+        get(`https://laravel-joehill.rhcloud.com/api/map/${city}/markers`).done((result) => {
             if (isArray(result) && result.length) {
                 MarkerActions.saveMarkers(result);
             }

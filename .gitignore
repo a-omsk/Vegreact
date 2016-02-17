@@ -1,5 +1,6 @@
 public/bundle.js
 public/bundle.js.map
 node_modules
+firebase.json
 js/ApiKey.js
 .idea

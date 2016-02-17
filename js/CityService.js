@@ -26,7 +26,7 @@ const CityService = {
         if(cities.length) {
             // Do nothing
         } else {
-            get(`http://catalog.api.2gis.ru/project/list?version=1.3&key=${ApiKey}`).done((data) => {
+            get(`https://catalog.api.2gis.ru/project/list?version=1.3&key=${ApiKey}`).done((data) => {
                 const citiesList = data.result.map(prepareCity);
                 CityActions.setCitiesList(citiesList);
             });

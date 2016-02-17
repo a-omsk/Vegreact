@@ -2,14 +2,17 @@ import LocationActions from '../actions/LocationActions';
 import {get} from 'jquery';
 import {isArray} from 'lodash';
 
-const host = "http://laravel-joehill.rhcloud.com/api";
+const host = "https://laravel-joehill.rhcloud.com/api";
 
 const LocationService = {
-    getLocations(city) {
+    getLocations(city, page = 1) {
         if(city) {
-            get(`${host}/map/${city}?page=1`).done((result) => {
+            setTimeout(() => LocationActions.blockLoading());
+
+            get(`${host}/map/${city}?page=${page}`).done((result) => {
                 if (isArray(result.data) && result.data.length) {
-                    LocationActions.saveLocations(result.data);
+                    const method = (page > 1) ? 'pushLocation' : 'saveLocations';
+                    LocationActions[method](result);
                 }
             });
         } else {
