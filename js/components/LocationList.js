@@ -2,12 +2,7 @@ import React from 'react';
 import LocationOverview from './LocationOverview';
 
 const LocationList = (props) => {
-    const listStyle = {
-        overflow: 'auto',
-        height: window.innerHeight + 'px'
-    };
-
-    return <ul style={listStyle} className="locations-list list-group">{props.list.map(location => {
+    return <ul className="locations-list list-group">{props.list.map(location => {
 
         return  <LocationOverview key={location.id}
                                   id={location.id}

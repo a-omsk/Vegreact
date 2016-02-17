@@ -53,7 +53,7 @@ class LocationDetails extends React.Component {
     }
 
     render () {
-        return (<div>
+        return (<div style={{overflow: 'auto'}}>
                    <DetailsContent location={this.state.selectedLocation} />
                    <DetailsComments comments={this.state.selectedComments}/>
                </div>)

@@ -4,9 +4,7 @@ import City from './City';
 const CitiesList = (props) => {
 
     const listStyle = {
-        padding: 0,
-        overflow: 'auto',
-        height: window.innerHeight + 'px'
+        padding: 0
     }
 
     return (
