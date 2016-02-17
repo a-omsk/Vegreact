@@ -1,6 +1,7 @@
 public/bundle.js
 public/bundle.js.map
 node_modules
+npm-debug.log
 firebase.json
 js/ApiKey.js
 .idea
