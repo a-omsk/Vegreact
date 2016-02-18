@@ -16,8 +16,8 @@ const prepareCity = (project) => {
         name: project.name,
         zoom: parseInt(project.zoomlevel, 10),
         minZoom: parseInt(project.min_zoomlevel, 10)
-    }
-}
+    };
+};
 
 const CityService = {
     fetchCitiesList() {

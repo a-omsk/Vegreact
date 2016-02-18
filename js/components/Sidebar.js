@@ -77,7 +77,7 @@ export default class Sidebar extends React.Component {
             width: 300 + 'px',
             height: 100 + '%',
             backgroundColor: 'rgba(255, 255, 255, 0.8)',
-            zIndex: 10,
+            zIndex: 1,
             overflow: 'auto'
         };
 

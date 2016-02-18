@@ -14,7 +14,6 @@ class LocationStore extends EventEmitter {
         super(props);
 
         const saveLocations = (action) => () => {
-
             _locations = action.actionType === 'SAVE_LOCATIONS' ?
                 action.locations.data : _locations.concat(action.locations.data);
 

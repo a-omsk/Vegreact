@@ -20,6 +20,7 @@
     "normalize.css": "^3.0.3",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-modal": "^0.6.1",
     "react-rater": "^0.2.2",
     "react-router": "^2.0.0"
   },
