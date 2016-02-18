@@ -41,7 +41,7 @@ class CommentForm extends React.Component {
             content = (
                 <form>
                     <Input
-                        type="input"
+                        inputType="input"
                         name="author"
                         placeholder="Ваше имя"
                         onChange={this.onChange}
@@ -50,7 +50,7 @@ class CommentForm extends React.Component {
                     />
 
                     <Input
-                        type="textarea"
+                        inputType="textarea"
                         name="body"
                         placeholder="Напишите Ваш отзыв…"
                         onChange={this.onChange}

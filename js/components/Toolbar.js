@@ -6,6 +6,7 @@ import CityButton from './CityButton';
 import AuthForm from './AuthForm';
 import UserStore from '../stores/UserStore';
 import CityStore from '../stores/CityStore';
+import UserService from '../services/UserService';
 
 class Toolbar extends React.Component {
     constructor(props) {
@@ -14,11 +15,27 @@ class Toolbar extends React.Component {
         this.state = {
             city: CityStore.getCurrentCity(),
             user: UserStore.getCurrentUser(),
+            credentials: {},
+            loginErrors: {},
             showAuthModal: false
         }
 
         this.toggleModal = () => this.setState({showAuthModal: !this.state.showAuthModal});
-        this.onUserChange = () => this.setState({user: getCurrentUser()});
+        this.onUserChange = () => {
+            if (!UserStore.getCurrentUser()) {
+                UserService.getUser();
+            } else {
+                this.setState({user: UserStore.getCurrentUser()});
+            }
+        }
+
+        this.onLoginModelChange = (e) => {
+            const field = e.target.name;
+            const value = e.target.value;
+
+            this.state.credentials[field] = value;
+            this.setState({credentials: this.state.credentials});
+        }
 
         this.onCityChange = () => {
             const cityCode = CityStore.getCurrentCity();
@@ -29,6 +46,30 @@ class Toolbar extends React.Component {
                 if (city) { this.setState({city: city}); }
             } else {
                 this.setState({city: ''});
+            }
+        }
+
+        this.isFormValid = () => {
+            const credentials = this.state.credentials;
+            const errors = {};
+
+            if (!credentials.username.length) {
+                errors.username = 'Введите Ваш логин';
+            }
+
+            if (!credentials.password.length) {
+                errors.password = 'Введите Ваш пароль';
+            }
+
+            this.setState({loginErrors: errors});
+            return !Object.keys(errors).length;
+        }
+
+        this.login = () => {
+            if (this.isFormValid()) {
+                UserService.login(this.state.credentials);
+                this.toggleModal();
+                this.setState({credentials: {}});
             }
         }
     }
@@ -50,6 +91,7 @@ class Toolbar extends React.Component {
             overlay : {
                 zIndex: 10,
             },
+
             content : {
                 display: 'flex',
                 flexDirection: 'column',
@@ -67,11 +109,13 @@ class Toolbar extends React.Component {
                         <Modal
                           isOpen={this.state.showAuthModal}
                           style={modalStyle}
-                          onRequestClose={this.toggleModal.bind(this)}
-                        >
+                          onRequestClose={this.toggleModal.bind(this)} >
 
-                          <AuthForm submit={this.toggleModal.bind(this)} />
-
+                          <AuthForm
+                              onChange={this.onLoginModelChange.bind(this)}
+                              submit={this.login.bind(this)}
+                              credentials={this.state.credentials}
+                              errors={this.state.loginErrors} />
                         </Modal>
                </div>
     }

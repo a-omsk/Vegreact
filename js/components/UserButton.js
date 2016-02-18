@@ -8,7 +8,7 @@ const UserButton = (props) => {
 
     return props.user ? (
         <div style={buttonStyle} className="btn btn-default">
-            <span>Joe Hill</span>
+            <span>{props.user.name}</span>
         </div>
     ) : (
         <div onClick={props.modalHandler} style={buttonStyle} className="btn btn-default">

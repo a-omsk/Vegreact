@@ -4,7 +4,7 @@ const Input = (props) => {
     let wrapperClass = 'form-group';
 
     const properties = {
-        type: 'text',
+        type: props.inputType || 'text',
         name: props.name,
         className: 'form-control',
         placeholder: props.placeholder,
@@ -19,7 +19,7 @@ const Input = (props) => {
     return (
         <div className={wrapperClass}>
             <div className='field'>
-                {props.type === 'input' ? <input {...properties} /> : <textarea {...properties} />}
+                {props.inputType === 'textarea' ? <textarea {...properties} /> : <input {...properties} />}
                 <div className='input'>{props.error}</div>
             </div>
         </div>
@@ -29,6 +29,7 @@ const Input = (props) => {
 Input.propTypes = {
     name: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func.isRequired,
+    inputType: React.PropTypes.string,
     placeholder: React.PropTypes.string,
     value: React.PropTypes.string,
     error: React.PropTypes.string,

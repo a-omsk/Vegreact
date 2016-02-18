@@ -10,7 +10,9 @@ const ActionTypes = {
         GET_CITIES: "SET_CITIES_LIST",
         TOGGLE_CITY_LIST: "TOGGLE_CITY_LIST",
         SET_CURRENT_LOCATION: "SET_CURRENT_LOCATION",
-        BLOCK_LOADING: "BLOCK_LOADING"
+        BLOCK_LOADING: "BLOCK_LOADING",
+        SET_TOKEN: "SET_TOKEN",
+        SET_USER: "SET_USER"
 };
 
 export default ActionTypes;
