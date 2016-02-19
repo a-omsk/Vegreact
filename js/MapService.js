@@ -4,6 +4,7 @@ import MapActions from './actions/MapActions';
 import CityActions from './actions/CityActions';
 import LocationActions from './actions/LocationActions';
 import BalloonContent from './components/balloon/BalloonContent';
+import UserStore from './stores/UserStore';
 
 const mapOptions = {
     'center': [54.98, 73.38],
@@ -13,6 +14,19 @@ const mapOptions = {
     'zoomControl': false,
     'doubleClickZoom': false,
     'projectDetector': true
+};
+
+const createBallonContent = () => {
+    const props = {
+        isLogged: !!UserStore.getCurrentUser()
+    };
+
+    const div = document.createElement('div');
+    const content = createElement(BalloonContent);
+
+    render(content, div);
+
+    return div;
 };
 
 const MapService = {
@@ -32,14 +46,10 @@ const MapService = {
 
             Map.on('dblclick', e => {
                 const { lat, lng } = e.latlng;
-                const div = document.createElement('div');
-                const button = createElement(BalloonContent);
-
-                render(button, div);
 
                 DG.popup()
                     .setLatLng([lat, lng])
-                    .setContent(div)
+                    .setContent(createBallonContent())
                     .addTo(Map);
             });
 
