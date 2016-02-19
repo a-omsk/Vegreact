@@ -10,7 +10,7 @@ import UserService from '../services/UserService';
 
 class Toolbar extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             city: CityStore.getCurrentCity(),
@@ -18,16 +18,17 @@ class Toolbar extends React.Component {
             credentials: {},
             loginErrors: {},
             showAuthModal: false
-        }
+        };
 
         this.toggleModal = () => this.setState({showAuthModal: !this.state.showAuthModal});
+
         this.onUserChange = () => {
             if (!UserStore.getCurrentUser()) {
                 UserService.getUser();
             } else {
                 this.setState({user: UserStore.getCurrentUser()});
             }
-        }
+        };
 
         this.onLoginModelChange = (e) => {
             const field = e.target.name;
@@ -35,7 +36,7 @@ class Toolbar extends React.Component {
 
             this.state.credentials[field] = value;
             this.setState({credentials: this.state.credentials});
-        }
+        };
 
         this.onCityChange = () => {
             const cityCode = CityStore.getCurrentCity();
@@ -47,7 +48,7 @@ class Toolbar extends React.Component {
             } else {
                 this.setState({city: ''});
             }
-        }
+        };
 
         this.isFormValid = () => {
             const credentials = this.state.credentials;
@@ -63,7 +64,7 @@ class Toolbar extends React.Component {
 
             this.setState({loginErrors: errors});
             return !Object.keys(errors).length;
-        }
+        };
 
         this.login = () => {
             if (this.isFormValid()) {
@@ -71,7 +72,7 @@ class Toolbar extends React.Component {
                 this.toggleModal();
                 this.setState({credentials: {}});
             }
-        }
+        };
     }
 
     componentWillMount() {
@@ -103,7 +104,7 @@ class Toolbar extends React.Component {
             }
         };
 
-        return <div style={toolbarStyle}>
+        return (<div style={toolbarStyle}>
                     <UserButton modalHandler={this.toggleModal.bind(this)} user={this.state.user} />
                     <CityButton city={this.state.city} />
                         <Modal
@@ -117,7 +118,7 @@ class Toolbar extends React.Component {
                               credentials={this.state.credentials}
                               errors={this.state.loginErrors} />
                         </Modal>
-               </div>
+               </div>);
     }
 }
 

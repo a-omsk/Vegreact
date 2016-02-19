@@ -1,6 +1,9 @@
+import {render} from 'react-dom';
+import {createElement} from 'react';
 import MapActions from './actions/MapActions';
 import CityActions from './actions/CityActions';
 import LocationActions from './actions/LocationActions';
+import BalloonContent from './components/balloon/BalloonContent';
 
 const mapOptions = {
     'center': [54.98, 73.38],
@@ -25,6 +28,19 @@ const MapService = {
             Map.on('projectleave', e => {
                 CityActions.resetCity();
                 LocationActions.resetLocations();
+            });
+
+            Map.on('dblclick', e => {
+                const { lat, lng } = e.latlng;
+                const div = document.createElement('div');
+                const button = createElement(BalloonContent);
+
+                render(button, div);
+
+                DG.popup()
+                    .setLatLng([lat, lng])
+                    .setContent(div)
+                    .addTo(Map);
             });
 
             MapActions.saveMap(Map);
