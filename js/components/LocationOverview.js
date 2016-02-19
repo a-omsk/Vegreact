@@ -11,5 +11,6 @@ const LocationOverview = (props) => {
                 <div>{props.time}</div>
                 <Rater style={{pointerEvents: 'none'}} total={props.rating} rating={props.rating} />
           </li>;
-}
+};
+
 export default LocationOverview;

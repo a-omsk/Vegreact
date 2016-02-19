@@ -32,6 +32,6 @@ const DetailsComments = (props) => {
     return (
         <div>{content}</div>
     )
-}
+};
 
 export default DetailsComments

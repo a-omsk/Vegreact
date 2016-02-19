@@ -25,6 +25,6 @@ const AuthForm = (props) => {
         <button className="btn btn-success btn-block" onClick={props.submit}>Войти</button>
         </div>
     )
-}
+};
 
 export default AuthForm;

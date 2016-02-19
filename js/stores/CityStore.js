@@ -16,7 +16,7 @@ class CityStore extends EventEmitter {
                 localStorage.setItem("cities_list", JSON.stringify(_citiesList));
                 this.emit("change");
             }
-        }
+        };
 
         const setCity = (action) => () => {
             if (action.city) {
@@ -25,19 +25,19 @@ class CityStore extends EventEmitter {
                 localStorage.setItem("city", _currentCity);
                 this.emit("change");
             }
-        }
+        };
 
         const resetCity = () => {
             _currentCity = '';
             this.emit("change");
-        }
+        };
 
         AppDispatcher.register(action => {
             const actionList = {
                 [ActionTypes.SET_CITY]: setCity(action),
                 [ActionTypes.SET_CITIES_LIST]: setCitiesList(action),
                 [ActionTypes.RESET_CITY]: resetCity
-            }
+            };
 
             if (actionList[action.actionType]) {
                 actionList[action.actionType]();

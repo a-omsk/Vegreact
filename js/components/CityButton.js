@@ -13,6 +13,6 @@ const CityButton = (props) => {
             <span>Ваш город: <b>{ props.city && props.city.name ? props.city.name : 'Не выбран'}</b></span>
         </div>
     )
-}
+};
 
 export default CityButton

@@ -36,10 +36,10 @@ const DetailsContent = (props) => {
                 </div>
             </div>)
     } else {
-        content = <div />
+        content = <div />;
     }
 
     return content;
-}
+};
 
 export default DetailsContent

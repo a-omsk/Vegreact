@@ -32,7 +32,7 @@ export default class Sidebar extends React.Component {
             if (isEmpty(this.state.cities) && CityStore.getCitiesList().length) {
                 this.setState({cities: CityStore.getCitiesList()});
             }
-        }
+        };
 
         this.onChange = () => {
             this.setState({locations: LocationStore.getLocations()});
@@ -40,7 +40,7 @@ export default class Sidebar extends React.Component {
 
         this.onViewChange = () => {
             this.setState({cityView: SidebarStore.getViewState()});
-        }
+        };
 
         this.handleScrolling = (e) => {
             if (LocationStore.canLoadMore()) {
@@ -91,7 +91,7 @@ export default class Sidebar extends React.Component {
                 content = this.props.children;
             } else {
                 if (CityStore.getCurrentCity()) {
-                    content = <LocationList list={this.state.locations} />
+                    content = <LocationList list={this.state.locations} />;
                     isLocationList = true;
                 } else {
                     content = <WarningMessage message="Вы находитесь за пределами ближайшего города" />

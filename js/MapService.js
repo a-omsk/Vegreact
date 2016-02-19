@@ -17,10 +17,6 @@ const mapOptions = {
 };
 
 const createBallonContent = () => {
-    const props = {
-        isLogged: !!UserStore.getCurrentUser()
-    };
-
     const div = document.createElement('div');
     const content = createElement(BalloonContent);
 
@@ -39,7 +35,7 @@ const MapService = {
                 CityActions.setCity(cityCode);
             });
 
-            Map.on('projectleave', e => {
+            Map.on('projectleave', () => {
                 CityActions.resetCity();
                 LocationActions.resetLocations();
             });

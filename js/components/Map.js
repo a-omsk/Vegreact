@@ -20,7 +20,7 @@ export default class Map extends React.Component {
             if (city) {
                 MarkerService.getMarkers(city);
             }
-        }
+        };
 
         this.onChange = () => {
             this.setState({markers: MarkerStore.getAllMarkers()});
@@ -53,7 +53,7 @@ export default class Map extends React.Component {
 
         return (
             <div style={mapStyle} id="map">
-                <MarkerList list={this.state.markers}></MarkerList>
+                <MarkerList list={this.state.markers} />
             </div>
         )
     }

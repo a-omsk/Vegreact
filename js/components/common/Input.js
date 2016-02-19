@@ -24,7 +24,7 @@ const Input = (props) => {
             </div>
         </div>
     );
-}
+};
 
 Input.propTypes = {
     name: React.PropTypes.string.isRequired,
@@ -32,7 +32,7 @@ Input.propTypes = {
     inputType: React.PropTypes.string,
     placeholder: React.PropTypes.string,
     value: React.PropTypes.string,
-    error: React.PropTypes.string,
+    error: React.PropTypes.string
 };
 
 export default Input;

@@ -13,7 +13,7 @@ class MarkerStore extends EventEmitter {
         const saveMarkers = (action) => () => {
             _markers = action.markers;
             this.emit("change");
-        }
+        };
 
         const removeMarkers = () => {
             const Map = MapStore.get();
@@ -23,7 +23,7 @@ class MarkerStore extends EventEmitter {
                     marker.remove();
                 }
             });
-        }
+        };
 
         AppDispatcher.register(action => {
             const actionList = {

@@ -1,6 +1,6 @@
 import UserActions from '../actions/UserActions';
 import UserStore from '../stores/UserStore';
-import {get,post} from 'jquery';
+import {get, post} from 'jquery';
 
 const host = "https://laravel-joehill.rhcloud.com/api";
 

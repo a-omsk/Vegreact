@@ -14,9 +14,9 @@ const MarkerService = {
     createMarker(lat, lng) {
         if (DG.ready) {
             const veganIcon = DG.icon({
-				iconUrl: '/assets/img/marker.svg',
-				iconSize: [56, 56]
-			});
+                iconUrl: '/assets/img/marker.svg',
+                iconSize: [56, 56]
+            });
 
             return DG.marker([lat, lng], {
                 icon: veganIcon

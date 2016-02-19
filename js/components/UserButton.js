@@ -15,6 +15,6 @@ const UserButton = (props) => {
             <span>Войти</span>
         </div>
     )
-}
+};
 
 export default UserButton;

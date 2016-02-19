@@ -21,21 +21,21 @@ class LocationStore extends EventEmitter {
             _currentPage = action.locations.current_page;
             _blocked = false;
             this.emit("change");
-        }
+        };
 
         const resetLocations = () => {
             _locations = [];
             this.emit("change");
-        }
+        };
 
         const setCurrentLocation = (action) => () => {
             _currentGroup = action.group;
             this.emit("locationSets")
-        }
+        };
 
         const blockLoading = () => {
             _blocked = true;
-        }
+        };
 
         AppDispatcher.register(action => {
             const actionList = {

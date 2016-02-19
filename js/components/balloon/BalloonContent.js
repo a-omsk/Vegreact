@@ -4,11 +4,11 @@ import UserStore from '../../stores/UserStore';
 
 class BalloonContent extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             isLogined: !!UserStore.getCurrentUser()
-        }
+        };
 
         this.buttonAction = () => {
             if (this.state.isLogined) {
@@ -16,7 +16,7 @@ class BalloonContent extends React.Component {
             } else {
                 console.log('Auth modal opened');
             }
-        }
+        };
 
         this.onUserChange = () => {
             this.setState({isLogined: !!UserStore.getCurrentUser()});

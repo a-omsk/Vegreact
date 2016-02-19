@@ -12,10 +12,10 @@ render((
   <Router history={browserHistory}>
     <Route component={Main}>
         <Route path="locations/:city" component={Sidebar}>
-            <Route path=":id" component={LocationDetails}></Route>
+            <Route path=":id" component={LocationDetails} />
         </Route>
         <Redirect from="/" to={`/locations/${CityStore.getCurrentCity()}`} />
     </Route>
 
   </Router>
-), document.getElementById('react'))
+), document.getElementById('react'));

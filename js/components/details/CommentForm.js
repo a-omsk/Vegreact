@@ -5,7 +5,7 @@ import Input from '../common/Input';
 class CommentForm extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             feedback: {
@@ -15,19 +15,18 @@ class CommentForm extends React.Component {
             },
             visible: false,
             errors : {}
-        }
+        };
 
         this.toggleVisibility = () => {
             this.setState({visible: !this.state.visible});
-        }
+        };
 
         this.onChange = (event) => {
-            const field = event.target.name;
-            const value = event.target.value;
+            const {name, value} = event.target;
 
-            this.state.feedback[field] = value;
+            this.state.feedback[name] = value;
             this.setState({feedback: this.state.feedback});
-        }
+        };
 
         this.handleRate = (value, selected) => {
             console.log(`handled ${selected}`);

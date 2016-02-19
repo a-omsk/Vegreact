@@ -31,10 +31,9 @@ class Toolbar extends React.Component {
         };
 
         this.onLoginModelChange = (e) => {
-            const field = e.target.name;
-            const value = e.target.value;
+            const {name, value} = e.target;
 
-            this.state.credentials[field] = value;
+            this.state.credentials[name] = value;
             this.setState({credentials: this.state.credentials});
         };
 
@@ -90,7 +89,7 @@ class Toolbar extends React.Component {
 
         const modalStyle = {
             overlay : {
-                zIndex: 10,
+                zIndex: 10
             },
 
             content : {
