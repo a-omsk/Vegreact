@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import BallonButton from './BallonButton';
+import AuthModal from '../common/AuthModal';
 import UserStore from '../../stores/UserStore';
 
 class BalloonContent extends React.Component {
@@ -7,14 +8,15 @@ class BalloonContent extends React.Component {
         super(props);
 
         this.state = {
-            isLogined: !!UserStore.currentUser
+            isLogined: !!UserStore.currentUser,
+            modalOpened: false
         };
 
         this.buttonAction = () => {
             if (this.state.isLogined) {
                 console.log('Add location modal opened');
             } else {
-                console.log('Auth modal opened');
+                this.setState({modalOpened: true});
             }
         };
 
@@ -23,8 +25,18 @@ class BalloonContent extends React.Component {
         }
     }
 
+    componentWillUmount() {
+        UserStore.removeListener('change', this.onUserChange);
+    }
+
     componentDidMount() {
         UserStore.addListener('change', this.onUserChange);
+
+        // Native click handler via props not fired. The temporary solution wrote below
+        setTimeout(()=>{
+            const button = document.querySelector('.ballon-button');
+            button.addEventListener('click', this.buttonAction);
+        });
     }
 
     render () {
@@ -36,6 +48,7 @@ class BalloonContent extends React.Component {
             <div>
                 {content}
                 <BallonButton action={this.buttonAction.bind(this)} isLogined={this.state.isLogined} />
+                <AuthModal opened={this.state.modalOpened} />
             </div>
         )
     }
