@@ -13,8 +13,8 @@ class Toolbar extends React.Component {
         super(props);
 
         this.state = {
-            city: CityStore.getCurrentCity(),
-            user: UserStore.getCurrentUser(),
+            city: CityStore.currentCity,
+            user: UserStore.currentUser,
             credentials: {},
             loginErrors: {},
             showAuthModal: false
@@ -23,10 +23,10 @@ class Toolbar extends React.Component {
         this.toggleModal = () => this.setState({showAuthModal: !this.state.showAuthModal});
 
         this.onUserChange = () => {
-            if (!UserStore.getCurrentUser()) {
+            if (!UserStore.currentUser) {
                 UserService.getUser();
             } else {
-                this.setState({user: UserStore.getCurrentUser()});
+                this.setState({user: UserStore.currentUser});
             }
         };
 
@@ -38,8 +38,8 @@ class Toolbar extends React.Component {
         };
 
         this.onCityChange = () => {
-            const cityCode = CityStore.getCurrentCity();
-            const citiesList = CityStore.getCitiesList();
+            const cityCode = CityStore.currentCity;
+            const citiesList = CityStore.citiesList;
 
             if (cityCode) {
                 let city = find(citiesList, (city) => city.code === cityCode);

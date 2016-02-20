@@ -34,11 +34,11 @@ class UserStore extends EventEmitter {
         });
     }
 
-    getToken() {
+    get token() {
         return _token;
     }
 
-    getCurrentUser() {
+    get currentUser() {
         return cloneDeep(_user);
     }
 }

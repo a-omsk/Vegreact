@@ -15,41 +15,41 @@ export default class Sidebar extends React.Component {
         super(props);
 
         this.state = {
-            locations: LocationStore.getLocations(),
-            cities: CityStore.getCitiesList(),
-            cityView: SidebarStore.getViewState()
+            locations: LocationStore.locations,
+            cities: CityStore.citiesList,
+            cityView: SidebarStore.viewState
         };
 
         this.onCityChange = () => {
-            let city = CityStore.getCurrentCity();
+            const city = CityStore.currentCity;
 
             if (city) {
-                LocationService.getLocations(CityStore.getCurrentCity());
+                LocationService.getLocations(CityStore.currentCity);
             } else {
                 MarkerService.removeMarkers();
             }
 
-            if (isEmpty(this.state.cities) && CityStore.getCitiesList().length) {
-                this.setState({cities: CityStore.getCitiesList()});
+            if (isEmpty(this.state.cities) && CityStore.citiesList.length) {
+                this.setState({cities: CityStore.citiesList});
             }
         };
 
         this.onChange = () => {
-            this.setState({locations: LocationStore.getLocations()});
+            this.setState({locations: LocationStore.locations});
         };
 
         this.onViewChange = () => {
-            this.setState({cityView: SidebarStore.getViewState()});
+            this.setState({cityView: SidebarStore.viewState});
         };
 
         this.handleScrolling = (e) => {
-            if (LocationStore.canLoadMore()) {
+            if (LocationStore.canLoadMore) {
                 const initialHeight = e.nativeEvent.srcElement.firstChild.scrollHeight - window.innerHeight;
                 const currentScrollHeight = e.nativeEvent.srcElement.scrollTop;
 
-                if (currentScrollHeight >= initialHeight && !LocationStore.isBlocked()) {
-                    const city = CityStore.getCurrentCity();
-                    const targetPage = LocationStore.getCurrentPage() + 1;
+                if (currentScrollHeight >= initialHeight && !LocationStore.isBlocked) {
+                    const city = CityStore.currentCity;
+                    const targetPage = LocationStore.currentPage + 1;
 
                     LocationService.getLocations(city, targetPage);
                 }
@@ -62,7 +62,7 @@ export default class Sidebar extends React.Component {
     }
 
     componentWillMount() {
-        LocationService.getLocations(CityStore.getCurrentCity());
+        LocationService.getLocations(CityStore.currentCity);
         CityService.fetchCitiesList();
 
         LocationStore.addListener("change", this.onChange);
@@ -90,7 +90,7 @@ export default class Sidebar extends React.Component {
             if (this.props.children) {
                 content = this.props.children;
             } else {
-                if (CityStore.getCurrentCity()) {
+                if (CityStore.currentCity) {
                     content = <LocationList list={this.state.locations} />;
                     isLocationList = true;
                 } else {

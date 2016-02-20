@@ -21,7 +21,7 @@ const prepareCity = (project) => {
 
 const CityService = {
     fetchCitiesList() {
-        const cities = CityStore.getCitiesList();
+        const cities = CityStore.citiesList;
 
         if(cities.length) {
             // Do nothing

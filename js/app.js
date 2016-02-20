@@ -14,7 +14,7 @@ render((
         <Route path="locations/:city" component={Sidebar}>
             <Route path=":id" component={LocationDetails} />
         </Route>
-        <Redirect from="/" to={`/locations/${CityStore.getCurrentCity()}`} />
+        <Redirect from="/" to={`/locations/${CityStore.currentCity}`} />
     </Route>
 
   </Router>

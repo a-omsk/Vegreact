@@ -11,13 +11,13 @@ class LocationDetails extends React.Component {
         super(props);
 
         this.state = {
-            group: LocationStore.getCurrentGroup(),
+            group: LocationStore.currentGroup,
             selectedLocation: {},
             selectedComments: []
         };
 
         this.setLocation = () => {
-            const group = LocationStore.getCurrentGroup();
+            const group = LocationStore.currentGroup;
             const selectedId = parseInt(this.props.location.query.id);
             const selectedIndex = findIndex(group.locations, loc => selectedId ? selectedId === loc.id : true);
             const selectedLocation = group.locations[selectedIndex];
@@ -33,7 +33,7 @@ class LocationDetails extends React.Component {
 
     componentWillMount() {
         const currentId = parseInt(this.props.params.id, 10);
-        const {id} = LocationStore.getCurrentGroup();
+        const {id} = LocationStore.currentGroup;
 
         if(currentId === id) {
             this.setLocation();

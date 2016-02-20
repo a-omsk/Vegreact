@@ -7,7 +7,7 @@ class BalloonContent extends React.Component {
         super(props);
 
         this.state = {
-            isLogined: !!UserStore.getCurrentUser()
+            isLogined: !!UserStore.currentUser
         };
 
         this.buttonAction = () => {
@@ -19,7 +19,7 @@ class BalloonContent extends React.Component {
         };
 
         this.onUserChange = () => {
-            this.setState({isLogined: !!UserStore.getCurrentUser()});
+            this.setState({isLogined: !!UserStore.currentUser});
         }
     }
 

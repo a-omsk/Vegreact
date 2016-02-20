@@ -20,7 +20,7 @@ const UserService = {
     },
 
     getUser() {
-        const token = UserStore.getToken();
+        const token = UserStore.token;
 
         if (token) {
             get(`${host}/authenticate/user?token=${token}`).done((result) => {

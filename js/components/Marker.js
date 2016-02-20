@@ -6,7 +6,7 @@ const Marker = (props) => {
     const marker = MapService.createMarker(props.lat, props.lng);
 
     if (DG.ready) {
-        let Map = MapStore.get();
+        let Map = MapStore.get;
         marker.addTo(Map);
     }
 

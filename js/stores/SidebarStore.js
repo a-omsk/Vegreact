@@ -22,7 +22,7 @@ class SidebarStore extends EventEmitter {
         });
     }
 
-    getViewState() {
+    get viewState() {
         return _CityListView;
     }
 }

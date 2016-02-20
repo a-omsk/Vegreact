@@ -11,11 +11,11 @@ export default class Map extends React.Component {
         super(props);
 
         this.state = {
-            markers: MarkerStore.getAllMarkers()
+            markers: MarkerStore.allMarkers
         };
 
         this.onCityChange = ()  => {
-            let city = CityStore.getCurrentCity();
+            const city = CityStore.currentCity;
 
             if (city) {
                 MarkerService.getMarkers(city);
@@ -23,7 +23,7 @@ export default class Map extends React.Component {
         };
 
         this.onChange = () => {
-            this.setState({markers: MarkerStore.getAllMarkers()});
+            this.setState({markers: MarkerStore.allMarkers});
         };
     }
 

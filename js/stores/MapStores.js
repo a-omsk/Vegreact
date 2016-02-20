@@ -22,7 +22,7 @@ class MapStore extends EventEmitter {
         });
     }
 
-    get() {
+    get get() {
         return _map;
     }
 }

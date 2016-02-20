@@ -45,11 +45,11 @@ class CityStore extends EventEmitter {
         });
     }
 
-    getCitiesList() {
+    get citiesList() {
         return _citiesList;
     }
 
-    getCurrentCity() {
+    get currentCity() {
         return _currentCity;
     }
 }

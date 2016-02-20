@@ -52,23 +52,23 @@ class LocationStore extends EventEmitter {
         });
     }
 
-    getLocations() {
+    get locations() {
         return _locations;
     }
 
-    getCurrentGroup() {
+    get currentGroup() {
         return cloneDeep(_currentGroup);
     }
 
-    canLoadMore() {
+    get canLoadMore() {
         return _loadable;
     }
 
-    isBlocked() {
+    get isBlocked() {
         return _blocked;
     }
 
-    getCurrentPage() {
+    get currentPage() {
         return _currentPage;
     }
 }

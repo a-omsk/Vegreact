@@ -16,7 +16,7 @@ class MarkerStore extends EventEmitter {
         };
 
         const removeMarkers = () => {
-            const Map = MapStore.get();
+            const Map = MapStore.get;
 
             each(Map._layers, (marker) => {
                 if (has(marker, '_icon')) {
@@ -37,7 +37,7 @@ class MarkerStore extends EventEmitter {
         });
     }
 
-    getAllMarkers() {
+    get allMarkers() {
         return _markers;
     }
 }
