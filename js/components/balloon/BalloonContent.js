@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import BallonButton from './BallonButton';
 import AuthModal from '../common/AuthModal';
+import AddLocationModal from '../common/AddLocationModal'
 import UserStore from '../../stores/UserStore';
 
 class BalloonContent extends React.Component {
@@ -9,15 +10,16 @@ class BalloonContent extends React.Component {
 
         this.state = {
             isLogined: !!UserStore.currentUser,
-            modalOpened: false
+            authModalOpened: false,
+            locationModalOpened: false
         };
 
+        this.toggleAuthButton = () => this.setState({authModalOpened: !this.state.authModalOpened});
+        this.toggleLocationButton = () => this.setState({locationModalOpened: !this.state.locationModalOpened});
+
         this.buttonAction = () => {
-            if (this.state.isLogined) {
-                console.log('Add location modal opened');
-            } else {
-                this.setState({modalOpened: true});
-            }
+            const stateBool = (this.state.isLogined) ? 'locationModalOpened' : 'authModalOpened';
+            this.setState({[stateBool]: true});
         };
 
         this.onUserChange = () => {
@@ -48,7 +50,8 @@ class BalloonContent extends React.Component {
             <div>
                 {content}
                 <BallonButton action={this.buttonAction.bind(this)} isLogined={this.state.isLogined} />
-                <AuthModal opened={this.state.modalOpened} />
+                <AuthModal closeHandler={this.toggleAuthButton.bind(this)} opened={this.state.authModalOpened} />
+                <AddLocationModal closeHandler={this.toggleLocationButton.bind(this)} opened={this.state.locationModalOpened} />
             </div>
         )
     }

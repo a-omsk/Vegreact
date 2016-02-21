@@ -24,7 +24,7 @@ class Toolbar extends React.Component {
                 UserService.getUser();
             } else {
                 this.setState({user: UserStore.currentUser});
-                
+
                 if(this.state.showAuthModal) {
                     this.setState({showAuthModal: false});
                 }
@@ -60,7 +60,7 @@ class Toolbar extends React.Component {
         return (<div style={toolbarStyle}>
                     <UserButton modalHandler={this.toggleModal.bind(this)} user={this.state.user} />
                     <CityButton city={this.state.city} />
-                    <AuthModal opened={this.state.showAuthModal} />
+                    <AuthModal closeHandler={this.toggleModal.bind(this)} opened={this.state.showAuthModal} />
                </div>);
     }
 }

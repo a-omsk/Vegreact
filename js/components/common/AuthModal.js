@@ -32,8 +32,6 @@ class AuthModal extends React.Component {
             loginErrors: {}
         };
 
-        this.toggleModal = () => this.setState({showAuthModal: !this.state.showAuthModal});
-
         this.onLoginModelChange = (e) => {
             const {name, value} = e.target;
 
@@ -60,7 +58,7 @@ class AuthModal extends React.Component {
         this.login = () => {
             if (this.isFormValid()) {
                 UserService.login(this.state.credentials);
-                this.toggleModal();
+                this.props.closeHandler();
                 this.setState({credentials: {}});
             }
         };
@@ -71,7 +69,7 @@ class AuthModal extends React.Component {
             <Modal
               isOpen={this.props.opened}
               style={modalStyle}
-              onRequestClose={this.toggleModal.bind(this)} >
+              onRequestClose={this.props.closeHandler} >
 
               <AuthForm
                   onChange={this.onLoginModelChange.bind(this)}
