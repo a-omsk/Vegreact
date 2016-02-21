@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Modal from 'react-modal';
+import AddLocationForm from './AddLocationForm';
 
 const modalStyle = {
     overlay : {
@@ -11,28 +12,22 @@ const modalStyle = {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 40 + '%',
-        width: 40 + '%',
+        height: 80 + '%',
+        width: 60 + '%',
         margin: 'auto'
     }
 };
 
-class AddLocationModal extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+const AddLocationModal = (props) => {
+    return (
+        <Modal
+          isOpen={props.opened}
+          style={modalStyle}
+          onRequestClose={props.closeHandler}>
 
-    render () {
-        return (
-            <Modal
-              isOpen={this.props.opened}
-              style={modalStyle}
-              onRequestClose={this.props.closeHandler}>
-
-              <div>Auth modal</div>
-            </Modal>
-        )
-    }
+          <AddLocationForm {...props} />
+        </Modal>
+    )
 }
 
 export default AddLocationModal;
