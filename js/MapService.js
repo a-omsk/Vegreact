@@ -3,6 +3,7 @@ import {createElement} from 'react';
 import MapActions from './actions/MapActions';
 import CityActions from './actions/CityActions';
 import LocationActions from './actions/LocationActions';
+import LocationService from './services/LocationService';
 import BalloonContent from './components/balloon/BalloonContent';
 import UserStore from './stores/UserStore';
 
@@ -42,6 +43,8 @@ const MapService = {
 
             Map.on('dblclick', e => {
                 const { lat, lng } = e.latlng;
+
+                LocationService.geocodeCoords(lat, lng);
 
                 DG.popup()
                     .setLatLng([lat, lng])

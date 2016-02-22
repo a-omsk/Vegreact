@@ -1,10 +1,11 @@
 import AppDispatcher from '../AppDispatcher';
 import ActionTypes from '../Constants';
 import {EventEmitter} from 'events';
-import {cloneDeep} from 'lodash';
+import {cloneDeep, pick} from 'lodash';
 
 let _locations = [];
 let _currentGroup = {};
+let _currentAddress = {};
 let _currentPage = 1;
 let _loadable = false;
 let _blocked = false;
@@ -33,6 +34,11 @@ class LocationStore extends EventEmitter {
             this.emit("locationSets")
         };
 
+        const setCurrentAddress = (action) => () => {
+            _currentAddress = pick(action.address.attributes, ['street', 'number']);
+            this.emit('addressSets');
+        }
+
         const blockLoading = () => {
             _blocked = true;
         };
@@ -42,6 +48,7 @@ class LocationStore extends EventEmitter {
                 [ActionTypes.SAVE_LOCATIONS]: saveLocations(action),
                 [ActionTypes.PUSH_LOCATIONS]: saveLocations(action),
                 [ActionTypes.SET_CURRENT_LOCATION]: setCurrentLocation(action),
+                [ActionTypes.SET_CURRENT_ADDRESS]: setCurrentAddress(action),
                 [ActionTypes.RESET_LOCATIONS]: resetLocations,
                 [ActionTypes.BLOCK_LOADING]: blockLoading
             };
@@ -58,6 +65,10 @@ class LocationStore extends EventEmitter {
 
     get currentGroup() {
         return cloneDeep(_currentGroup);
+    }
+
+    get currentAddress() {
+        return `${_currentAddress.street}, ${_currentAddress.number}`;
     }
 
     get canLoadMore() {

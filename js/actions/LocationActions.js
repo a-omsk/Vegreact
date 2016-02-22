@@ -33,6 +33,13 @@ const LocationActions = {
         AppDispatcher.dispatch({
             actionType: ActionTypes.BLOCK_LOADING
         });
+    },
+
+    setCurrentAddress(address) {
+        AppDispatcher.dispatch({
+            actionType: ActionTypes.SET_CURRENT_ADDRESS,
+            address: address
+        });
     }
 };
 

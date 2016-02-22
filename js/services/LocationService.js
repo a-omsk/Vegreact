@@ -1,8 +1,10 @@
 import LocationActions from '../actions/LocationActions';
+import ApiKey from '../ApiKey';
 import {get} from 'jquery';
 import {isArray} from 'lodash';
 
 const host = "https://laravel-joehill.rhcloud.com/api";
+const geoApi = "https://catalog.api.2gis.ru/geo";
 
 const LocationService = {
     getLocations(city, page = 1) {
@@ -24,6 +26,14 @@ const LocationService = {
         get(`${host}/map/${city}/${groupId}`).done((result) => {
             if (result.length) {
                 LocationActions.setCurrentGroup(result[0]);
+            }
+        });
+    },
+
+    geocodeCoords(lat, lng) {
+        get(`${geoApi}/search?q=${lng},${lat}&version=1.3&key=${ApiKey}`).done(data => {
+            if (data.result && data.result.length) {
+                LocationActions.setCurrentAddress(data.result[0]);
             }
         });
     }

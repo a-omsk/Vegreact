@@ -13,7 +13,8 @@ const ActionTypes = {
         SET_CURRENT_LOCATION: "SET_CURRENT_LOCATION",
         BLOCK_LOADING: "BLOCK_LOADING",
         SET_TOKEN: "SET_TOKEN",
-        SET_USER: "SET_USER"
+        SET_USER: "SET_USER",
+        SET_CURRENT_ADDRESS: "SET_CURRENT_ADDRESS"
 };
 
 export default ActionTypes;
