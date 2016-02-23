@@ -6,6 +6,11 @@ import CityStore from '../stores/CityStore';
 import MapService from '../MapService';
 import MarkerService from '../MarkerService';
 
+const mapStyle = {
+    width: 100 + '%',
+    height: 100 + '%'
+};
+
 export default class Map extends React.Component {
     constructor(props) {
         super(props);
@@ -29,6 +34,8 @@ export default class Map extends React.Component {
 
     componentWillUnmount() {
         MarkerStore.removeListener("change", this.onChange);
+        MapStore.removeListener("change", this.onChange);
+        CityStore.removeListener("change", this.onCityChange);
     }
 
     componentWillMount() {
@@ -46,11 +53,6 @@ export default class Map extends React.Component {
     }
 
     render() {
-        const mapStyle = {
-            width: 100 + '%',
-            height: 100 + '%'
-        };
-
         return (
             <div style={mapStyle} id="map">
                 <MarkerList list={this.state.markers} />

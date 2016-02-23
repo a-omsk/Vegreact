@@ -44,6 +44,11 @@ class Toolbar extends React.Component {
         };
     }
 
+    componentWillUnmount() {
+        UserStore.removeListener('change', this.onUserChange);
+        CityStore.removeListener('change', this.onCityChange);
+    }
+
     componentWillMount() {
         UserStore.addListener('change', this.onUserChange);
         CityStore.addListener('change', this.onCityChange);

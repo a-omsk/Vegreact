@@ -3,6 +3,7 @@ import {createElement} from 'react';
 import MapActions from './actions/MapActions';
 import CityActions from './actions/CityActions';
 import LocationActions from './actions/LocationActions';
+import SidebarActions from './actions/SidebarActions';
 import LocationService from './services/LocationService';
 import BalloonContent from './components/balloon/BalloonContent';
 import CityStore from './stores/CityStore';
@@ -62,6 +63,7 @@ const MapService = {
         const {lat, lng, zoom} = CityStore.findCity(city);
         const Map = MapStore.get;
         Map.setView([lat, lng], zoom);
+        SidebarActions.toggleCityList();
     }
 };
 
