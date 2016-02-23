@@ -15,8 +15,9 @@ class LocationStore extends EventEmitter {
         super(props);
 
         const saveLocations = (action) => () => {
-            _locations = action.actionType === 'SAVE_LOCATIONS' ?
-                action.locations.data : _locations.concat(action.locations.data);
+            _locations = action.actionType === 'SAVE_LOCATIONS'
+                ? action.locations.data
+                : _locations.concat(action.locations.data);
 
             _loadable = action.locations.current_page < action.locations.last_page;
             _currentPage = action.locations.current_page;
@@ -35,7 +36,20 @@ class LocationStore extends EventEmitter {
         };
 
         const setCurrentAddress = (action) => () => {
-            _currentAddress = pick(action.address.attributes, ['street', 'number']);
+            const {
+                name,
+                attributes: {
+                    street,
+                    number
+                }
+            } = action.address;
+
+            _currentAddress = {
+                name,
+                street,
+                number
+            };
+
             this.emit('addressSets');
         }
 
@@ -68,7 +82,12 @@ class LocationStore extends EventEmitter {
     }
 
     get currentAddress() {
-        return `${_currentAddress.street}, ${_currentAddress.number}`;
+        if (_currentAddress.street) {
+            return `${_currentAddress.street}, ${_currentAddress.number}`;
+
+        }
+
+        return _currentAddress.name;
     }
 
     get canLoadMore() {
