@@ -61,7 +61,7 @@ const MapService = {
     switchCity(city) {
         const {lat, lng, zoom} = CityStore.findCity(city);
         const Map = MapStore.get;
-        Map.panTo([lat, lng]);
+        Map.setView([lat, lng], zoom);
     }
 };
 
