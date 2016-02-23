@@ -5,7 +5,9 @@ import CityActions from './actions/CityActions';
 import LocationActions from './actions/LocationActions';
 import LocationService from './services/LocationService';
 import BalloonContent from './components/balloon/BalloonContent';
+import CityStore from './stores/CityStore';
 import UserStore from './stores/UserStore';
+import MapStore from './stores/MapStores';
 
 const mapOptions = {
     'center': [54.98, 73.38],
@@ -43,7 +45,7 @@ const MapService = {
 
             Map.on('dblclick', e => {
                 const { lat, lng } = e.latlng;
-                
+
                 LocationService.geocodeCoords(lat, lng);
 
                 DG.popup()
@@ -54,6 +56,12 @@ const MapService = {
 
             MapActions.saveMap(Map);
         });
+    },
+
+    switchCity(city) {
+        const {lat, lng, zoom} = CityStore.findCity(city);
+        const Map = MapStore.get;
+        Map.panTo([lat, lng]);
     }
 };
 

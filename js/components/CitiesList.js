@@ -9,7 +9,7 @@ const CitiesList = (props) => {
 
     return (
         <ul style={listStyle}>
-            { props.list.map(city => <City key={city.code} {...city} />) }
+            { props.list.map(city => <City switchCity={props.switchCity} key={city.code} {...city} />) }
         </ul>
     )
 };

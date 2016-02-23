@@ -10,8 +10,8 @@ const prepareCity = (project) => {
     const [lng, lat] = project.centroid.match(coordsRegExp);
 
     return {
-        lat: parseInt(lat, 10),
-        lng: parseInt(lng, 10),
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
         code: project.code,
         name: project.name,
         zoom: parseInt(project.zoomlevel, 10),

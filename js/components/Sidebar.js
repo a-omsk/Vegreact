@@ -1,6 +1,7 @@
 import React from 'react';
 import LocationStore from '../stores/LocationStore';
 import LocationService from '../services/LocationService';
+import MapService from '../MapService';
 import MarkerService from '../MarkerService';
 import LocationList from './LocationList';
 import CitiesList from './CitiesList';
@@ -34,13 +35,9 @@ export default class Sidebar extends React.Component {
             }
         };
 
-        this.onChange = () => {
-            this.setState({locations: LocationStore.locations});
-        };
-
-        this.onViewChange = () => {
-            this.setState({cityView: SidebarStore.viewState});
-        };
+        this.switchCity = (city) => () => MapService.switchCity(city);
+        this.onChange = () => this.setState({locations: LocationStore.locations});
+        this.onViewChange = () => this.setState({cityView: SidebarStore.viewState});
 
         this.handleScrolling = (e) => {
             if (LocationStore.canLoadMore) {
@@ -85,7 +82,7 @@ export default class Sidebar extends React.Component {
         let isLocationList;
 
         if (this.state.cityView) {
-            content  = <CitiesList list={this.state.cities} />
+            content  = <CitiesList switchCity={this.switchCity.bind(this)} list={this.state.cities} />
         } else {
             if (this.props.children) {
                 content = this.props.children;
