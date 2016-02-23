@@ -1,5 +1,5 @@
 # Vegreact
-React.js implementation of Vegangular app
+React.js implementation of Vegangular app. [Working demo] (https://vegreact.firebaseapp.com)
 
 ### Tech
 
