@@ -74,16 +74,6 @@ class LocationStore extends EventEmitter {
         });
     }
 
-    *switchLocation(initialIndex) {
-        const group =  _currentGroup;
-
-        if (group && group.locations.length) {
-            while(true) {
-                yield group.locations[0];
-            }
-        }
-    }
-
     get locations() {
         return _locations;
     }

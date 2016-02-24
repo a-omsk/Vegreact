@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { findIndex, isNumber } from 'lodash';
+import { findIndex, isNumber, isUndefined } from 'lodash';
 import LocationStore from '../../stores/LocationStore';
 import LocationService from '../../services/LocationService';
 import DetailsContent from './DetailsContent';
@@ -9,8 +9,20 @@ class LocationDetails extends React.Component {
 
     constructor(props) {
         super(props);
+        const self = this;
 
-        let locationGenerator = LocationStore.switchLocation();
+        const locationGenerator = function* (reverse) {
+            const locations = self.state.group.locations;
+            let index = locations.indexOf(self.state.selectedLocation);
+
+            while(true) {
+                if(reverse) {
+                    yield isUndefined(locations[index - 1]) ? locations.length - 1 : index - 1;
+                } else {
+                    yield isUndefined(locations[index + 1]) ? 0 : index + 1;
+                }
+            }
+        };
 
         this.state = {
             group: LocationStore.currentGroup,
@@ -18,25 +30,31 @@ class LocationDetails extends React.Component {
             selectedComments: []
         };
 
+        this.locationGenerator = (reverse) => {
+            const generator = locationGenerator(reverse);
+            return () => {
+                const index = generator.next().value;
+                const newLocation = this.state.group.locations[index];
+
+                this.setState({
+                    selectedLocation: newLocation,
+                    selectedComments: newLocation.comments
+                });
+            };
+        };
+
         this.setLocation = () => {
             const group = LocationStore.currentGroup;
             const selectedId = parseInt(this.props.location.query.id);
             const selectedIndex = findIndex(group.locations, loc => selectedId ? selectedId === loc.id : true);
             const selectedLocation = group.locations[selectedIndex];
-            const selectedComments = selectedLocation.comments;
 
             this.setState({
                 group: group,
                 selectedLocation: selectedLocation,
-                selectedComments: selectedComments
+                selectedComments: selectedLocation.comments
             });
-            
-            locationGenerator = LocationStore.switchLocation();
         };
-
-        this.switchHandler = () => {
-            console.log(locationGenerator.next());
-        }
     }
 
     componentWillMount() {
@@ -61,8 +79,13 @@ class LocationDetails extends React.Component {
     }
 
     render () {
+        const hasManyLocations = this.state.group.locations && this.state.group.locations.length > 1;
+
         return (<div style={{overflow: 'auto'}}>
-                   <DetailsContent switchHandler={this.switchHandler.bind(this)} location={this.state.selectedLocation} />
+                   <DetailsContent next={this.locationGenerator().bind(this)}
+                                   prev={this.locationGenerator(true).bind(this)}
+                                   hasManyLocations={hasManyLocations}
+                                   location={this.state.selectedLocation} />
                    <DetailsComments comments={this.state.selectedComments}/>
                </div>)
     }

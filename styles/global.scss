@@ -114,13 +114,15 @@ div.location-container {
 
 .location-details__name {
     display: flex;
+    align-items: center;
+    justify-content: center;
 
     &__title{
-        padding-left: 0.3em;
+        padding: 0 0.2em;
+        text-align: center;
     }
 
     .location-arrow{
-        align-self: center;
         cursor: pointer;
     }
 }

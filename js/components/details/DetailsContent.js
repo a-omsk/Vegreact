@@ -2,6 +2,9 @@ import React, { PropTypes } from 'react'
 
 const DetailsContent = (props) => {
     const location = props.location;
+    const displayStyle = {
+        display: props.hasManyLocations ? null : 'none'
+    };
 
     let content;
 
@@ -10,7 +13,9 @@ const DetailsContent = (props) => {
             <div style={{paddingLeft: 15}} className='location-details-container'>
                 <div className='location-details-name'>
                     <div className="location-details__name">
-                        <h1 onClick={props.switchHandler} className="location-details__name__title">{location.name}</h1>
+                        <span className="location-arrow" onClick={props.prev} style={displayStyle}>{'<'}</span>
+                        <h1 className="location-details__name__title">{location.name}</h1>
+                        <span className="location-arrow" onClick={props.next} style={displayStyle}>{'>'}</span>
                     </div>
                     <h2>{location.address}</h2>
                 </div>
