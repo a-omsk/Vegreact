@@ -1,20 +1,22 @@
-const ActionTypes = {
-        SAVE_MAP: "SAVE_MAP",
-        SAVE_MARKERS: "SAVE_MARKERS",
-        SAVE_LOCATIONS: "SAVE_LOCATIONS",
-        PUSH_LOCATIONS: "PUSH_LOCATIONS",
-        SET_CITY: "SET_CITY",
-        RESET_CITY: "RESET_CITY",
-        RESET_LOCATIONS: "RESET_LOCATIONS",
-        REMOVE_MARKERS: "REMOVE_MARKERS",
-        GET_CITIES: "SET_CITIES_LIST",
-        TOGGLE_CITY_LIST: "TOGGLE_CITY_LIST",
-        SET_CITIES_LIST: "SET_CITIES_LIST",
-        SET_CURRENT_LOCATION: "SET_CURRENT_LOCATION",
-        BLOCK_LOADING: "BLOCK_LOADING",
-        SET_TOKEN: "SET_TOKEN",
-        SET_USER: "SET_USER",
-        SET_CURRENT_ADDRESS: "SET_CURRENT_ADDRESS"
-};
+import keyMirror from 'fbjs/lib/keyMirror';
+
+const ActionTypes = keyMirror({
+        SAVE_MAP: null,
+        SAVE_MARKERS: null,
+        SAVE_LOCATIONS: null,
+        PUSH_LOCATIONS: null,
+        SET_CITY: null,
+        RESET_CITY: null,
+        RESET_LOCATIONS: null,
+        REMOVE_MARKERS: null,
+        GET_CITIES: null,
+        TOGGLE_CITY_LIST: null,
+        SET_CITIES_LIST: null,
+        SET_CURRENT_LOCATION: null,
+        BLOCK_LOADING: null,
+        SET_TOKEN: null,
+        SET_USER: null,
+        SET_CURRENT_ADDRESS: null
+});
 
 export default ActionTypes;

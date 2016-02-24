@@ -11,6 +11,7 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "events": "^1.1.0",
+    "fbjs": "^0.7.2",
     "flux": "^2.1.1",
     "history": "^2.0.0",
     "jquery": "^2.2.0",
