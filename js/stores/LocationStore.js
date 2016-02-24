@@ -1,4 +1,5 @@
 import AppDispatcher from '../AppDispatcher';
+import Polyfill from "babel-polyfill";
 import ActionTypes from '../Constants';
 import {EventEmitter} from 'events';
 import {cloneDeep, pick} from 'lodash';
@@ -71,6 +72,16 @@ class LocationStore extends EventEmitter {
                 actionList[action.actionType]();
             }
         });
+    }
+
+    *switchLocation(initialIndex) {
+        const group =  _currentGroup;
+
+        if (group && group.locations.length) {
+            while(true) {
+                yield group.locations[0];
+            }
+        }
     }
 
     get locations() {

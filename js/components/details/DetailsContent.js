@@ -10,7 +10,7 @@ const DetailsContent = (props) => {
             <div style={{paddingLeft: 15}} className='location-details-container'>
                 <div className='location-details-name'>
                     <div className="location-details__name">
-                        <h1 className="location-details__name__title">{location.name}</h1>
+                        <h1 onClick={props.switchHandler} className="location-details__name__title">{location.name}</h1>
                     </div>
                     <h2>{location.address}</h2>
                 </div>

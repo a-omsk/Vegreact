@@ -10,6 +10,8 @@ class LocationDetails extends React.Component {
     constructor(props) {
         super(props);
 
+        let locationGenerator = LocationStore.switchLocation();
+
         this.state = {
             group: LocationStore.currentGroup,
             selectedLocation: {},
@@ -28,7 +30,13 @@ class LocationDetails extends React.Component {
                 selectedLocation: selectedLocation,
                 selectedComments: selectedComments
             });
+            
+            locationGenerator = LocationStore.switchLocation();
         };
+
+        this.switchHandler = () => {
+            console.log(locationGenerator.next());
+        }
     }
 
     componentWillMount() {
@@ -54,7 +62,7 @@ class LocationDetails extends React.Component {
 
     render () {
         return (<div style={{overflow: 'auto'}}>
-                   <DetailsContent location={this.state.selectedLocation} />
+                   <DetailsContent switchHandler={this.switchHandler.bind(this)} location={this.state.selectedLocation} />
                    <DetailsComments comments={this.state.selectedComments}/>
                </div>)
     }

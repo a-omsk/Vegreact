@@ -9,6 +9,7 @@
   "author": "",
   "license": "GPL-3.0",
   "dependencies": {
+    "babel-polyfill": "^6.5.0",
     "bootstrap": "^3.3.6",
     "events": "^1.1.0",
     "fbjs": "^0.7.2",
