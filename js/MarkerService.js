@@ -1,4 +1,6 @@
 import MarkerActions from './actions/MarkerActions';
+import BalloonService from './services/BalloonService';
+import LocationService from './services/LocationService';
 import {get} from 'jquery';
 import {isArray} from 'lodash';
 
@@ -18,9 +20,18 @@ const MarkerService = {
                 iconSize: [56, 56]
             });
 
-            return DG.marker([lat, lng], {
+            const marker = DG.marker([lat, lng], {
                 icon: veganIcon
             });
+
+            marker.on('dblclick', (e) => {
+                const { lat, lng } = e.latlng;
+                LocationService.geocodeCoords(lat, lng);
+
+                marker.bindPopup(BalloonService.createContent('marker')).openPopup();
+            });
+
+            return marker;
         }
     },
 

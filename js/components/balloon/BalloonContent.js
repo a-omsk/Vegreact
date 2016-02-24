@@ -60,7 +60,7 @@ class BalloonContent extends React.Component {
         const content = this.state.isLogined ?
             (<div>
                 <h4 style={{textAlign: 'center'}}>{this.state.address || <Spinner />}</h4>
-                <div>Хотите добавить заведение в этом месте?</div>
+                <div>{this.props.origin === 'marker' ? 'Добавить еще одно'  : 'Хотите добавить'} заведение в этом месте?</div>
             </div>) :
 
             (<div>Для добавления заведения, пожалуйста, авторизуйтесь</div>);

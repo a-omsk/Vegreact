@@ -1,14 +1,12 @@
-import {render} from 'react-dom';
-import {createElement} from 'react';
 import MapActions from './actions/MapActions';
 import CityActions from './actions/CityActions';
 import LocationActions from './actions/LocationActions';
 import SidebarActions from './actions/SidebarActions';
 import LocationService from './services/LocationService';
-import BalloonContent from './components/balloon/BalloonContent';
 import CityStore from './stores/CityStore';
 import UserStore from './stores/UserStore';
 import MapStore from './stores/MapStores';
+import BaloonService from './services/BalloonService';
 
 const mapOptions = {
     'center': [54.98, 73.38],
@@ -18,15 +16,6 @@ const mapOptions = {
     'zoomControl': false,
     'doubleClickZoom': false,
     'projectDetector': true
-};
-
-const createBallonContent = () => {
-    const div = document.createElement('div');
-    const content = createElement(BalloonContent);
-
-    render(content, div);
-
-    return div;
 };
 
 const MapService = {
@@ -46,12 +35,11 @@ const MapService = {
 
             Map.on('dblclick', e => {
                 const { lat, lng } = e.latlng;
-
                 LocationService.geocodeCoords(lat, lng);
 
                 DG.popup()
                     .setLatLng([lat, lng])
-                    .setContent(createBallonContent())
+                    .setContent(BaloonService.createContent())
                     .addTo(Map);
             });
 
