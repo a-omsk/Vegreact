@@ -4,6 +4,7 @@ import LocationService from '../services/LocationService';
 import MapService from '../MapService';
 import MarkerService from '../MarkerService';
 import LocationList from './LocationList';
+import NoLocations from './NoLocations';
 import CitiesList from './CitiesList';
 import WarningMessage from './WarningMessage';
 import CityStore from '../stores/CityStore';
@@ -38,13 +39,13 @@ export default class Sidebar extends React.Component {
 
         this.onCityChange = () => {
             const city = CityStore.currentCity;
-
             if (city) {
                 LocationService.getLocations(city);
-                this.setState({city});
             } else {
                 MarkerService.removeMarkers();
             }
+
+            this.setState({city});
 
             if (isEmpty(this.state.cities) && CityStore.citiesList.length) {
                 this.setState({cities: CityStore.citiesList});
@@ -90,7 +91,8 @@ export default class Sidebar extends React.Component {
                 content = this.props.children;
             } else {
                 if (this.state.city) {
-                    content = <LocationList list={this.state.locations} />;
+                    content = this.state.locations.length ?
+                        <LocationList list={this.state.locations} /> : <NoLocations />
                     isLocationList = true;
                 } else {
                     content = <WarningMessage message="Вы находитесь за пределами ближайшего города" />

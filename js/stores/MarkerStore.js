@@ -5,6 +5,7 @@ import MapStore from './MapStores';
 import {each, has} from 'lodash';
 
 let _markers = [];
+let _markersLoaded = false;
 
 class MarkerStore extends EventEmitter {
     constructor(props) {
@@ -15,6 +16,11 @@ class MarkerStore extends EventEmitter {
             this.emit("change");
         };
 
+        const fixMarkers = () => {
+            _markersLoaded = true;
+            this.emit("markersLoaded");
+        };
+
         const removeMarkers = () => {
             const Map = MapStore.get;
 
@@ -23,12 +29,15 @@ class MarkerStore extends EventEmitter {
                     marker.remove();
                 }
             });
+
+            _markersLoaded = false;
         };
 
         AppDispatcher.register(action => {
             const actionList = {
                 [ActionTypes.SAVE_MARKERS]: saveMarkers(action),
-                [ActionTypes.REMOVE_MARKERS]: removeMarkers
+                [ActionTypes.REMOVE_MARKERS]: removeMarkers,
+                [ActionTypes.FIX_MARKERS]: fixMarkers
             };
 
             if (actionList[action.actionType]) {
@@ -39,6 +48,10 @@ class MarkerStore extends EventEmitter {
 
     get allMarkers() {
         return _markers;
+    }
+
+    get loaded() {
+        return _markersLoaded;
     }
 }
 

@@ -9,6 +9,12 @@ const MarkerActions = {
         });
     },
 
+    fixMarkers() {
+        AppDispatcher.dispatch({
+            actionType: ActionTypes.FIX_MARKERS
+        });
+    },
+
     removeMarkers() {
         AppDispatcher.dispatch({
             actionType: ActionTypes.REMOVE_MARKERS

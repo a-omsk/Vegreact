@@ -16,7 +16,8 @@ const ActionTypes = keyMirror({
         BLOCK_LOADING: null,
         SET_TOKEN: null,
         SET_USER: null,
-        SET_CURRENT_ADDRESS: null
+        SET_CURRENT_ADDRESS: null,
+        FIX_MARKERS: null
 });
 
 export default ActionTypes;
