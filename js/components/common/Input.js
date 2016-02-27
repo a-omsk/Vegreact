@@ -1,26 +1,26 @@
 import React, { PropTypes } from 'react';
 
-const Input = (props) => {
+const Input = ({inputType, name, placeholder, onChange, value, error}) => {
     let wrapperClass = 'form-group';
 
     const properties = {
-        type: props.inputType || 'text',
-        name: props.name,
+        type: inputType || 'text',
+        name: name,
         className: 'form-control',
-        placeholder: props.placeholder,
-        onChange: props.onChange,
-        value: props.value
+        placeholder: placeholder,
+        onChange: onChange,
+        value: value
     };
 
-    if(props.error && props.error.length) {
+    if(error && error.length) {
         wrapperClass += ' ' + 'has-error';
     }
 
     return (
         <div className={wrapperClass}>
             <div className='field'>
-                {props.inputType === 'textarea' ? <textarea {...properties} /> : <input {...properties} />}
-                <div className='input'>{props.error}</div>
+                {inputType === 'textarea' ? <textarea {...properties} /> : <input {...properties} />}
+                <div className='input'>{error}</div>
             </div>
         </div>
     );

@@ -1,17 +1,17 @@
 import React, { PropTypes } from 'react'
 
-const UserButton = (props) => {
+const UserButton = ({user, modalHandler}) => {
 
     const buttonStyle = {
         marginRight: 5 + 'px'
     };
 
-    return props.user ? (
+    return user ? (
         <div style={buttonStyle} className="btn btn-default">
-            <span>{props.user.name}</span>
+            <span>{user.name}</span>
         </div>
     ) : (
-        <div onClick={props.modalHandler} style={buttonStyle} className="btn btn-default">
+        <div onClick={modalHandler} style={buttonStyle} className="btn btn-default">
             <span>Войти</span>
         </div>
     )

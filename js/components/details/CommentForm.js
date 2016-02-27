@@ -21,9 +21,7 @@ class CommentForm extends React.Component {
             this.setState({visible: !this.state.visible});
         };
 
-        this.onChange = (event) => {
-            const {name, value} = event.target;
-
+        this.onChange = ({target: {name, value}}) => {
             this.state.feedback[name] = value;
             this.setState({feedback: this.state.feedback});
         };

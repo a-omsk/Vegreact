@@ -1,9 +1,9 @@
 import React from 'react';
 
-const WarningMessage = (props) => {
+const WarningMessage = ({message}) => {
 
     return <div className="message-warning">
-               <h3>{props.message}</h3>
+               <h3>{message}</h3>
            </div>
 };
 

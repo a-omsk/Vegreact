@@ -1,28 +1,29 @@
 import React, { PropTypes } from 'react';
 import Input from './common/Input';
 
-const AuthForm = (props) => {
+const AuthForm = ({onChange, credentials, errors, submit}) => {
+
     return (
         <div>
             <Input
                 inputType="email"
                 name="username"
                 placeholder="Имя пользователя"
-                onChange={props.onChange}
-                value={props.credentials.username}
-                error={props.errors.username}
+                onChange={onChange}
+                value={credentials.username}
+                error={errors.username}
             />
 
             <Input
                 inputType="password"
                 name="password"
                 placeholder="Пароль"
-                onChange={props.onChange}
-                value={props.credentials.pasword}
-                error={props.errors.password}
+                onChange={onChange}
+                value={credentials.pasword}
+                error={errors.password}
             />
 
-        <button className="btn btn-success btn-block" onClick={props.submit}>Войти</button>
+        <button className="btn btn-success btn-block" onClick={submit}>Войти</button>
         </div>
     )
 };

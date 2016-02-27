@@ -5,16 +5,16 @@ import {get, post} from 'jquery';
 const host = "https://laravel-joehill.rhcloud.com/api";
 
 const UserService = {
-    login(credentials) {
+    login({username, password}) {
 
         const data = {
-            email: credentials.username,
-            password: credentials.password
+            email: username,
+            password: password
         };
 
-        post(`${host}/authenticate`, data).done((result) => {
-            if (result.token) {
-                UserActions.setToken(result.token);
+        post(`${host}/authenticate`, data).done(({token}) => {
+            if (token) {
+                UserActions.setToken(token);
             }
         });
     },
@@ -23,9 +23,9 @@ const UserService = {
         const token = UserStore.token;
 
         if (token) {
-            get(`${host}/authenticate/user?token=${token}`).done((result) => {
-                if (result.user) {
-                    UserActions.setUser(result.user);
+            get(`${host}/authenticate/user?token=${token}`).done(({user}) => {
+                if (user) {
+                    UserActions.setUser(user);
                 }
             });
         }

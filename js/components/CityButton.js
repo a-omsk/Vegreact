@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import SidebarActions from '../actions/SidebarActions';
 
-const CityButton = (props) => {
+const CityButton = ({city}) => {
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -10,7 +10,7 @@ const CityButton = (props) => {
 
     return (
         <div onClick={handleClick} className="btn btn-default">
-            <span>Ваш город: <b>{ props.city && props.city.name ? props.city.name : 'Не выбран'}</b></span>
+            <span>Ваш город: <b>{ city && city.name ? city.name : 'Не выбран'}</b></span>
         </div>
     )
 };

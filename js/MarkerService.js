@@ -24,10 +24,8 @@ const MarkerService = {
                 icon: veganIcon
             });
 
-            marker.on('dblclick', (e) => {
-                const { lat, lng } = e.latlng;
+            marker.on('dblclick', ({latlng: { lat, lng }}) => {
                 LocationService.geocodeCoords(lat, lng);
-
                 marker.bindPopup(BalloonService.createContent('marker')).openPopup();
             });
 

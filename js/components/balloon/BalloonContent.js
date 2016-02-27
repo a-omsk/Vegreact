@@ -27,14 +27,11 @@ class BalloonContent extends React.Component {
         this.toggleAuthButton = () => this.setState({authModalOpened: !this.state.authModalOpened});
         this.toggleLocationButton = () => this.setState({locationModalOpened: !this.state.locationModalOpened});
         this.onAddressChange = () => this.setState({address: LocationStore.currentAddress});
+        this.onUserChange = () => this.setState({isLogined: !!UserStore.currentUser});
 
         this.buttonAction = () => {
             const stateBool = (this.state.isLogined) ? 'locationModalOpened' : 'authModalOpened';
             this.setState({[stateBool]: true});
-        };
-
-        this.onUserChange = () => {
-            this.setState({isLogined: !!UserStore.currentUser});
         };
     }
 

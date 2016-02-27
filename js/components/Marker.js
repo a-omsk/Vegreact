@@ -2,8 +2,8 @@ import React, {PropTypes} from 'react';
 import MapStore from '../stores/MapStores';
 import MapService from '../MarkerService';
 
-const Marker = (props) => {
-    const marker = MapService.createMarker(props.lat, props.lng);
+const Marker = ({id, lat, lng}) => {
+    const marker = MapService.createMarker(lat, lng);
 
     if (DG.ready) {
         let Map = MapStore.get;
@@ -11,7 +11,7 @@ const Marker = (props) => {
     }
 
     return (
-        <div id={props.id}></div>
+        <div id={id}></div>
     )
 };
 

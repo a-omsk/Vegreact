@@ -31,9 +31,9 @@ const LocationService = {
     },
 
     geocodeCoords(lat, lng) {
-        get(`${geoApi}/search?q=${lng},${lat}&version=1.3&key=${ApiKey}`).done(data => {
-            if (data.result && data.result.length) {
-                LocationActions.setCurrentAddress(data.result[0]);
+        get(`${geoApi}/search?q=${lng},${lat}&version=1.3&key=${ApiKey}`).done(({result}) => {
+            if (result && result.length) {
+                LocationActions.setCurrentAddress(result[0]);
             }
         });
     }

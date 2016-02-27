@@ -2,9 +2,7 @@ import React, { PropTypes } from 'react';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
 
-const DetailsComments = (props) => {
-    const comments = props.comments || [];
-
+const DetailsComments = ({comments = []}) => {
     let content;
 
     if (comments.length) {

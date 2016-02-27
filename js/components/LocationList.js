@@ -1,16 +1,17 @@
 import React from 'react';
 import LocationOverview from './LocationOverview';
 
-const LocationList = (props) => {
-    return <ul className="locations-list list-group">{props.list.map(location => {
+const LocationList = ({list}) => {
+    return <ul className="locations-list list-group">{list.map(location => {
+        const {id, marker_id, name, rating, type, business_time} = location;
 
-        return  <LocationOverview key={location.id}
-                                  id={location.id}
-                                  markerId={location.marker_id}
-                                  name={location.name}
-                                  rating={location.rating}
-                                  type={location.type}
-                                  time={location.business_time}>
+        return  <LocationOverview key={id}
+                                  id={id}
+                                  markerId={marker_id}
+                                  name={name}
+                                  rating={rating}
+                                  type={type}
+                                  time={business_time}>
                 </LocationOverview>
     })}</ul>
 };

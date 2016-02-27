@@ -32,24 +32,17 @@ class AuthModal extends React.Component {
             loginErrors: {}
         };
 
-        this.onLoginModelChange = (e) => {
-            const {name, value} = e.target;
-
+        this.onLoginModelChange = ({target: {name, value}}) => {
             this.state.credentials[name] = value;
             this.setState({credentials: this.state.credentials});
         };
 
         this.isFormValid = () => {
-            const credentials = this.state.credentials;
+            const {credentials} = this.state;
             const errors = {};
 
-            if (!credentials.username.length) {
-                errors.username = 'Введите Ваш логин';
-            }
-
-            if (!credentials.password.length) {
-                errors.password = 'Введите Ваш пароль';
-            }
+            if (!credentials.username.length) { errors.username = 'Введите Ваш логин'; }
+            if (!credentials.password.length) { errors.password = 'Введите Ваш пароль'; }
 
             this.setState({loginErrors: errors});
             return !Object.keys(errors).length;
@@ -58,7 +51,7 @@ class AuthModal extends React.Component {
         this.login = () => {
             if (this.isFormValid()) {
                 UserService.login(this.state.credentials);
-                this.props.closeHandler();
+                props.closeHandler();
                 this.setState({credentials: {}});
             }
         };

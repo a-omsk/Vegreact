@@ -10,18 +10,18 @@ class CityStore extends EventEmitter {
     constructor(props) {
         super(props);
 
-        const setCitiesList = (action) => {
-            if (action.cities) {
-                _citiesList = action.cities;
+        const setCitiesList = ({cities}) => {
+            if (cities) {
+                _citiesList = cities;
 
                 localStorage.setItem("cities_list", JSON.stringify(_citiesList));
                 this.emit("change");
             }
         };
 
-        const setCity = (action) => () => {
-            if (action.city) {
-                _currentCity = action.city;
+        const setCity = ({city}) => () => {
+            if (city) {
+                _currentCity = city;
 
                 localStorage.setItem("city", _currentCity);
                 this.emit("change");

@@ -33,8 +33,7 @@ const MapService = {
                 LocationActions.resetLocations();
             });
 
-            Map.on('dblclick', e => {
-                const { lat, lng } = e.latlng;
+            Map.on('dblclick', ({latlng: { lat, lng }}) => {
                 LocationService.geocodeCoords(lat, lng);
 
                 DG.popup()

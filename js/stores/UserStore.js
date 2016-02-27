@@ -10,14 +10,14 @@ class UserStore extends EventEmitter {
     constructor(props) {
         super(props);
 
-        const setToken = (action) => () => {
-            _token = action.token;
+        const setToken = ({token}) => () => {
+            _token = token;
             localStorage.setItem('token', _token);
             this.emit('change');
         };
 
-        const setUser = (action) => () => {
-            _user = action.user;
+        const setUser = ({user}) => () => {
+            _user = user;
             localStorage.setItem('user', JSON.stringify(_user));
             this.emit('change');
         };

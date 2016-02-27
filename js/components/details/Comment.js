@@ -2,13 +2,13 @@ import React, { PropTypes } from 'react';
 import moment from 'moment';
 import Rater from 'react-rater';
 
-const Comment = (props) => {
+const Comment = ({date, rating, text}) => {
     return (
         <li style={{background: 'none'}} className='list-group-item'>
             <h4 className='list-author'>Joe Hill</h4>
-            <div className='list-date'>{moment(props.date).format("YYYY MMMM DD HH:mm")}</div>
-            <Rater style={{pointerEvents: 'none'}} total={props.rating} rating={props.rating} />
-            <div className='list-body'>{props.text}</div>
+            <div className='list-date'>{moment(date).format("YYYY MMMM DD HH:mm")}</div>
+            <Rater style={{pointerEvents: 'none'}} total={rating} rating={rating} />
+            <div className='list-body'>{text}</div>
         </li>
     )
 };

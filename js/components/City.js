@@ -4,8 +4,8 @@ const cityStyle = {
     cursor: 'pointer'
 };
 
-const City = (props) => {
-    return <li style={cityStyle} onClick={props.switchCity(props.code)} style={{background: 'none'}} className="list-group-item">{props.name}</li>;
+const City = ({switchCity, code, name}) => {
+    return <li style={cityStyle} onClick={switchCity(code)} style={{background: 'none'}} className="list-group-item">{name}</li>;
 };
 
 export default City

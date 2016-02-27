@@ -15,13 +15,13 @@ class LocationStore extends EventEmitter {
     constructor(props) {
         super(props);
 
-        const saveLocations = (action) => () => {
-            _locations = action.actionType === 'SAVE_LOCATIONS'
-                ? action.locations.data
-                : _locations.concat(action.locations.data);
+        const saveLocations = ({actionType, locations}) => () => {
+            _locations = actionType === 'SAVE_LOCATIONS'
+                ? locations.data
+                : _locations.concat(locations.data);
 
-            _loadable = action.locations.current_page < action.locations.last_page;
-            _currentPage = action.locations.current_page;
+            _loadable = locations.current_page < locations.last_page;
+            _currentPage = locations.current_page;
             _blocked = false;
             this.emit("change");
         };
@@ -31,19 +31,19 @@ class LocationStore extends EventEmitter {
             this.emit("change");
         };
 
-        const setCurrentLocation = (action) => () => {
-            _currentGroup = action.group;
+        const setCurrentLocation = ({group}) => () => {
+            _currentGroup = group;
             this.emit("locationSets")
         };
 
-        const setCurrentAddress = (action) => () => {
+        const setCurrentAddress = ({address}) => () => {
             const {
                 name,
                 attributes: {
                     street,
                     number
                 }
-            } = action.address;
+            } = address;
 
             _currentAddress = {
                 name,

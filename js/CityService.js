@@ -6,16 +6,16 @@ import ApiKey from './ApiKey';
 
 const coordsRegExp = /\d+.\d+/g;
 
-const prepareCity = (project) => {
-    const [lng, lat] = project.centroid.match(coordsRegExp);
+const prepareCity = ({centroid, code, name, zoomlevel, min_zoomlevel}) => {
+    const [lng, lat] = centroid.match(coordsRegExp);
 
     return {
+        code,
+        name,
         lat: parseFloat(lat),
         lng: parseFloat(lng),
-        code: project.code,
-        name: project.name,
-        zoom: parseInt(project.zoomlevel, 10),
-        minZoom: parseInt(project.min_zoomlevel, 10)
+        zoom: parseInt(zoomlevel, 10),
+        minZoom: parseInt(min_zoomlevel, 10)
     };
 };
 
@@ -26,8 +26,8 @@ const CityService = {
         if(cities.length) {
             // Do nothing
         } else {
-            get(`https://catalog.api.2gis.ru/project/list?version=1.3&key=${ApiKey}`).done((data) => {
-                const citiesList = data.result.map(prepareCity);
+            get(`https://catalog.api.2gis.ru/project/list?version=1.3&key=${ApiKey}`).done(({result}) => {
+                const citiesList = result.map(prepareCity);
                 CityActions.setCitiesList(citiesList);
             });
         }

@@ -3,13 +3,13 @@ import Rater from 'react-rater';
 import CityStore from '../stores/CityStore';
 import {Link} from 'react-router';
 
-const LocationOverview = (props) => {
+const LocationOverview = ({id, markerId, name, type, time, rating}) => {
 
     return <li style={{background: 'none'}} className="list-group-item">
-                <Link to={{pathname: `/locations/${CityStore.currentCity}/${props.markerId}`, query: { id: props.id }}}><h4>{props.name}</h4></Link>
-                <div>{props.type}</div>
-                <div>{props.time}</div>
-                <Rater style={{pointerEvents: 'none'}} total={props.rating} rating={props.rating} />
+                <Link to={{pathname: `/locations/${CityStore.currentCity}/${markerId}`, query: { id: id }}}><h4>{name}</h4></Link>
+                <div>{type}</div>
+                <div>{time}</div>
+                <Rater style={{pointerEvents: 'none'}} total={rating} rating={rating} />
           </li>;
 };
 

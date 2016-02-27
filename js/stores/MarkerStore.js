@@ -11,8 +11,8 @@ class MarkerStore extends EventEmitter {
     constructor(props) {
         super(props);
 
-        const saveMarkers = (action) => () => {
-            _markers = action.markers;
+        const saveMarkers = ({markers}) => () => {
+            _markers = markers;
             this.emit("change");
         };
 

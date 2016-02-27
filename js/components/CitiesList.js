@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import City from './City';
 
-const CitiesList = (props) => {
+const CitiesList = ({list, switchCity}) => {
 
     const listStyle = {
         padding: 0
@@ -9,7 +9,7 @@ const CitiesList = (props) => {
 
     return (
         <ul style={listStyle}>
-            { props.list.map(city => <City switchCity={props.switchCity} key={city.code} {...city} />) }
+            { list.map(city => <City switchCity={switchCity} key={city.code} {...city} />) }
         </ul>
     )
 };

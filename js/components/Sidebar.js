@@ -52,10 +52,10 @@ export default class Sidebar extends React.Component {
             }
         };
 
-        this.handleScrolling = (e) => {
+        this.handleScrolling = ({nativeEvent}) => {
             if (LocationStore.canLoadMore) {
-                const initialHeight = e.nativeEvent.srcElement.firstChild.scrollHeight - window.innerHeight;
-                const currentScrollHeight = e.nativeEvent.srcElement.scrollTop;
+                const initialHeight = nativeEvent.srcElement.firstChild.scrollHeight - window.innerHeight;
+                const currentScrollHeight = nativeEvent.srcElement.scrollTop;
 
                 if (currentScrollHeight >= initialHeight && !LocationStore.isBlocked) {
                     const targetPage = LocationStore.currentPage + 1;
