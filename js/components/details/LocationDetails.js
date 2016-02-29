@@ -4,6 +4,7 @@ import LocationStore from '../../stores/LocationStore';
 import LocationService from '../../services/LocationService';
 import DetailsContent from './DetailsContent';
 import DetailsComments from './DetailsComments';
+import MapService from '../../MapService';
 
 class LocationDetails extends React.Component {
 
@@ -45,15 +46,20 @@ class LocationDetails extends React.Component {
 
         this.setLocation = () => {
             const group = LocationStore.currentGroup;
-            const selectedId = parseInt(this.props.location.query.id);
-            const selectedIndex = findIndex(group.locations, loc => selectedId ? selectedId === loc.id : true);
+            const selectedId = parseInt(this.props.location.query.id, 10);
+            const selectedIndex = findIndex(group.locations, loc => (selectedId) ? selectedId === loc.id : true);
             const selectedLocation = group.locations[selectedIndex];
 
             this.setState({
-                group: group,
-                selectedLocation: selectedLocation,
-                selectedComments: selectedLocation.comments
+                group,
+                selectedLocation,
+                selectedComments: selectedLocation ? selectedLocation.comments: []
             });
+
+            if (group.coordinates) {
+                const [lat, lng] = group.coordinates.split(', ')
+                MapService.panTo(lat, lng);
+            }
         };
     }
 

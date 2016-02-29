@@ -1,6 +1,8 @@
+import { browserHistory } from 'react-router';
 import MarkerActions from './actions/MarkerActions';
 import BalloonService from './services/BalloonService';
 import LocationService from './services/LocationService';
+import CityStore from './stores/CityStore';
 import {get} from 'jquery';
 import {isArray} from 'lodash';
 
@@ -13,7 +15,7 @@ const MarkerService = {
         });
     },
 
-    createMarker(lat, lng) {
+    createMarker(id, lat, lng) {
         if (DG.ready) {
             const veganIcon = DG.icon({
                 iconUrl: '/assets/img/marker.svg',
@@ -22,6 +24,12 @@ const MarkerService = {
 
             const marker = DG.marker([lat, lng], {
                 icon: veganIcon
+            });
+
+            marker.locationId = id;
+
+            marker.on('click', () => {
+                browserHistory.push(`/locations/${CityStore.currentCity}/${id}`);
             });
 
             marker.on('dblclick', ({latlng: { lat, lng }}) => {

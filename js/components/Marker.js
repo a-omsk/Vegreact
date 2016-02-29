@@ -3,7 +3,7 @@ import MapStore from '../stores/MapStores';
 import MapService from '../MarkerService';
 
 const Marker = ({id, lat, lng}) => {
-    const marker = MapService.createMarker(lat, lng);
+    const marker = MapService.createMarker(id,lat, lng);
 
     if (DG.ready) {
         let Map = MapStore.get;

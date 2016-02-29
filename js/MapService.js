@@ -46,6 +46,15 @@ const MapService = {
         });
     },
 
+    panTo(lat, lng) {
+        if (DG.ready) {
+        const Map = MapStore.get;
+            Map.panTo([lat, lng], {
+                animate: true
+            });
+        }
+    },
+
     switchCity(city) {
         const {lat, lng, zoom} = CityStore.findCity(city);
         const Map = MapStore.get;
