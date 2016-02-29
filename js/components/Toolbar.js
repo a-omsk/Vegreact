@@ -1,5 +1,5 @@
 import React from 'react';
-import {find} from 'lodash';
+import { find } from 'lodash';
 import UserButton from './UserButton';
 import CityButton from './CityButton';
 import AuthModal from './common/AuthModal';
@@ -14,19 +14,19 @@ class Toolbar extends React.Component {
         this.state = {
             city: CityStore.currentCity,
             user: UserStore.currentUser,
-            showAuthModal: false
+            showAuthModal: false,
         };
 
-        this.toggleModal = () => this.setState({showAuthModal: !this.state.showAuthModal});
+        this.toggleModal = () => this.setState({ showAuthModal: !this.state.showAuthModal });
 
         this.onUserChange = () => {
             if (!UserStore.currentUser) {
                 UserService.getUser();
             } else {
-                this.setState({user: UserStore.currentUser});
+                this.setState({ user: UserStore.currentUser });
 
-                if(this.state.showAuthModal) {
-                    this.setState({showAuthModal: false});
+                if (this.state.showAuthModal) {
+                    this.setState({ showAuthModal: false });
                 }
             }
         };
@@ -36,17 +36,12 @@ class Toolbar extends React.Component {
             const citiesList = CityStore.citiesList;
 
             if (cityCode) {
-                let city = find(citiesList, (city) => city.code === cityCode);
-                if (city) { this.setState({city: city}); }
+                const city = find(citiesList, (newCity) => newCity.code === cityCode);
+                if (city) { this.setState({ city }); }
             } else {
-                this.setState({city: ''});
+                this.setState({ city: '' });
             }
         };
-    }
-
-    componentWillUnmount() {
-        UserStore.removeListener('change', this.onUserChange);
-        CityStore.removeListener('change', this.onCityChange);
     }
 
     componentWillMount() {
@@ -54,18 +49,30 @@ class Toolbar extends React.Component {
         CityStore.addListener('change', this.onCityChange);
     }
 
-    render () {
+    componentWillUnmount() {
+        UserStore.removeListener('change', this.onUserChange);
+        CityStore.removeListener('change', this.onCityChange);
+    }
+
+    render() {
         const toolbarStyle = {
             position: 'absolute',
-            right: 10 + 'px',
-            top: 10 + 'px',
-            zIndex: 1
+            right: '10px',
+            top: '10px',
+            zIndex: 1,
         };
 
-        return (<div style={toolbarStyle}>
-                    <UserButton modalHandler={this.toggleModal.bind(this)} user={this.state.user} />
-                    <CityButton city={this.state.city} />
-                    <AuthModal closeHandler={this.toggleModal.bind(this)} opened={this.state.showAuthModal} />
+        return (
+            <div style={toolbarStyle}>
+                <UserButton
+                  modalHandler={this.toggleModal.bind(this)}
+                  user={this.state.user}
+                />
+                <CityButton city={this.state.city} />
+                <AuthModal
+                  closeHandler={this.toggleModal.bind(this)}
+                  opened={this.state.showAuthModal}
+                />
                </div>);
     }
 }

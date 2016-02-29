@@ -1,11 +1,24 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 const cityStyle = {
-    cursor: 'pointer'
+    cursor: 'pointer',
+    background: 'none',
 };
 
-const City = ({switchCity, code, name}) => {
-    return <li style={cityStyle} onClick={switchCity(code)} style={{background: 'none'}} className="list-group-item">{name}</li>;
+const City = ({ switchCity, code, name }) => {
+    return (
+        <li style={cityStyle}
+          onClick={switchCity(code)}
+          className="list-group-item"
+        >{name}
+        </li>
+    );
 };
 
-export default City
+City.propTypes = {
+    switchCity: React.PropTypes.func.isRequired,
+    code: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired,
+};
+
+export default City;

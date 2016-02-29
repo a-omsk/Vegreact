@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import SidebarActions from '../actions/SidebarActions';
 
-const CityButton = ({city}) => {
+const CityButton = ({ city }) => {
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -12,7 +12,11 @@ const CityButton = ({city}) => {
         <div onClick={handleClick} className="btn btn-default">
             <span>Ваш город: <b>{ city && city.name ? city.name : 'Не выбран'}</b></span>
         </div>
-    )
+    );
 };
 
-export default CityButton
+CityButton.propTypes = {
+    city: React.PropTypes.object.isRequired,
+};
+
+export default CityButton;

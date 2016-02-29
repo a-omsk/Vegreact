@@ -10,16 +10,16 @@ import WarningMessage from './WarningMessage';
 import CityStore from '../stores/CityStore';
 import SidebarStore from '../stores/SidebarStore';
 import CityService from '../CityService';
-import {isEmpty} from 'lodash';
+import { isEmpty } from 'lodash';
 
 const sidebarStyle = {
     position: 'fixed',
     display: 'inline-block',
-    width: 300 + 'px',
-    height: 100 + '%',
+    width: '300px',
+    height: '100%',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     zIndex: 1,
-    overflow: 'auto'
+    overflow: 'auto',
 };
 
 export default class Sidebar extends React.Component {
@@ -30,12 +30,12 @@ export default class Sidebar extends React.Component {
             locations: LocationStore.locations,
             city: CityStore.currentCity,
             cities: CityStore.citiesList,
-            cityView: SidebarStore.viewState
+            cityView: SidebarStore.viewState,
         };
 
         this.switchCity = (city) => () => MapService.switchCity(city);
-        this.onChange = () => this.setState({locations: LocationStore.locations});
-        this.onViewChange = () => this.setState({cityView: SidebarStore.viewState});
+        this.onChange = () => this.setState({ locations: LocationStore.locations });
+        this.onViewChange = () => this.setState({ cityView: SidebarStore.viewState });
 
         this.onCityChange = () => {
             const city = CityStore.currentCity;
@@ -45,16 +45,17 @@ export default class Sidebar extends React.Component {
                 MarkerService.removeMarkers();
             }
 
-            this.setState({city});
+            this.setState({ city });
 
             if (isEmpty(this.state.cities) && CityStore.citiesList.length) {
-                this.setState({cities: CityStore.citiesList});
+                this.setState({ cities: CityStore.citiesList });
             }
         };
 
-        this.handleScrolling = ({nativeEvent}) => {
+        this.handleScrolling = ({ nativeEvent }) => {
             if (LocationStore.canLoadMore) {
-                const initialHeight = nativeEvent.srcElement.firstChild.scrollHeight - window.innerHeight;
+                const maxScroll = nativeEvent.srcElement.firstChild.scrollHeight;
+                const initialHeight = maxScroll - window.innerHeight;
                 const currentScrollHeight = nativeEvent.srcElement.scrollTop;
 
                 if (currentScrollHeight >= initialHeight && !LocationStore.isBlocked) {
@@ -62,22 +63,22 @@ export default class Sidebar extends React.Component {
                     LocationService.getLocations(CityStore.currentCity, targetPage);
                 }
             }
-        }
-    }
-
-    componentWillUnmount() {
-        LocationStore.removeListener("change", this.onChange);
-        CityStore.removeListener("change", this.onCityChange);
-        SidebarStore.removeListener("change", this.onViewChange);
+        };
     }
 
     componentWillMount() {
         LocationService.getLocations(this.state.city);
         CityService.fetchCitiesList();
 
-        LocationStore.addListener("change", this.onChange);
-        CityStore.addListener("change", this.onCityChange);
-        SidebarStore.addListener("change", this.onViewChange);
+        LocationStore.addListener('change', this.onChange);
+        CityStore.addListener('change', this.onCityChange);
+        SidebarStore.addListener('change', this.onViewChange);
+    }
+
+    componentWillUnmount() {
+        LocationStore.removeListener('change', this.onChange);
+        CityStore.removeListener('change', this.onCityChange);
+        SidebarStore.removeListener('change', this.onViewChange);
     }
 
     render() {
@@ -85,24 +86,32 @@ export default class Sidebar extends React.Component {
         let isLocationList;
 
         if (this.state.cityView) {
-            content  = <CitiesList switchCity={this.switchCity.bind(this)} list={this.state.cities} />
+            content = (
+                <CitiesList
+                  switchCity={this.switchCity.bind(this)}
+                  list={this.state.cities}
+                />);
         } else {
             if (this.props.children) {
                 content = this.props.children;
             } else {
                 if (this.state.city) {
                     content = this.state.locations.length ?
-                        <LocationList list={this.state.locations} /> : <NoLocations />
+                        <LocationList list={this.state.locations} /> : <NoLocations />;
                     isLocationList = true;
                 } else {
-                    content = <WarningMessage message="Вы находитесь за пределами ближайшего города" />
+                    const warningMsg = 'Вы находитесь за пределами ближайшего города';
+                    content = <WarningMessage message={warningMsg} />;
                 }
             }
         }
 
         return (
-            <div onScroll={isLocationList ? this.handleScrolling.bind(this) : ''}  style={sidebarStyle} className="sidebar" >
-                {content}
-            </div>)
+            <div onScroll={isLocationList ? this.handleScrolling.bind(this) : ''}
+              style={sidebarStyle}
+              className="sidebar"
+            >
+            {content}
+            </div>);
     }
-};
+}

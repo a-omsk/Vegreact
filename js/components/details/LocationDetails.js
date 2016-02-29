@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { findIndex, isNumber, isUndefined } from 'lodash';
 import LocationStore from '../../stores/LocationStore';
 import LocationService from '../../services/LocationService';
@@ -14,10 +14,10 @@ class LocationDetails extends React.Component {
 
         const locationGenerator = function* (reverse) {
             const locations = self.state.group.locations;
-            let index = locations.indexOf(self.state.selectedLocation);
+            const index = locations.indexOf(self.state.selectedLocation);
 
-            while(true) {
-                if(reverse) {
+            while (true) {
+                if (reverse) {
                     yield isUndefined(locations[index - 1]) ? locations.length - 1 : index - 1;
                 } else {
                     yield isUndefined(locations[index + 1]) ? 0 : index + 1;
@@ -28,7 +28,7 @@ class LocationDetails extends React.Component {
         this.state = {
             group: LocationStore.currentGroup,
             selectedLocation: {},
-            selectedComments: []
+            selectedComments: [],
         };
 
         this.locationGenerator = (reverse) => {
@@ -39,7 +39,7 @@ class LocationDetails extends React.Component {
 
                 this.setState({
                     selectedLocation: newLocation,
-                    selectedComments: newLocation.comments
+                    selectedComments: newLocation.comments,
                 });
             };
         };
@@ -53,7 +53,7 @@ class LocationDetails extends React.Component {
             this.setState({
                 group,
                 selectedLocation,
-                selectedComments: selectedLocation ? selectedLocation.comments: []
+                selectedComments: selectedLocation ? selectedLocation.comments : [],
             });
 
             if (group.coordinates) {
@@ -65,9 +65,9 @@ class LocationDetails extends React.Component {
 
     componentWillMount() {
         const currentId = parseInt(this.props.params.id, 10);
-        const {id} = LocationStore.currentGroup;
+        const { id } = LocationStore.currentGroup;
 
-        if(currentId === id) {
+        if (currentId === id) {
             this.setLocation();
         } else {
             if (currentId && isNumber(currentId)) {
@@ -76,24 +76,27 @@ class LocationDetails extends React.Component {
         }
     }
 
-    componentWillUnmount() {
-        LocationStore.removeListener("locationSets", this.setLocation);
-    }
-
     componentDidMount() {
-        LocationStore.addListener("locationSets", this.setLocation);
+        LocationStore.addListener('locationSets', this.setLocation);
     }
 
-    render () {
+    componentWillUnmount() {
+        LocationStore.removeListener('locationSets', this.setLocation);
+    }
+
+    render() {
         const hasManyLocations = this.state.group.locations && this.state.group.locations.length > 1;
 
-        return (<div style={{overflow: 'auto'}}>
-                   <DetailsContent next={this.locationGenerator().bind(this)}
-                                   prev={this.locationGenerator(true).bind(this)}
-                                   hasManyLocations={hasManyLocations}
-                                   location={this.state.selectedLocation} />
-                   <DetailsComments comments={this.state.selectedComments}/>
-               </div>)
+        return (
+            <div style={{ overflow: 'auto' }}>
+              <DetailsContent
+                next={this.locationGenerator().bind(this)}
+                prev={this.locationGenerator(true).bind(this)}
+                hasManyLocations={hasManyLocations}
+                location={this.state.selectedLocation}
+              />
+              <DetailsComments comments={this.state.selectedComments} />
+          </div>);
     }
 }
 

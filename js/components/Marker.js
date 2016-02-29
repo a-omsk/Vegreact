@@ -1,18 +1,22 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import MapStore from '../stores/MapStores';
 import MapService from '../MarkerService';
 
-const Marker = ({id, lat, lng}) => {
-    const marker = MapService.createMarker(id,lat, lng);
+const Marker = ({ id, lat, lng }) => {
+    const marker = MapService.createMarker(id, lat, lng);
 
     if (DG.ready) {
-        let Map = MapStore.get;
+        const Map = MapStore.get;
         marker.addTo(Map);
     }
 
-    return (
-        <div id={id}></div>
-    )
+    return (<div id={id} />);
 };
 
-export default Marker
+Marker.propTypes = {
+    id: React.PropTypes.number.isRequired,
+    lat: React.PropTypes.number.isRequired,
+    lng: React.PropTypes.number.isRequired,
+};
+
+export default Marker;
