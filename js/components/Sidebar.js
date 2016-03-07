@@ -1,5 +1,7 @@
 import React from 'react';
 import LocationStore from '../stores/LocationStore';
+import MarkerStore from '../stores/MarkerStore';
+import MapStore from '../stores/MapStores';
 import LocationService from '../services/LocationService';
 import MapService from '../MapService';
 import MarkerService from '../MarkerService';
@@ -27,6 +29,7 @@ export default class Sidebar extends React.Component {
         super(props);
 
         this.state = {
+            coordinates: MapStore.location,
             locations: LocationStore.locations,
             city: CityStore.currentCity,
             cities: CityStore.citiesList,
@@ -37,8 +40,18 @@ export default class Sidebar extends React.Component {
         this.onChange = () => this.setState({ locations: LocationStore.locations });
         this.onViewChange = () => this.setState({ cityView: SidebarStore.viewState });
 
+        this.onLocationChange = () => {
+            const coordinates = MapStore.location;
+            const isMarkersLoaded = MarkerStore.loaded;
+
+            if (coordinates && isMarkersLoaded) {
+                this.setState({ locations: LocationStore.locations, coordinates });
+            }
+        };
+
         this.onCityChange = () => {
             const city = CityStore.currentCity;
+
             if (city) {
                 LocationService.getLocations(city);
             } else {
@@ -71,12 +84,16 @@ export default class Sidebar extends React.Component {
         CityService.fetchCitiesList();
 
         LocationStore.addListener('change', this.onChange);
+        MarkerStore.addListener('markersLoaded', this.onLocationChange);
+        MapStore.addListener('newGeolocation', this.onLocationChange);
         CityStore.addListener('change', this.onCityChange);
         SidebarStore.addListener('change', this.onViewChange);
     }
 
     componentWillUnmount() {
         LocationStore.removeListener('change', this.onChange);
+        MarkerStore.removeListener('markersLoaded', this.onLocationChange);
+        MapStore.removeListener('newGeolocation', this.onLocationChange);
         CityStore.removeListener('change', this.onCityChange);
         SidebarStore.removeListener('change', this.onViewChange);
     }
@@ -97,7 +114,7 @@ export default class Sidebar extends React.Component {
             } else {
                 if (this.state.city) {
                     content = this.state.locations.length ?
-                        <LocationList list={this.state.locations} /> : <NoLocations />;
+                        <LocationList coordinates={this.state.coordinates} list={this.state.locations} /> : <NoLocations />;
                     isLocationList = true;
                 } else {
                     const warningMsg = 'Вы находитесь за пределами ближайшего города';

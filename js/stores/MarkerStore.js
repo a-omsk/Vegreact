@@ -1,8 +1,8 @@
 import AppDispatcher from '../AppDispatcher';
 import ActionTypes from '../Constants';
-import {EventEmitter} from 'events';
 import MapStore from './MapStores';
-import {each, has} from 'lodash';
+import { EventEmitter } from 'events';
+import { each, has, find } from 'lodash';
 
 let _markers = [];
 let _markersLoaded = false;
@@ -11,14 +11,14 @@ class MarkerStore extends EventEmitter {
     constructor(props) {
         super(props);
 
-        const saveMarkers = ({markers}) => () => {
+        const saveMarkers = ({ markers }) => () => {
             _markers = markers;
-            this.emit("change");
+            this.emit('change');
         };
 
         const fixMarkers = () => {
             _markersLoaded = true;
-            this.emit("markersLoaded");
+            this.emit('markersLoaded');
         };
 
         const removeMarkers = () => {
@@ -37,13 +37,17 @@ class MarkerStore extends EventEmitter {
             const actionList = {
                 [ActionTypes.SAVE_MARKERS]: saveMarkers(action),
                 [ActionTypes.REMOVE_MARKERS]: removeMarkers,
-                [ActionTypes.FIX_MARKERS]: fixMarkers
+                [ActionTypes.FIX_MARKERS]: fixMarkers,
             };
 
             if (actionList[action.actionType]) {
                 actionList[action.actionType]();
             }
         });
+    }
+
+    getMarkerById(id) {
+        return find(_markers, marker => id === marker.id);
     }
 
     get allMarkers() {
