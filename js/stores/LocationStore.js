@@ -1,13 +1,12 @@
 import AppDispatcher from '../AppDispatcher';
-import Polyfill from "babel-polyfill";
 import ActionTypes from '../Constants';
-import {EventEmitter} from 'events';
-import {cloneDeep, pick} from 'lodash';
+import { EventEmitter } from 'events';
+import { cloneDeep } from 'lodash';
 
 let _locations = [];
 let _currentGroup = {};
 let _currentAddress = {};
-let _currentPage = 1;
+let _currentPage = 0;
 let _loadable = false;
 let _blocked = false;
 
@@ -15,7 +14,7 @@ class LocationStore extends EventEmitter {
     constructor(props) {
         super(props);
 
-        const saveLocations = ({actionType, locations}) => () => {
+        const saveLocations = ({ actionType, locations }) => () => {
             _locations = actionType === 'SAVE_LOCATIONS'
                 ? locations.data
                 : _locations.concat(locations.data);
@@ -23,36 +22,36 @@ class LocationStore extends EventEmitter {
             _loadable = locations.current_page < locations.last_page;
             _currentPage = locations.current_page;
             _blocked = false;
-            this.emit("change");
+            this.emit('change');
         };
 
         const resetLocations = () => {
             _locations = [];
-            this.emit("change");
+            this.emit('change');
         };
 
-        const setCurrentLocation = ({group}) => () => {
+        const setCurrentLocation = ({ group }) => () => {
             _currentGroup = group;
-            this.emit("locationSets")
+            this.emit('locationSets');
         };
 
-        const setCurrentAddress = ({address}) => () => {
+        const setCurrentAddress = ({ address }) => () => {
             const {
                 name,
                 attributes: {
                     street,
-                    number
-                }
+                    number,
+                },
             } = address;
 
             _currentAddress = {
                 name,
                 street,
-                number
+                number,
             };
 
             this.emit('addressSets');
-        }
+        };
 
         const blockLoading = () => {
             _blocked = true;
@@ -65,7 +64,7 @@ class LocationStore extends EventEmitter {
                 [ActionTypes.SET_CURRENT_LOCATION]: setCurrentLocation(action),
                 [ActionTypes.SET_CURRENT_ADDRESS]: setCurrentAddress(action),
                 [ActionTypes.RESET_LOCATIONS]: resetLocations,
-                [ActionTypes.BLOCK_LOADING]: blockLoading
+                [ActionTypes.BLOCK_LOADING]: blockLoading,
             };
 
             if (actionList[action.actionType]) {
@@ -85,7 +84,6 @@ class LocationStore extends EventEmitter {
     get currentAddress() {
         if (_currentAddress.street) {
             return `${_currentAddress.street}, ${_currentAddress.number}`;
-
         }
 
         return _currentAddress.name;

@@ -1,14 +1,17 @@
 import LocationActions from '../actions/LocationActions';
+import LocationStore from '../stores/LocationStore';
 import ApiKey from '../ApiKey';
-import {get} from 'jquery';
-import {isArray} from 'lodash';
+import { get } from 'jquery';
+import { isArray } from 'lodash';
 
-const host = "https://laravel-joehill.rhcloud.com/api";
-const geoApi = "https://catalog.api.2gis.ru/geo";
+const host = 'https://laravel-joehill.rhcloud.com/api';
+const geoApi = 'https://catalog.api.2gis.ru/geo';
 
 const LocationService = {
-    getLocations(city, page = 1) {
-        if(city) {
+    getLocations(city) {
+        if (city) {
+            const page = LocationStore.currentPage + 1;
+
             setTimeout(() => LocationActions.blockLoading());
 
             get(`${host}/map/${city}?page=${page}`).done((result) => {
@@ -31,12 +34,12 @@ const LocationService = {
     },
 
     geocodeCoords(lat, lng) {
-        get(`${geoApi}/search?q=${lng},${lat}&version=1.3&key=${ApiKey}`).done(({result}) => {
+        get(`${geoApi}/search?q=${lng},${lat}&version=1.3&key=${ApiKey}`).done(({ result }) => {
             if (result && result.length) {
                 LocationActions.setCurrentAddress(result[0]);
             }
         });
-    }
+    },
 };
 
 export default LocationService;

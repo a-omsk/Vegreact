@@ -5,15 +5,13 @@ const cityStyle = {
     background: 'none',
 };
 
-const City = ({ switchCity, code, name }) => {
-    return (
-        <li style={cityStyle}
-          onClick={switchCity(code)}
-          className="list-group-item"
-        >{name}
-        </li>
-    );
-};
+const City = ({ switchCity, code, name }) => (
+    <li style={cityStyle}
+      onClick={switchCity(code)}
+      className="list-group-item"
+    >{name}
+    </li>
+);
 
 City.propTypes = {
     switchCity: React.PropTypes.func.isRequired,

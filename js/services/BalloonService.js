@@ -1,4 +1,4 @@
-import {render} from 'react-dom';
+import { render } from 'react-dom';
 import React from 'react';
 import BalloonContent from '../components/balloon/BalloonContent';
 
@@ -7,7 +7,7 @@ const BaloonService = {
         const div = document.createElement('div');
         render(<BalloonContent origin={origin || 'map'} />, div);
         return div;
-    }
+    },
 };
 
 export default BaloonService;

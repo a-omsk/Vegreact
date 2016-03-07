@@ -1,22 +1,22 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 import AuthForm from '../AuthForm';
 import UserService from '../../services/UserService';
 
 const modalStyle = {
-    overlay : {
-        zIndex: 10
+    overlay: {
+        zIndex: 10,
     },
 
-    content : {
+    content: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 40 + '%',
-        width: 40 + '%',
-        margin: 'auto'
-    }
+        height: '40%',
+        width: '40%',
+        margin: 'auto',
+    },
 };
 
 class AuthModal extends React.Component {
@@ -32,19 +32,19 @@ class AuthModal extends React.Component {
             loginErrors: {}
         };
 
-        this.onLoginModelChange = ({target: {name, value}}) => {
+        this.onLoginModelChange = ({ target: { name, value } }) => {
             this.state.credentials[name] = value;
-            this.setState({credentials: this.state.credentials});
+            this.setState({ credentials: this.state.credentials });
         };
 
         this.isFormValid = () => {
-            const {credentials} = this.state;
+            const { credentials } = this.state;
             const errors = {};
 
             if (!credentials.username.length) { errors.username = 'Введите Ваш логин'; }
             if (!credentials.password.length) { errors.password = 'Введите Ваш пароль'; }
 
-            this.setState({loginErrors: errors});
+            this.setState({ loginErrors: errors });
             return !Object.keys(errors).length;
         };
 
@@ -52,12 +52,12 @@ class AuthModal extends React.Component {
             if (this.isFormValid()) {
                 UserService.login(this.state.credentials);
                 props.closeHandler();
-                this.setState({credentials: {}});
+                this.setState({ credentials: {} });
             }
         };
     }
 
-    render () {
+    render() {
         return (
             <Modal
               isOpen={this.props.opened}
@@ -65,12 +65,13 @@ class AuthModal extends React.Component {
               onRequestClose={this.props.closeHandler} >
 
               <AuthForm
-                  onChange={this.onLoginModelChange.bind(this)}
-                  submit={this.login.bind(this)}
-                  credentials={this.state.credentials}
-                  errors={this.state.loginErrors} />
+                onChange={this.onLoginModelChange.bind(this)}
+                submit={this.login.bind(this)}
+                credentials={this.state.credentials}
+                errors={this.state.loginErrors}
+              />
             </Modal>
-        )
+        );
     }
 }
 

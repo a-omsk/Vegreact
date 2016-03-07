@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import City from './City';
 
 const CitiesList = ({ list, switchCity }) => {

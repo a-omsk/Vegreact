@@ -2,7 +2,6 @@ import React from 'react';
 import SidebarActions from '../actions/SidebarActions';
 
 const CityButton = ({ city }) => {
-
     const handleClick = (e) => {
         e.preventDefault();
         SidebarActions.toggleCityList();

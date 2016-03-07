@@ -1,12 +1,14 @@
-import React from  'react';
-import {render} from 'react-dom';
-import {Redirect, Router, Route, Link, browserHistory } from 'react-router';
-import Normalize from '../styles/normalize.css';
-import GlobalStyles from '../styles/global.scss';
+import React from 'react';
+import { render } from 'react-dom';
+import { Redirect, Router, Route, browserHistory } from 'react-router';
 import CityStore from './stores/CityStore';
 import Main from './components/Main';
 import Sidebar from './components/Sidebar';
 import LocationDetails from './components/details/LocationDetails';
+
+// Styles:
+import '../styles/normalize.css';
+import '../styles/global.scss';
 
 render((
   <Router history={browserHistory}>
@@ -18,4 +20,4 @@ render((
     </Route>
 
   </Router>
-), document.getElementById('react'));
+), document.querySelector('#react'));

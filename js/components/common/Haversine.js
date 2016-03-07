@@ -1,7 +1,7 @@
 import React from 'react';
 import haversineFormula from '../../services/Haversine';
 
-const Haversine = ({ originLat, originLng, targetLat, targetLng, style, units, helper={} }) => {
+const Haversine = ({ originLat, originLng, targetLat, targetLng, style, units, helper = {} }) => {
     const distance = haversineFormula(originLat, originLng, targetLat, targetLng);
     const lessThanKm = distance <= 1;
 
@@ -14,11 +14,14 @@ const Haversine = ({ originLat, originLng, targetLat, targetLng, style, units, h
     }
 
     return (
-        <div style={style}>{ lessThanKm ? `${result} ${helper.m}` : `${result.toFixed(2)} ${helper.km}` }</div>
+        <div style={style}>
+            { lessThanKm ? `${result} ${helper.m}` : `${result.toFixed(2)} ${helper.km}` }
+        </div>
     );
 };
 
 Haversine.propTypes = {
+    helper: React.PropTypes.object,
     style: React.PropTypes.object,
     units: React.PropTypes.string,
     originLat: React.PropTypes.number.isRequired,

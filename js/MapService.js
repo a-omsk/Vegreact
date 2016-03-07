@@ -7,8 +7,26 @@ import CityStore from './stores/CityStore';
 import MapStore from './stores/MapStores';
 import BaloonService from './services/BalloonService';
 
+const getCoordsFromStorage = () => {
+    const defaultLocation = [54.98, 73.38]; // Omsk city
+
+    try {
+        const storagedCity = localStorage.getItem('city');
+        const cityObj = CityStore.findCity(storagedCity);
+
+        if (cityObj && cityObj.lat && cityObj.lng) {
+            return [cityObj.lat, cityObj.lng];
+        }
+
+        return defaultLocation;
+    } catch (e) {
+        console.warn(e);
+        return defaultLocation;
+    }
+};
+
 const mapOptions = {
-    center: [54.98, 73.38],
+    center: getCoordsFromStorage(),
     zoom: 14,
     minZoom: 13,
     fullscreenControl: false,
@@ -22,13 +40,13 @@ const MapService = {
         DG.then(() => {
             const Map = DG.map('map', mapOptions);
 
-            Map.locate({ watch: true })
-                    .on('locationfound', ({ latitude, longitude }) => {
-                        MapActions.saveCurrentGeolocation(latitude, longitude);
-                    })
-                    .on('locationerror', ({ message }) => {
-                        console.warn(message);
-                    });
+            Map.locate({ watch: true, enableHighAccuracy: true })
+                .on('locationfound', ({ latitude, longitude }) => {
+                    MapActions.saveCurrentGeolocation(latitude, longitude);
+                })
+                .on('locationerror', ({ message }) => {
+                    console.warn(message);
+                });
 
             Map.on('projectchange', ({ getProject }) => {
                 const cityCode = getProject().code;

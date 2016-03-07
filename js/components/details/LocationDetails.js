@@ -12,7 +12,7 @@ class LocationDetails extends React.Component {
         super(props);
         const self = this;
 
-        const locationGenerator = function* (reverse) {
+        function* locationGenerator(reverse) {
             const locations = self.state.group.locations;
             const index = locations.indexOf(self.state.selectedLocation);
 
@@ -23,7 +23,7 @@ class LocationDetails extends React.Component {
                     yield isUndefined(locations[index + 1]) ? 0 : index + 1;
                 }
             }
-        };
+        }
 
         this.state = {
             group: LocationStore.currentGroup,
@@ -57,7 +57,7 @@ class LocationDetails extends React.Component {
             });
 
             if (group.coordinates) {
-                const [lat, lng] = group.coordinates.split(', ')
+                const [lat, lng] = group.coordinates.split(', ');
                 MapService.panTo(lat, lng);
             }
         };
