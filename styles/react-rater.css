@@ -1,20 +1,15 @@
 .react-rater {
-  direction: rtl;
-  unicode-bidi: bidi-override;
-  text-align: left;
   display: inline-block;
   line-height: normal; }
   .react-rater a {
     cursor: pointer;
     color: #ccc; }
-    .react-rater a:hover {
+    .react-rater a.will-be-active {
       color: #666; }
-      .react-rater a:hover ~ a {
-        color: #666; }
     .react-rater a.is-active {
-      color: #000 !important; }
-      .react-rater a.is-active ~ a {
-        color: #000; }
+      color: #000; }
     .react-rater a.is-disabled {
-      color: #ccc !important;
+      color: #ccc;
       cursor: not-allowed; }
+  .react-rater.is-disabled a {
+    cursor: default; }

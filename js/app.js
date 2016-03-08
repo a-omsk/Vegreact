@@ -5,6 +5,7 @@ import CityStore from './stores/CityStore';
 import Main from './components/Main';
 import Sidebar from './components/Sidebar';
 import LocationDetails from './components/details/LocationDetails';
+import 'babel-polyfill';
 
 // Styles:
 import '../styles/normalize.css';

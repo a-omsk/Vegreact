@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Input = ({ inputType, name, placeholder, onChange, value, error }) => {
+const Input = ({ inputType, name, placeholder, onChange, value, error, addOn }) => {
     let wrapperClass = 'form-group';
 
     const properties = {
@@ -12,16 +12,16 @@ const Input = ({ inputType, name, placeholder, onChange, value, error }) => {
         value,
     };
 
-    if (error && error.length) {
-        wrapperClass += ' ' + 'has-error';
-    }
+    if (error && error.length) { wrapperClass += ' ' + 'has-error'; }
 
     return (
         <div className={wrapperClass}>
-            <div className="field">
+            <div className={`field ${addOn && 'input-group'}`}>
                 {inputType === 'textarea' ?
                     <textarea {...properties} /> :
                     <input {...properties} />}
+
+                {inputType === 'text' && addOn ? <span className="input-group-addon">{addOn}</span> : null}
                 <div className="input">{error}</div>
             </div>
         </div>
