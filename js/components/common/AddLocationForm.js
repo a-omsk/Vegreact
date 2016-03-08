@@ -15,6 +15,7 @@ class AddLocationForm extends React.Component {
         super(props);
 
         const {
+            coordinates,
             title = '',
             type = 'cafe',
             address = LocationStore.currentAddress,
@@ -35,6 +36,7 @@ class AddLocationForm extends React.Component {
 
         this.state = {
             location: {
+                coordinates,
                 title,
                 type,
                 address,
@@ -74,7 +76,7 @@ class AddLocationForm extends React.Component {
 
                     <div className="form-group">
                         <div
-                          onClick={this.props.onRequestClose}
+                          onClick={this.props.closeHandler}
                           className="btn btn-default button--close-edit-form"
                         >Закрыть
                         </div>
@@ -180,12 +182,25 @@ class AddLocationForm extends React.Component {
                     </div>
 
                     <div className="col-sm-offset-2 edit-form-submit col-sm-10">
-                        <input className="btn-default btn location-form-submit" type="submit" value="Сохранить" />
+                        <div onClick={this.props.closeHandler} className="btn-default btn location-form-submit">Сохранить</div>
                     </div>
                 </form>
             </div>
         );
     }
 }
+
+AddLocationForm.propTypes = {
+    closeHandler: React.PropTypes.func.isRequired,
+    coordinates: React.PropTypes.object.isRequired,
+    title: React.PropTypes.string,
+    type: React.PropTypes.string,
+    address: React.PropTypes.string,
+    specification: React.PropTypes.array,
+    businessTime: React.PropTypes.string,
+    price: React.PropTypes.string,
+    rating: React.PropTypes.number,
+    description: React.PropTypes.string,
+};
 
 export default AddLocationForm;
