@@ -31,6 +31,10 @@ class BalloonContent extends React.Component {
         this.onAddressChange = () => this.setState({ address: LocationStore.currentAddress });
         this.onUserChange = () => this.setState({ isLogined: !!UserStore.currentUser });
 
+        this.saveLocation = (locationModel) => {
+            console.info(locationModel);
+        };
+
         this.buttonAction = () => {
             const stateBool = (this.state.isLogined) ? 'locationModalOpened' : 'authModalOpened';
             this.setState({ [stateBool]: true });
@@ -79,6 +83,7 @@ class BalloonContent extends React.Component {
 
                 <AddLocationModal
                   closeHandler={this.toggleLocationButton}
+                  submitAction={this.saveLocation}
                   opened={this.state.locationModalOpened}
                   coordinates={this.state.coordinates}
                 />

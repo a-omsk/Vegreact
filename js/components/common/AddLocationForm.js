@@ -85,7 +85,7 @@ class AddLocationForm extends React.Component {
         };
 
         this.submit = () => {
-            if (validate) {
+            if (this.validate && this.props.submitAction) {
                 this.props.submitAction(this.state.location);
             }
         };

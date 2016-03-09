@@ -5,20 +5,23 @@ class MultiCheckbox extends React.Component {
     constructor(props) {
         super(props);
 
+        this.wrapperClass = 'form-group';
         this.getValues = () => this.refs.checkbox.getCheckedValues();
     }
 
     render() {
+        if (this.props.error && this.propserror.length) { this.wrapperClass += ' ' + 'has-error'; }
+
         return (
-            <div className="form-group">
+            <div className={this.wrapperClass}>
                 <div className="form-inline">
                     <label>{this.props.label}</label>
                     <div className="checkbox">
 
                         <CheckboxGroup ref="checkbox" onChange={ this.props.onChange } name={this.props.name} >
                             { this.props.values.map(({ code, title }) => (
-                                <label>
-                                    <input type="checkbox" key={code} value={code} /> {title}
+                                <label key={code}>
+                                    <input type="checkbox" value={code} /> {title}
                                 </label>
                             )) }
                         </CheckboxGroup>
