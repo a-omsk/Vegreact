@@ -83,6 +83,12 @@ class AddLocationForm extends React.Component {
             this.setState({ errors });
             return !Object.keys(errors).length;
         };
+
+        this.submit = () => {
+            if (validate) {
+                this.props.submitAction(this.state.location);
+            }
+        };
     }
 
     render() {
@@ -134,7 +140,6 @@ class AddLocationForm extends React.Component {
                     </div>
 
                     <div style={inlineInputStyle} className="form-inline">
-
                         <div className="form-group">
                             <label style={{ marginRight: '10px' }} htmlFor="address">Адрес</label>
                             <Input
@@ -160,26 +165,25 @@ class AddLocationForm extends React.Component {
                             />
                         </div>
                     </div>
-                        <div className="form-inline form--special-group">
 
-                            <MultiCheckbox
-                              label="Представлена еда:"
-                              name="specification"
-                              ref="specs"
-                              value={this.state.location.specification}
-                              values={this.specifications}
-                              onChange={this.onSpecsChange}
-                              error={this.state.errors.specification}
-                            />
+                    <div style={inlineInputStyle} className="form-inline form--special-group">
+                        <MultiCheckbox
+                          label="Представлена еда:"
+                          name="specification"
+                          ref="specs"
+                          value={this.state.location.specification}
+                          values={this.specifications}
+                          onChange={this.onSpecsChange}
+                          error={this.state.errors.specification}
+                        />
 
-                            <div className="form-group form-rating-group">
-                                <div className="form-inline">
-                                    <label> Оцените заведение: </label>
-                                    <Rater rating={this.state.location.rating} onRate={this.handleRate} />
-                                </div>
+                        <div className="form-group form-rating-group">
+                            <div className="form-inline">
+                                <label> Оцените заведение: </label>
+                                <Rater rating={this.state.location.rating} onRate={this.handleRate} />
                             </div>
-
                         </div>
+                    </div>
 
                     <div className="form-group form--description-group">
                         <Input
@@ -193,7 +197,7 @@ class AddLocationForm extends React.Component {
                     </div>
 
                     <div className="col-sm-offset-2 edit-form-submit col-sm-10">
-                        <div onClick={this.validate} className="btn-default btn location-form-submit">Сохранить</div>
+                        <div onClick={this.submit} className="btn-default btn location-form-submit">Сохранить</div>
                     </div>
                 </form>
             </div>
