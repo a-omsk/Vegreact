@@ -22,13 +22,14 @@ const Input = ({ inputType, name, placeholder, onChange, value, error, addOn }) 
                     <input {...properties} />}
 
                 {inputType === 'text' && addOn ? <span className="input-group-addon">{addOn}</span> : null}
-                <div className="input">{error}</div>
             </div>
+            <div className="input">{error}</div>
         </div>
     );
 };
 
 Input.propTypes = {
+    addOn: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func.isRequired,
     inputType: React.PropTypes.string,

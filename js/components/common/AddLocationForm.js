@@ -1,9 +1,10 @@
 import React from 'react';
 import LocationStore from '../../stores/LocationStore';
 import Rater from 'react-rater';
-import CheckboxGroup from 'react-checkbox-group';
+import MultiCheckbox from './MultiCheckbox';
 import Input from './Input';
 import Select from './Select';
+import { reduce } from 'lodash';
 
 const inlineInputStyle = {
     display: 'flex',
@@ -26,7 +27,12 @@ class AddLocationForm extends React.Component {
             description = '',
         } = props;
 
-        const options = [
+        this.specifications = [
+            { code: 'vegan', title: 'Веганская' },
+            { code: 'vegetarian', title: 'Вегетарианская' },
+        ];
+
+        this.options = [
             { code: 'cafe', title: 'Кафе' },
             { code: 'eatery', title: 'Столовая' },
             { code: 'restaurant', title: 'Ресторан' },
@@ -47,7 +53,6 @@ class AddLocationForm extends React.Component {
                 description,
             },
             errors: {},
-            options,
         };
 
         this.onChange = ({ target: { name, value } }) => {
@@ -56,7 +61,7 @@ class AddLocationForm extends React.Component {
         };
 
         this.onSpecsChange = () => {
-            this.state.location.specification = this.refs.specs.getCheckedValues();
+            this.state.location.specification = this.refs.specs.getValues();
             this.setState({ location: this.state.location });
         };
 
@@ -66,6 +71,17 @@ class AddLocationForm extends React.Component {
             if (lastRating !== void 0) {
                 this.setState({ location: this.state.location });
             }
+        };
+
+        this.validate = () => {
+            const { location } = this.state;
+            const errors = reduce(location, (result, field, key) => {
+                if (!field || !field.length) { result[key] = 'Это поле обязательно к заполнению'; }
+                return result;
+            }, {});
+
+            this.setState({ errors });
+            return !Object.keys(errors).length;
         };
     }
 
@@ -111,7 +127,7 @@ class AddLocationForm extends React.Component {
                         <Select
                           name="type"
                           onChange={this.onChange}
-                          options={this.state.options}
+                          options={this.options}
                           value={this.state.location.type}
                           error={this.state.errors.type}
                         />
@@ -146,21 +162,15 @@ class AddLocationForm extends React.Component {
                     </div>
                         <div className="form-inline form--special-group">
 
-                            <div className="form-group">
-                                <div className="form-inline">
-                                    <label>Представлена еда:</label>
-                                    <div className="checkbox">
-                                        <CheckboxGroup ref="specs" onChange={this.onSpecsChange} name="specification" value={this.state.location.specification}>
-                                            <label>
-                                                <input type="checkbox" value="vegetarian" /> Вегетарианская
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" value="vegan" /> Веганская
-                                            </label>
-                                        </CheckboxGroup>
-                                    </div>
-                                </div>
-                            </div>
+                            <MultiCheckbox
+                              label="Представлена еда:"
+                              name="specification"
+                              ref="specs"
+                              value={this.state.location.specification}
+                              values={this.specifications}
+                              onChange={this.onSpecsChange}
+                              error={this.state.errors.specification}
+                            />
 
                             <div className="form-group form-rating-group">
                                 <div className="form-inline">
@@ -168,6 +178,7 @@ class AddLocationForm extends React.Component {
                                     <Rater rating={this.state.location.rating} onRate={this.handleRate} />
                                 </div>
                             </div>
+
                         </div>
 
                     <div className="form-group form--description-group">
@@ -182,7 +193,7 @@ class AddLocationForm extends React.Component {
                     </div>
 
                     <div className="col-sm-offset-2 edit-form-submit col-sm-10">
-                        <div onClick={this.props.closeHandler} className="btn-default btn location-form-submit">Сохранить</div>
+                        <div onClick={this.validate} className="btn-default btn location-form-submit">Сохранить</div>
                     </div>
                 </form>
             </div>
@@ -192,7 +203,8 @@ class AddLocationForm extends React.Component {
 
 AddLocationForm.propTypes = {
     closeHandler: React.PropTypes.func.isRequired,
-    coordinates: React.PropTypes.object.isRequired,
+    submitAction: React.PropTypes.func.isRequired,
+    coordinates: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
     title: React.PropTypes.string,
     type: React.PropTypes.string,
     address: React.PropTypes.string,

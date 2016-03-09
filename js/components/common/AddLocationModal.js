@@ -28,4 +28,9 @@ const AddLocationModal = (props) => (
     </Modal>
 );
 
+AddLocationModal.propTypes = {
+    opened: React.PropTypes.bool.isRequired,
+    closeHandler: React.PropTypes.func.isRequired,
+};
+
 export default AddLocationModal;

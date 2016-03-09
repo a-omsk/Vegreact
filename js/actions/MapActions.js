@@ -15,6 +15,13 @@ const MapActions = {
             geolocation: { lat, lng },
         });
     },
+
+    saveSelectedCoords(lat, lng) {
+        AppDispatcher.dispatch({
+            actionType: ActionTypes.SAVE_SELECTED_COORDS,
+            coordinates: { lat, lng },
+        });
+    },
 };
 
 export default MapActions;

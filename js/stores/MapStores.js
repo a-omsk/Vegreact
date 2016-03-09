@@ -3,7 +3,8 @@ import ActionTypes from '../Constants';
 import { EventEmitter } from 'events';
 
 let _map = {};
-let _geolocation = null;
+let _geolocation = {};
+let _selectedCoordinates = {};
 
 class MapStore extends EventEmitter {
     constructor(props) {
@@ -19,10 +20,16 @@ class MapStore extends EventEmitter {
             this.emit('newGeolocation');
         };
 
+        const saveSelectedCoords = ({ coordinates }) => () => {
+            _selectedCoordinates = coordinates;
+            this.emit('newCoordinates');
+        };
+
         AppDispatcher.register(action => {
             const actionList = {
                 [ActionTypes.SAVE_MAP]: saveMap(action),
                 [ActionTypes.SAVE_CURRENT_GEOLOCATION]: saveGeolocation(action),
+                [ActionTypes.SAVE_SELECTED_COORDS]: saveSelectedCoords(action),
             };
 
             if (actionList[action.actionType]) { actionList[action.actionType](); }
@@ -31,6 +38,10 @@ class MapStore extends EventEmitter {
 
     get location() {
         return _geolocation;
+    }
+
+    get selectedCoordinates() {
+        return _selectedCoordinates;
     }
 
     get get() {

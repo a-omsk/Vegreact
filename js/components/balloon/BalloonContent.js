@@ -5,6 +5,7 @@ import AuthModal from '../common/AuthModal';
 import AddLocationModal from '../common/AddLocationModal';
 import UserStore from '../../stores/UserStore';
 import LocationStore from '../../stores/LocationStore';
+import MapStore from '../../stores/MapStores';
 
 const ballonStyle = {
     display: 'flex',
@@ -18,6 +19,7 @@ class BalloonContent extends React.Component {
         super(props);
 
         this.state = {
+            coordinates: MapStore.selectedCoordinates,
             address: '',
             isLogined: !!UserStore.currentUser,
             authModalOpened: false,
@@ -65,11 +67,23 @@ class BalloonContent extends React.Component {
         return (
             <div style={ballonStyle}>
                 {content}
-                <BallonButton action={this.buttonAction.bind(this)} isLogined={this.state.isLogined} />
-                <AuthModal closeHandler={this.toggleAuthButton.bind(this)} opened={this.state.authModalOpened} />
-                <AddLocationModal closeHandler={this.toggleLocationButton.bind(this)} opened={this.state.locationModalOpened} />
+                <BallonButton
+                  action={this.buttonAction}
+                  isLogined={this.state.isLogined}
+                />
+
+                <AuthModal
+                  closeHandler={this.toggleAuthButton}
+                  opened={this.state.authModalOpened}
+                />
+
+                <AddLocationModal
+                  closeHandler={this.toggleLocationButton}
+                  opened={this.state.locationModalOpened}
+                  coordinates={this.state.coordinates}
+                />
             </div>
-        )
+        );
     }
 }
 

@@ -60,6 +60,7 @@ const MapService = {
 
             Map.on('dblclick', ({ latlng: { lat, lng } }) => {
                 LocationService.geocodeCoords(lat, lng);
+                MapActions.saveSelectedCoords(lat, lng);
 
                 DG.popup()
                     .setLatLng([lat, lng])

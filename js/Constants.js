@@ -19,6 +19,7 @@ const ActionTypes = keyMirror({
     SET_CURRENT_ADDRESS: null,
     FIX_MARKERS: null,
     SAVE_CURRENT_GEOLOCATION: null,
+    SAVE_SELECTED_COORDS: null,
 });
 
 export default ActionTypes;
