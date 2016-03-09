@@ -1,8 +1,8 @@
 import LocationActions from '../actions/LocationActions';
 import LocationStore from '../stores/LocationStore';
 import ApiKey from '../ApiKey';
-import { get } from 'jquery';
-import { isArray } from 'lodash';
+import { get, post } from 'jquery';
+import { isArray, isObject, cloneDeep } from 'lodash';
 
 const host = 'https://laravel-joehill.rhcloud.com/api';
 const geoApi = 'https://catalog.api.2gis.ru/geo';
@@ -38,6 +38,28 @@ const LocationService = {
             if (result && result.length) {
                 LocationActions.setCurrentAddress(result[0]);
             }
+        });
+    },
+
+    postLocation(location) {
+        const _location = cloneDeep(location);
+
+        if (_location.businessTime) {
+            _location.business_time = _location.businessTime;
+            delete _location.businessTime;
+        }
+
+        if (isObject(_location.coordinates)) {
+            const { coordinates: { lat, lng } } = _location;
+            _location.coordinates = `${lat}, ${lng}`;
+        }
+
+        if (isArray(_location.specification)) {
+            _location.specification = _location.specification.join();
+        }
+
+        post(`${host}/map`, _location).done(result => {
+            console.info(result);
         });
     },
 };

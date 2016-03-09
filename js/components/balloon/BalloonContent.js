@@ -5,7 +5,10 @@ import AuthModal from '../common/AuthModal';
 import AddLocationModal from '../common/AddLocationModal';
 import UserStore from '../../stores/UserStore';
 import LocationStore from '../../stores/LocationStore';
+import CityStore from '../../stores/CityStore';
 import MapStore from '../../stores/MapStores';
+import LocationService from '../../services/LocationService';
+import { extend } from 'lodash';
 
 const ballonStyle = {
     display: 'flex',
@@ -32,7 +35,11 @@ class BalloonContent extends React.Component {
         this.onUserChange = () => this.setState({ isLogined: !!UserStore.currentUser });
 
         this.saveLocation = (locationModel) => {
-            console.info(locationModel);
+            const location = extend(locationModel, {
+                city: CityStore.currentCity,
+            });
+
+            LocationService.postLocation(location);
         };
 
         this.buttonAction = () => {
