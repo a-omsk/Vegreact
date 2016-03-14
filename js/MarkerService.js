@@ -6,9 +6,11 @@ import CityStore from './stores/CityStore';
 import { get } from 'jquery';
 import { isArray } from 'lodash';
 
+const host = 'http://localhost:1337';
+
 const MarkerService = {
     getMarkers(city) {
-        get(`https://laravel-joehill.rhcloud.com/api/map/${city}/markers`).done((result) => {
+        get(`${host}/markers/${city}`).done((result) => {
             if (isArray(result) && result.length) {
                 MarkerActions.saveMarkers(result);
             }

@@ -4,23 +4,23 @@ import MarkerStore from '../stores/MarkerStore';
 
 const LocationList = ({ list, coordinates }) => (
       <ul className="locations-list list-group">{list.map(location => {
-          const { id, marker_id, name, rating, type, business_time } = location;
-          const marker = MarkerStore.getMarkerById(location.marker_id);
+          const { id, markerId, name, rating, type, businessTime } = location;
+          const marker = MarkerStore.getMarkerById(location.markerId);
 
-          const [lat, lng] = marker ? marker.coordinates.split(', ') : [];
+          const { lat, lng } = marker || {};
 
           return (
             <LocationOverview
               key={id}
               id={id}
-              markerId={marker_id}
+              markerId={markerId}
               position={coordinates}
               lat={lat && parseFloat(lat)}
               lng={lng && parseFloat(lng)}
               name={name}
               rating={rating}
               type={type}
-              time={business_time}
+              time={businessTime}
             />
           );
       })}</ul>

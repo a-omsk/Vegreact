@@ -5,7 +5,7 @@ const MarkerActions = {
     saveMarkers(markers) {
         AppDispatcher.dispatch({
             actionType: ActionTypes.SAVE_MARKERS,
-            markers: markers
+            markers
         });
     },
 

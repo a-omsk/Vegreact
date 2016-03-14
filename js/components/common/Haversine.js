@@ -15,7 +15,7 @@ const Haversine = ({ originLat, originLng, targetLat, targetLng, style, units, h
 
     return (
         <div style={style}>
-            { lessThanKm ? `${result} ${helper.m}` : `${result.toFixed(2)} ${helper.km}` }
+            { lessThanKm ? `${result.toFixed(0)} ${helper.m}` : `${result.toFixed(2)} ${helper.km}` }
         </div>
     );
 };

@@ -1,18 +1,17 @@
 import UserActions from '../actions/UserActions';
 import UserStore from '../stores/UserStore';
-import {get, post} from 'jquery';
+import { get, post } from 'jquery';
 
-const host = "https://laravel-joehill.rhcloud.com/api";
+const host = 'http://localhost:1337';
 
 const UserService = {
-    login({username, password}) {
-
+    login({ username, password }) {
         const data = {
             email: username,
-            password: password
+            password,
         };
 
-        post(`${host}/authenticate`, data).done(({token}) => {
+        post(`${host}/auth/login`, data).done(({ token }) => {
             if (token) {
                 UserActions.setToken(token);
             }
@@ -23,13 +22,13 @@ const UserService = {
         const token = UserStore.token;
 
         if (token) {
-            get(`${host}/authenticate/user?token=${token}`).done(({user}) => {
+            get(`${host}/authenticate/user?token=${token}`).done(({ user }) => {
                 if (user) {
                     UserActions.setUser(user);
                 }
             });
         }
-    }
+    },
 };
 
 export default UserService;

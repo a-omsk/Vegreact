@@ -16,11 +16,11 @@ class LocationStore extends EventEmitter {
 
         const saveLocations = ({ actionType, locations }) => () => {
             _locations = actionType === 'SAVE_LOCATIONS'
-                ? locations.data
-                : _locations.concat(locations.data);
+                ? locations
+                : _locations.concat(locations);
 
-            _loadable = locations.current_page < locations.last_page;
-            _currentPage = locations.current_page;
+            _loadable = false; // locations.current_page < locations.last_page;
+            _currentPage = 1; // locations.current_page;
             _blocked = false;
             this.emit('change');
         };

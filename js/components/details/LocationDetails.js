@@ -46,7 +46,7 @@ class LocationDetails extends React.Component {
 
         this.setLocation = () => {
             const group = LocationStore.currentGroup;
-            const selectedId = parseInt(this.props.location.query.id, 10);
+            const selectedId = this.props.location.query.id;
             const selectedIndex = findIndex(group.locations, loc => (selectedId) ? selectedId === loc.id : true);
             const selectedLocation = group.locations[selectedIndex];
 
@@ -64,13 +64,13 @@ class LocationDetails extends React.Component {
     }
 
     componentWillMount() {
-        const currentId = parseInt(this.props.params.id, 10);
+        const currentId = this.props.params.id;
         const { id } = LocationStore.currentGroup;
 
         if (currentId === id) {
             this.setLocation();
         } else {
-            if (currentId && isNumber(currentId)) {
+            if (currentId) {
                 LocationService.getGroup(this.props.params.city, currentId);
             }
         }

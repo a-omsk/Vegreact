@@ -14,7 +14,10 @@ const Marker = ({ id, lat, lng }) => {
 };
 
 Marker.propTypes = {
-    id: React.PropTypes.number.isRequired,
+    id: React.PropTypes.oneOfType([
+        React.PropTypes.string.isRequired,
+        React.PropTypes.number.isRequired,
+    ]),
     lat: React.PropTypes.number.isRequired,
     lng: React.PropTypes.number.isRequired,
 };

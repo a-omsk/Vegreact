@@ -4,7 +4,7 @@ import ApiKey from '../ApiKey';
 import { get, post } from 'jquery';
 import { isArray, isObject, cloneDeep } from 'lodash';
 
-const host = 'https://laravel-joehill.rhcloud.com/api';
+const host = 'http://localhost:1337';
 const geoApi = 'https://catalog.api.2gis.ru/geo';
 
 const LocationService = {
@@ -14,8 +14,8 @@ const LocationService = {
 
             setTimeout(() => LocationActions.blockLoading());
 
-            get(`${host}/map/${city}?page=${page}`).done((result) => {
-                if (isArray(result.data) && result.data.length) {
+            get(`${host}/locations/${city}`).done((result) => {
+                if (isArray(result) && result.length) {
                     const method = (page > 1) ? 'pushLocation' : 'saveLocations';
                     LocationActions[method](result);
                 }
@@ -26,7 +26,7 @@ const LocationService = {
     },
 
     getGroup(city, groupId) {
-        get(`${host}/map/${city}/${groupId}`).done((result) => {
+        get(`${host}/locations/${city}/${groupId}`).done((result) => {
             if (result.length) {
                 LocationActions.setCurrentGroup(result[0]);
             }
@@ -42,23 +42,19 @@ const LocationService = {
     },
 
     postLocation(location) {
-        const _location = cloneDeep(location);
-
-        if (_location.businessTime) {
-            _location.business_time = _location.businessTime;
-            delete _location.businessTime;
-        }
+        let _location = cloneDeep(location);
 
         if (isObject(_location.coordinates)) {
-            const { coordinates: { lat, lng } } = _location;
-            _location.coordinates = `${lat}, ${lng}`;
+            const { lat, lng } = _location.coordinates;
+            _location = Object.assign(_location, { lat, lng });
+            delete _locations.coordinates;
         }
 
         if (isArray(_location.specification)) {
             _location.specification = _location.specification.join();
         }
 
-        post(`${host}/map`, _location).done(result => {
+        post(`${host}/locations`, _location).done(result => {
             console.info(result);
         });
     },
