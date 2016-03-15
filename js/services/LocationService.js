@@ -1,6 +1,7 @@
 import LocationActions from '../actions/LocationActions';
 import LocationStore from '../stores/LocationStore';
 import ApiKey from '../ApiKey';
+import Api from './Api';
 import { get, post } from 'jquery';
 import { isArray, isObject, cloneDeep } from 'lodash';
 
@@ -10,13 +11,11 @@ const geoApi = 'https://catalog.api.2gis.ru/geo';
 const LocationService = {
     getLocations(city) {
         if (city) {
-            const page = LocationStore.currentPage + 1;
-
             setTimeout(() => LocationActions.blockLoading());
 
             get(`${host}/locations/${city}`).done((result) => {
                 if (isArray(result) && result.length) {
-                    const method = (page > 1) ? 'pushLocation' : 'saveLocations';
+                    const method = 'saveLocations';
                     LocationActions[method](result);
                 }
             });
@@ -43,18 +42,20 @@ const LocationService = {
 
     postLocation(location) {
         let _location = cloneDeep(location);
+        _location.name = _location.title;
+        delete _location.title
 
         if (isObject(_location.coordinates)) {
             const { lat, lng } = _location.coordinates;
             _location = Object.assign(_location, { lat, lng });
-            delete _locations.coordinates;
+            delete _location.coordinates;
         }
 
         if (isArray(_location.specification)) {
             _location.specification = _location.specification.join();
         }
 
-        post(`${host}/locations`, _location).done(result => {
+        Api.post('locations', _location).then(result => {
             console.info(result);
         });
     },

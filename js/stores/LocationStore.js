@@ -21,7 +21,7 @@ class LocationStore extends EventEmitter {
 
             _loadable = false; // locations.current_page < locations.last_page;
             _currentPage = 1; // locations.current_page;
-            _blocked = false;
+            _blocked = true;
             this.emit('change');
         };
 

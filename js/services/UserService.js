@@ -1,8 +1,5 @@
+import Api from './Api';
 import UserActions from '../actions/UserActions';
-import UserStore from '../stores/UserStore';
-import { get, post } from 'jquery';
-
-const host = 'http://localhost:1337';
 
 const UserService = {
     login({ username, password }) {
@@ -11,23 +8,14 @@ const UserService = {
             password,
         };
 
-        post(`${host}/auth/login`, data).done(({ token }) => {
+        Api.post('auth/login', data).then(({ auth }) => {
+            UserActions.setUser(auth);
+            return Api.get('user/jwt');
+        }).then(({ token }) => {
             if (token) {
                 UserActions.setToken(token);
             }
         });
-    },
-
-    getUser() {
-        const token = UserStore.token;
-
-        if (token) {
-            get(`${host}/authenticate/user?token=${token}`).done(({ user }) => {
-                if (user) {
-                    UserActions.setUser(user);
-                }
-            });
-        }
     },
 };
 

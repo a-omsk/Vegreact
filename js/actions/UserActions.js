@@ -6,16 +6,16 @@ const UserActions = {
     setToken(token) {
         AppDispatcher.dispatch({
             actionType: ActionTypes.SET_TOKEN,
-            token: token
+            token,
         });
     },
 
-    setUser(userObj) {
+    setUser(user) {
         AppDispatcher.dispatch({
             actionType: ActionTypes.SET_USER,
-            user: userObj
+            user,
         });
-    }
+    },
 };
 
 export default UserActions;

@@ -53,8 +53,8 @@ const LocationOverview = ({ id, markerId, name, type, time, rating, lat, lng, po
 };
 
 LocationOverview.propTypes = {
-    id: React.PropTypes.number.isRequired,
-    markerId: React.PropTypes.number.isRequired,
+    id: React.PropTypes.string.isRequired,
+    markerId: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     type: React.PropTypes.string.isRequired,
     time: React.PropTypes.string.isRequired,

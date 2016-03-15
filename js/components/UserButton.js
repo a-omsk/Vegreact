@@ -7,7 +7,7 @@ const UserButton = ({ user, modalHandler }) => {
 
     return user ? (
         <div style={buttonStyle} className="btn btn-default">
-            <span>{user.name}</span>
+            <span>{user.email}</span>
         </div>
     ) : (
         <div onClick={modalHandler} style={buttonStyle} className="btn btn-default">
