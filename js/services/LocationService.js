@@ -2,7 +2,9 @@ import LocationActions from '../actions/LocationActions';
 import LocationStore from '../stores/LocationStore';
 import ApiKey from '../ApiKey';
 import { get, post } from 'jquery';
-import { isArray, isObject, cloneDeep } from 'lodash';
+import isObject from 'lodash/isObject';
+import isArray from 'lodash/isArray';
+import cloneDeep from 'lodash/cloneDeep';
 
 const host = 'https://laravel-joehill.rhcloud.com/api';
 const geoApi = 'https://catalog.api.2gis.ru/geo';

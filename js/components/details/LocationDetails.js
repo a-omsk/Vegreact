@@ -1,5 +1,7 @@
 import React from 'react';
-import { findIndex, isNumber, isUndefined } from 'lodash';
+import findIndex from 'lodash/findIndex';
+import isNumber from 'lodash/isNumber';
+import isUndefined from 'lodash/isUndefined';
 import LocationStore from '../../stores/LocationStore';
 import LocationService from '../../services/LocationService';
 import DetailsContent from './DetailsContent';

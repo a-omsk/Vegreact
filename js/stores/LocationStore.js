@@ -1,7 +1,7 @@
 import AppDispatcher from '../AppDispatcher';
 import ActionTypes from '../Constants';
 import { EventEmitter } from 'events';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 let _locations = [];
 let _currentGroup = {};

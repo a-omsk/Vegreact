@@ -1,3 +1,6 @@
+var webpack = require('webpack');
+var path = require('path');
+
 module.exports = {
     devtool: 'source-map',
     entry: './js/app.js',
@@ -5,8 +8,20 @@ module.exports = {
         path: __dirname + '/public',
         filename: 'bundle.js'
     },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+    ],
+    resolve: {
+        modulesDirectories: ['js', 'node_modules', 'js/components'],
+        extensions: ['', '.js', '.jsx', '.es6', 'sass'],
+    },
     module: {
         loaders: [{
+            test: /\.(js|jsx)$/,
+            exclude: '/node_modules/',
+            include: path.join(__dirname, 'js'),
+            loader: 'react-hot',
+        }, {
             test: /\.js$/,
             exclude: '/node_modules/',
             loader: 'babel-loader',

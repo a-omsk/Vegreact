@@ -1,6 +1,6 @@
 import AppDispatcher from '../AppDispatcher';
 import ActionTypes from '../Constants';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { EventEmitter } from 'events';
 
 let _user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;

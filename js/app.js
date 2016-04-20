@@ -6,6 +6,7 @@ import Main from './components/Main';
 import Sidebar from './components/Sidebar';
 import LocationDetails from './components/details/LocationDetails';
 import 'babel-polyfill';
+import store from 'store/configure-store';
 
 // Styles:
 import '../styles/normalize.css';

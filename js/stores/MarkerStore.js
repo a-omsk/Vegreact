@@ -2,7 +2,9 @@ import AppDispatcher from '../AppDispatcher';
 import ActionTypes from '../Constants';
 import MapStore from './MapStores';
 import { EventEmitter } from 'events';
-import { each, has, find } from 'lodash';
+import each from 'lodash/each';
+import has from 'lodash/has';
+import find from 'lodash/find';
 
 let _markers = [];
 let _markersLoaded = false;

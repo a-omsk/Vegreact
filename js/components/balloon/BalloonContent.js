@@ -8,7 +8,7 @@ import LocationStore from '../../stores/LocationStore';
 import CityStore from '../../stores/CityStore';
 import MapStore from '../../stores/MapStores';
 import LocationService from '../../services/LocationService';
-import { extend } from 'lodash';
+import extend from 'lodash/extend';
 
 const ballonStyle = {
     display: 'flex',

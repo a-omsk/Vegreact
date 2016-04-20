@@ -1,5 +1,5 @@
 import React from 'react';
-import { find } from 'lodash';
+import find from 'lodash/find';
 import UserButton from './UserButton';
 import CityButton from './CityButton';
 import AuthModal from './common/AuthModal';

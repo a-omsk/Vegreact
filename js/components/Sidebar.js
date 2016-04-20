@@ -12,7 +12,7 @@ import WarningMessage from './WarningMessage';
 import CityStore from '../stores/CityStore';
 import SidebarStore from '../stores/SidebarStore';
 import CityService from '../CityService';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 const sidebarStyle = {
     position: 'fixed',

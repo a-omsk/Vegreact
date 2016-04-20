@@ -1,7 +1,7 @@
 import AppDispatcher from '../AppDispatcher';
 import ActionTypes from '../Constants';
 import { EventEmitter } from 'events';
-import { find } from 'lodash';
+import find from 'lodash/find';
 
 let _currentCity = localStorage.getItem('city') || 'omsk';
 let _citiesList = JSON.parse(localStorage.getItem('cities_list')) || [];

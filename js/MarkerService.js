@@ -4,7 +4,7 @@ import BalloonService from './services/BalloonService';
 import LocationService from './services/LocationService';
 import CityStore from './stores/CityStore';
 import { get } from 'jquery';
-import { isArray } from 'lodash';
+import isArray from 'lodash/isArray';
 
 const MarkerService = {
     getMarkers(city) {

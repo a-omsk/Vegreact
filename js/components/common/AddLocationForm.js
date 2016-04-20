@@ -4,7 +4,7 @@ import Rater from 'react-rater';
 import MultiCheckbox from './MultiCheckbox';
 import Input from './Input';
 import Select from './Select';
-import { reduce } from 'lodash';
+import reduce from 'lodash/reduce';
 
 const inlineInputStyle = {
     display: 'flex',
