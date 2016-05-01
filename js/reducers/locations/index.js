@@ -4,7 +4,7 @@ import {
     SET_CURRENT_LOCATION,
     SET_CURRENT_ADDRESS,
     RESET_LOCATIONS,
-    BLOCK_LOADING,
+    BLOCK_LOADING
 } from 'constants/actions/locations';
 
 const initialState = {
@@ -13,17 +13,10 @@ const initialState = {
     currentAddress: {},
     currentPage: 0,
     loadable: false,
-    blocked: false,
+    blocked: false
 };
 
-export default (state = initialState, action={}) => {
-    if (!state.hydrated) {
-        state = {
-            ...state,
-            hydrated: true
-        };
-    }
-
+export default (state = initialState, action = {}) => {
     switch (action.type) {
         case SAVE_LOCATIONS:
             return {
@@ -42,8 +35,9 @@ export default (state = initialState, action={}) => {
                 ...state,
                 currentGroup: action.payload.group
             };
+        
         case SET_CURRENT_ADDRESS:
-            const { name, attributes: { street, number }} = action.payload.address;
+            const { name, attributes: { street, number } } = action.payload.address;
 
             return {
                 ...state,
@@ -53,14 +47,14 @@ export default (state = initialState, action={}) => {
         case RESET_LOCATIONS:
             return {
                 ...state,
-                list: [],
-            }
+                list: []
+            };
 
         case BLOCK_LOADING:
             return {
                 ...state,
-                blocked: true,
-            }
+                blocked: true
+            };
 
         default:
             return state;

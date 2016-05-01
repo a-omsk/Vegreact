@@ -7,17 +7,10 @@ import {
 const initialState = {
     map: {},
     geolocation: {},
-    selectedCoordinates: {},
+    selectedCoordinates: {}
 };
 
-export default (state = initialState, action={}) => {
-    if (!state.hydrated) {
-        state = {
-            ...state,
-            hydrated: true
-        };
-    }
-
+export default (state = initialState, action = {}) => {
     switch (action.type) {
         case SAVE_MAP:
             return {

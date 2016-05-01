@@ -1,0 +1,2 @@
+export const SHOW_CITY_LIST = 'SHOW_CITY_LIST';
+export const HIDE_CITY_LIST = 'HIDE_CITY_LIST';
