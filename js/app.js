@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar';
 import LocationDetails from './components/details/LocationDetails';
 import store from 'store/configure-store';
 
+import 'isomorphic-fetch';
 import 'babel-polyfill';
 import '../styles/normalize.css';
 import '../styles/global.scss';

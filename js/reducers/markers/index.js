@@ -1,5 +1,6 @@
 import {
-    SAVE_MARKERS,
+    FETCH_MARKERS,
+    FETCH_MARKERS_SUCCESS,
     REMOVE_MARKERS,
     FIX_MARKERS,
     UNFIX_MARKERS
@@ -7,15 +8,23 @@ import {
 
 const initialState = {
     list: [],
+    isLoading: false,
     loaded: false
 };
 
 export default (state = initialState, action = {}) => {
     switch (action.type) {
-        case SAVE_MARKERS:
+        case FETCH_MARKERS:
             return {
                 ...state,
-                list: action.payload.markers
+                isLoading: true
+            };
+
+        case FETCH_MARKERS_SUCCESS:
+            return {
+                ...state,
+                list: action.payload.markers,
+                isLoading: false
             };
 
         case REMOVE_MARKERS:

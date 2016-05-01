@@ -1,5 +1,5 @@
 import React from 'react';
-import Map from './Map';
+import Map from 'containers/map';
 import Toolbar from './Toolbar';
 
 export default class Main extends React.Component {
