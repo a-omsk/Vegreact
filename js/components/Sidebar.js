@@ -5,13 +5,12 @@ import MapStore from '../stores/MapStores';
 import LocationService from '../services/LocationService';
 import MapService from '../MapService';
 import MarkerService from '../MarkerService';
-import LocationList from './LocationList';
+import LocationList from 'containers/locations-list';
 import NoLocations from './NoLocations';
-import CitiesList from './CitiesList';
+import CitiesList from 'containers/cities-list';
 import WarningMessage from './WarningMessage';
 import CityStore from '../stores/CityStore';
 import SidebarStore from '../stores/SidebarStore';
-import CityService from '../CityService';
 import isEmpty from 'lodash/isEmpty';
 
 const sidebarStyle = {
@@ -21,7 +20,7 @@ const sidebarStyle = {
     height: '100%',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     zIndex: 1,
-    overflow: 'auto',
+    overflow: 'auto'
 };
 
 export default class Sidebar extends React.Component {
@@ -33,7 +32,7 @@ export default class Sidebar extends React.Component {
             locations: LocationStore.locations,
             city: CityStore.currentCity,
             cities: CityStore.citiesList,
-            cityView: SidebarStore.viewState,
+            cityView: SidebarStore.viewState
         };
 
         this.switchCity = (city) => () => MapService.switchCity(city);
@@ -80,9 +79,6 @@ export default class Sidebar extends React.Component {
     }
 
     componentWillMount() {
-        LocationService.getLocations(this.state.city);
-        CityService.fetchCitiesList();
-
         LocationStore.addListener('change', this.onChange);
         MarkerStore.addListener('markersLoaded', this.onLocationChange);
         MapStore.addListener('newGeolocation', this.onLocationChange);
@@ -114,7 +110,7 @@ export default class Sidebar extends React.Component {
             } else {
                 if (this.state.city) {
                     content = this.state.locations.length ?
-                        <LocationList coordinates={this.state.coordinates} list={this.state.locations} /> : <NoLocations />;
+                        <LocationList coordinates={this.state.coordinates} /> : <NoLocations />;
                     isLocationList = true;
                 } else {
                     const warningMsg = 'Вы находитесь за пределами ближайшего города';

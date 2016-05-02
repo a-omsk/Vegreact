@@ -1,19 +1,18 @@
-import React from 'react';
-import MapStore from '../stores/MapStores';
+import React, { PropTypes } from 'react';
+import { getInstance } from 'map';
 import MapService from '../MarkerService';
 
 const Marker = ({ id, lat, lng }) => {
     const marker = MapService.createMarker(id, lat, lng);
-    const Map = MapStore.get;
-    marker.addTo(Map);
+    const Map = getInstance();
 
-    return (<div id={id} />);
+    return marker.addTo(Map.instance) && <div id={id} />;
 };
 
 Marker.propTypes = {
-    id: React.PropTypes.number.isRequired,
-    lat: React.PropTypes.number.isRequired,
-    lng: React.PropTypes.number.isRequired
+    id: PropTypes.number.isRequired,
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired
 };
 
 export default Marker;

@@ -1,24 +1,24 @@
 import React from 'react';
 import Rater from 'react-rater';
+import { Link } from 'react-router';
 import CityStore from '../stores/CityStore';
 import Haversine from './common/Haversine';
-import { Link } from 'react-router';
 
 const firstRowStyle = {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
 };
 
 const distanceStyle = {
     color: '#5F5F5F',
     paddingTop: '10px',
-    fontSize: '12px',
+    fontSize: '12px'
 };
 
 const haversineHelper = {
     km: 'км.',
-    m: 'м.',
+    m: 'м.'
 };
 
 const LocationOverview = ({ id, markerId, name, type, time, rating, lat, lng, position }) => {
@@ -36,7 +36,7 @@ const LocationOverview = ({ id, markerId, name, type, time, rating, lat, lng, po
           helper={haversineHelper}
         />
     ) : null;
-
+    
     return (
         <li style={{ background: 'none' }} className="list-group-item">
             <div style={firstRowStyle}>
@@ -61,7 +61,7 @@ LocationOverview.propTypes = {
     rating: React.PropTypes.number.isRequired,
     lat: React.PropTypes.number,
     lng: React.PropTypes.number,
-    position: React.PropTypes.object,
+    position: React.PropTypes.object
 };
 
 export default LocationOverview;

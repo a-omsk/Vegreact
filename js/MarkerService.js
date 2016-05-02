@@ -4,48 +4,42 @@ import BalloonService from './services/BalloonService';
 import LocationService from './services/LocationService';
 import CityStore from './stores/CityStore';
 import { get } from 'jquery';
-import isArray from 'lodash/isArray';
+import store from 'store/configure-store';
+import find from 'lodash/find';
 
 const MarkerService = {
-    getMarkers(city) {
-        get(`https://laravel-joehill.rhcloud.com/api/map/${city}/markers`).done((result) => {
-            if (isArray(result) && result.length) {
-                MarkerActions.saveMarkers(result);
-            }
-        });
+    getMarkerById(id) {
+        const { markers } = store.getState();
+        return find(markers.list, marker => id === marker.id);
     },
 
     createMarker(id, latitude, longitude) {
-        if (DG.ready) {
-            const veganIcon = DG.icon({
-                iconUrl: '/assets/img/marker.svg',
-                iconSize: [56, 56]
-            });
+        const veganIcon = DG.icon({
+            iconUrl: '/assets/img/marker.svg',
+            iconSize: [56, 56]
+        });
 
-            const marker = DG.marker([latitude, longitude], {
-                icon: veganIcon
-            });
+        const marker = DG.marker([latitude, longitude], {
+            icon: veganIcon
+        });
 
-            marker.locationId = id;
+        marker.locationId = id;
 
-            marker.on('click', () => {
-                browserHistory.push(`/locations/${CityStore.currentCity}/${id}`);
-            });
+        marker.on('click', () => {
+            browserHistory.push(`/locations/${CityStore.currentCity}/${id}`);
+        });
 
-            marker.on('dblclick', ({ latlng: { lat, lng } }) => {
-                LocationService.geocodeCoords(lat, lng);
-                marker.bindPopup(BalloonService.createContent('marker')).openPopup();
-            });
+        marker.on('dblclick', ({ latlng: { lat, lng } }) => {
+            LocationService.geocodeCoords(lat, lng);
+            marker.bindPopup(BalloonService.createContent('marker')).openPopup();
+        });
 
-            return marker;
-        }
+        return marker;
     },
 
     removeMarkers() {
-        if (DG.ready) {
-            setTimeout(() => MarkerActions.removeMarkers());
-        }
-    },
+        setTimeout(() => MarkerActions.removeMarkers());
+    }
 };
 
 export default MarkerService;

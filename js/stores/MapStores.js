@@ -45,7 +45,7 @@ class MapStore extends EventEmitter {
     }
 
     get get() {
-        return _map;
+        return _map.instance;
     }
 }
 

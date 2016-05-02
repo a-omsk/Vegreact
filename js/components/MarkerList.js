@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import Marker from './Marker';
+import { ready } from 'map';
+import Marker from 'Marker';
 
 export default class MarkerList extends Component {
     static propTypes = {
@@ -7,8 +8,8 @@ export default class MarkerList extends Component {
         list: PropTypes.array.isRequired
     }
 
-    shouldComponentUpdate(nextProps) {
-        return !!(DG.ready && !this.props.loaded && nextProps.loaded);
+    shouldComponentUpdate() {
+        return ready();
     }
 
     render() {

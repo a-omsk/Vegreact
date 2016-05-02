@@ -17,7 +17,7 @@ function configureStore() {
             store.replaceReducer(nextReducer);
         });
     }
-
+    
     return store;
 }
 

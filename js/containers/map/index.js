@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as markerActions from 'actions/markers';
 import Map from 'Map';
 import MapService from 'MapService';
+import once from 'lodash/once';
 
 export class MapContainer extends Component {
     static propTypes = {
@@ -13,14 +14,17 @@ export class MapContainer extends Component {
         })
     }
 
-    componentWillMount() {
-        if (DG.ready) {
-            // Do nothing
-        } else {
-            MapService.initMap();
-        }
+    componentWillReceiveProps(nextProps) {
+        const { current: currentCity } = nextProps.city;
+        const { isLoading, loaded } = nextProps.markers;
 
-        this.props.actions.fetchMarkers('novosibirsk');
+        if (currentCity && !isLoading && !loaded) {
+            this.props.actions.fetchMarkers(currentCity);
+        }
+    }
+
+    componentWillMount() {
+        MapService.initMap();
     }
 
     render() {
@@ -28,8 +32,8 @@ export class MapContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ map, markers }) => ({
-    map,
+const mapStateToProps = ({ city, markers }) => ({
+    city,
     markers
 });
 

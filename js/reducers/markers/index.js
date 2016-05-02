@@ -24,6 +24,7 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 list: action.payload.markers,
+                loaded: true,
                 isLoading: false
             };
 

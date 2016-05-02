@@ -8,12 +8,8 @@ export const fetchMarkers = city => dispatch => {
 
     return api(`/map/${city}/markers`)
         .then(response => response.json())
-        .then(markers => {
-            dispatch({
-                type: types.FETCH_MARKERS_SUCCESS,
-                payload: { markers }
-            });
-
-            dispatch({ type: types.FIX_MARKERS });
-        });
+        .then(markers => dispatch({
+            type: types.FETCH_MARKERS_SUCCESS,
+            payload: { markers }
+        }));
 };

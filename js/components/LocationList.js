@@ -1,11 +1,11 @@
 import React from 'react';
 import LocationOverview from './LocationOverview';
-import MarkerStore from '../stores/MarkerStore';
+import MarkerService from 'MarkerService';
 
 const LocationList = ({ list, coordinates }) => (
       <ul className="locations-list list-group">{list.map(location => {
           const { id, marker_id, name, rating, type, business_time } = location;
-          const marker = MarkerStore.getMarkerById(location.marker_id);
+          const marker = MarkerService.getMarkerById(location.marker_id);
 
           const [lat, lng] = marker ? marker.coordinates.split(', ') : [];
 
@@ -28,7 +28,7 @@ const LocationList = ({ list, coordinates }) => (
 
 LocationList.propTypes = {
     list: React.PropTypes.array.isRequired,
-    coordinates: React.PropTypes.object,
+    coordinates: React.PropTypes.object
 };
 
 export default LocationList;

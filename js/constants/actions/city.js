@@ -1,3 +1,4 @@
+export const FETCH_CITIES = 'FETCH_CITIES';
+export const FETCH_CITIES_SUCCESS = 'FETCH_CITIES_SUCCESS';
 export const SET_CITY = 'SET_CITY';
-export const SET_CITIES_LIST = 'SET_CITIES_LIST';
 export const RESET_CITY = 'RESET_CITY';

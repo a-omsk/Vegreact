@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 
-import map from './map';
 import city from './city';
 import locations from './locations';
+import geo from './geo';
 import markers from './markers';
 import user from './user';
 import sidebar from './sidebar';
 
 const rootReducer = combineReducers({
-    map,
+    geo,
     city,
     locations,
     markers,

@@ -1,8 +1,8 @@
 import {
-    SAVE_LOCATIONS,
+    FETCH_LOCATIONS,
+    FETCH_LOCATIONS_SUCCESS,
     PUSH_LOCATIONS,
     SET_CURRENT_LOCATION,
-    SET_CURRENT_ADDRESS,
     RESET_LOCATIONS,
     BLOCK_LOADING
 } from 'constants/actions/locations';
@@ -11,6 +11,7 @@ const initialState = {
     list: [],
     currentGroup: {},
     currentAddress: {},
+    isLoading: false,
     currentPage: 0,
     loadable: false,
     blocked: false
@@ -18,10 +19,18 @@ const initialState = {
 
 export default (state = initialState, action = {}) => {
     switch (action.type) {
-        case SAVE_LOCATIONS:
+        case FETCH_LOCATIONS:
             return {
                 ...state,
-                list: action.payload.locations
+                isLoading: true
+            };
+
+        case FETCH_LOCATIONS_SUCCESS:
+            return {
+                ...state,
+                list: action.payload.locations,
+                currentPage: action.payload.page,
+                isLoading: false
             };
 
         case PUSH_LOCATIONS:
@@ -34,14 +43,6 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 currentGroup: action.payload.group
-            };
-        
-        case SET_CURRENT_ADDRESS:
-            const { name, attributes: { street, number } } = action.payload.address;
-
-            return {
-                ...state,
-                currentAddress: { name, street, number }
             };
 
         case RESET_LOCATIONS:
