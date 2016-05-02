@@ -8,8 +8,8 @@ export default class MarkerList extends Component {
         list: PropTypes.array.isRequired
     }
 
-    shouldComponentUpdate() {
-        return ready();
+    shouldComponentUpdate(nextProps) {
+        return ready() && (!this.props.loaded && nextProps.loaded);
     }
 
     render() {

@@ -8,7 +8,7 @@ import Toolbar from 'Toolbar';
 export class ToolbarContainer extends Component {
     static propTypes = {
         actions: PropTypes.shape({
-            toogleSidebar: PropTypes.func.isRequired
+            toggleSidebar: PropTypes.func.isRequired
         })
     }
 

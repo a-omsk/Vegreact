@@ -9,6 +9,7 @@ import {
 
 const initialState = {
     list: [],
+    loaded: false,
     currentGroup: {},
     currentAddress: {},
     isLoading: false,
@@ -30,6 +31,7 @@ export default (state = initialState, action = {}) => {
                 ...state,
                 list: action.payload.locations,
                 currentPage: action.payload.page,
+                loaded: true,
                 isLoading: false
             };
 
@@ -48,7 +50,8 @@ export default (state = initialState, action = {}) => {
         case RESET_LOCATIONS:
             return {
                 ...state,
-                list: []
+                list: [],
+                loaded: false
             };
 
         case BLOCK_LOADING:

@@ -8,7 +8,7 @@ import Sidebar from 'Sidebar';
 export class SidebarContainer extends Component {
     static propTypes = {
         actions: PropTypes.shape({
-            toogleSidebar: PropTypes.func.isRequired
+            toggleSidebar: PropTypes.func.isRequired
         })
     }
 

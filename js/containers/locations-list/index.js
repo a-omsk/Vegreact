@@ -13,9 +13,9 @@ export class LocationsListContainer extends Component {
     }
 
     componentWillMount() {
-        const { city, actions } = this.props;
+        const { city, locations, actions } = this.props;
 
-        if (city.current) {
+        if (city.current && !locations.loaded) {
             actions.fetchLocations(city.current);
         }
     }
