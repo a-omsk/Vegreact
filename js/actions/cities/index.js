@@ -1,7 +1,9 @@
 import { API_KEY } from 'ApiKey';
+import { getInstance } from 'map';
 import store from 'store/configure-store';
 import prepareCities from 'utils/prepareCities';
 import * as types from 'constants/actions/city';
+import find from 'lodash/find';
 
 export const fetchCitiesList = () => (dispatch) => {
     dispatch({
@@ -24,3 +26,11 @@ export const setCity = (code) => store.dispatch({
 export const resetCity = () => store.dispatch({
     type: types.RESET_CITY
 });
+
+export const switchCity = (code) => (dispatch, getState) => {
+    const { city } = getState();
+    const { lat, lng, zoom } = find(city.list, cityObj => cityObj.code === code);
+    const { instance } = getInstance();
+
+    instance.setView([lat, lng], zoom);
+}

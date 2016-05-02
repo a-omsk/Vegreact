@@ -2,13 +2,16 @@ import React, { PropTypes, Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as citiesActions from 'actions/cities';
+import { fetchCitiesList, switchCity } from 'actions/cities';
+import { toggleSidebar } from 'actions/sidebar';
+
 import CitiesList from 'CitiesList';
 
 export class LocationsListContainer extends Component {
     static propTypes = {
         actions: PropTypes.shape({
-            fetchCitiesList: PropTypes.func.isRequired
+            fetchCitiesList: PropTypes.func.isRequired,
+            switchCity: PropTypes.func.isRequired
         })
     }
     
@@ -22,8 +25,15 @@ export class LocationsListContainer extends Component {
         }
     }
 
+    handleSwitch(code) {
+        const { actions } = this.props;
+
+        actions.switchCity(code);
+        actions.toggleSidebar();
+    }
+
     render() {
-        return <CitiesList switchCity={() => true} list={this.props.city.list} />;
+        return <CitiesList switchCity={this.handleSwitch.bind(this)} list={this.props.city.list} />;
     }
 }
 
@@ -33,7 +43,9 @@ const mapStateToProps = ({ city }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators({
-        ...citiesActions
+        toggleSidebar,
+        fetchCitiesList,
+        switchCity
     }, dispatch)
 });
 

@@ -1,7 +1,7 @@
 import {
     FETCH_MARKERS,
     FETCH_MARKERS_SUCCESS,
-    REMOVE_MARKERS,
+    RESET_MARKERS,
     FIX_MARKERS,
     UNFIX_MARKERS
 } from 'constants/actions/markers';
@@ -28,10 +28,11 @@ export default (state = initialState, action = {}) => {
                 isLoading: false
             };
 
-        case REMOVE_MARKERS:
+        case RESET_MARKERS:
             return {
                 ...state,
-                list: []
+                list: [],
+                loaded: false
             };
 
         case FIX_MARKERS:
