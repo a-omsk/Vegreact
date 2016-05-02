@@ -68,7 +68,7 @@ class Toolbar extends React.Component {
                   modalHandler={this.toggleModal.bind(this)}
                   user={this.state.user}
                 />
-                <CityButton city={this.state.city} />
+                <CityButton {...this.props} city={this.state.city} />
                 <AuthModal
                   closeHandler={this.toggleModal.bind(this)}
                   opened={this.state.showAuthModal}

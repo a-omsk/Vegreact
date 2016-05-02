@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import * as markerActions from 'actions/markers';
 import Map from 'Map';
 import MapService from 'MapService';
-import once from 'lodash/once';
 
 export class MapContainer extends Component {
     static propTypes = {

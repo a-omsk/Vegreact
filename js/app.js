@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Redirect, Router, Route, browserHistory } from 'react-router';
 import CityStore from './stores/CityStore';
 import Main from './components/Main';
-import Sidebar from './components/Sidebar';
+import Sidebar from './containers/sidebar';
 import LocationDetails from './components/details/LocationDetails';
 import store from 'store/configure-store';
 
